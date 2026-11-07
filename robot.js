@@ -10,7 +10,7 @@ const SOURCES = [
   { id: "lulu", name: "LuLu Exchange", url: "https://luluexchange.com/kuwait/ar/currency-converter/kwd-to-bdt/" },
   { id: "bec", name: "BEC Exchange", url: "https://www.bec.com.kw/" },
   { id: "muzaini", name: "Al Muzaini Exchange", url: "https://www.muzaini.com/" },
-  { id: "city", name: "City International Exchange", url: "https://www.cityinternationalexchange.com/" },
+  { id: "city", name: "City International Exchange", url: "https://cityinternationalexchange.com/" },
 ];
 
 // Currencies we care about, with a sane range for "1 KWD = ?".
@@ -21,14 +21,18 @@ const CUR = {
 };
 
 // Find "BDT ... 400.325" style pairs in any text (page text or JSON).
-function extract(text) {
+function extract(text, tag) {
   const out = {};
   for (const [code, [lo, hi]] of Object.entries(CUR)) {
     const re = new RegExp(code + "[^0-9]{0,80}?([0-9]{2,4}(?:\\.[0-9]{1,6})?)", "gi");
     let m;
     while ((m = re.exec(text))) {
       const v = parseFloat(m[1]);
-      if (v >= lo && v <= hi) { out[code] = v; break; }
+      if (v >= lo && v <= hi) {
+        out[code] = v;
+        if (tag) console.log(tag, code, "context:", JSON.stringify(text.slice(Math.max(0, m.index - 100), m.index + 60)));
+        break;
+      }
     }
   }
   return out;
@@ -46,11 +50,18 @@ async function readSource(browser, src) {
     } catch (_) {}
   });
   try {
-    await page.goto(src.url, { waitUntil: "networkidle", timeout: 60000 });
-    await page.waitForTimeout(4000);
+    try {
+      await page.goto(src.url, { waitUntil: "domcontentloaded", timeout: 60000 });
+    } catch (e) { console.log(src.id, "goto:", e.message.split("\n")[0]); }
+    // Give the site time to load its rates after the page opens.
+    await page.waitForTimeout(15000);
     const text = await page.innerText("body").catch(() => "");
     // Prefer numbers from the site's own data (JSON), then from visible text.
-    const rates = Object.assign({}, extract(text), extract(jsonBits.join("\n")));
+    const rates = Object.assign({}, extract(text, src.id + " text"), extract(jsonBits.join("\n"), src.id + " json"));
+    if (!Object.keys(rates).length) {
+      console.log(src.id, "title:", await page.title().catch(() => ""), "| json responses:", jsonBits.length);
+      console.log(src.id, "text start:", JSON.stringify(text.slice(0, 700)));
+    }
     // Debug copy so we can see what the site looked like if reading fails.
     fs.mkdirSync("debug", { recursive: true });
     fs.writeFileSync(`debug/${src.id}.txt`, text.slice(0, 50000));
@@ -77,6 +88,7 @@ async function reference() {
   const now = new Date().toISOString();
   const result = { updated: now, reference: await reference(), houses: {} };
   const browser = await chromium.launch();
+  // Some sites have certificate problems on www; this only affects reading public rate pages.
   let okCount = 0;
   for (const src of SOURCES) {
     let rates = {};
