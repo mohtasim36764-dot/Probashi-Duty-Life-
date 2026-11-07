@@ -232,14 +232,14 @@ function vGrat(){var g=D.grat,r=gratCalc();
  return h;}
 // Approximate BDT rates until the robot's rates.json is live. Each carries its source.
 var HOUSES=[
- {id:"almulla",name:"Al Mulla",bdt:400.325,src:{bn:"গুগল, ৭ নভেম্বর ২০২৬, দুপুর ১টা",en:"Google, 7 Nov 2026, 1 pm"}},
- {id:"muzaini",name:"Al Muzaini",bdt:397.99,src:{bn:"বিশ্বব্যাংক জরিপ (পুরনো)",en:"World Bank survey (old)"}},
- {id:"bec",name:"BEC",bdt:null},{id:"lulu",name:"LuLu",bdt:null},{id:"city",name:"City Intl.",bdt:null}];
+ {id:"almulla",name:"Al Mulla",bdt:403.042,src:{bn:"রোবট · ৮ নভেম্বর, রাত ১টা",en:"Robot · 8 Nov, 1 am"}},
+ {id:"muzaini",name:"Al Muzaini",bdt:399.249,src:{bn:"রোবট · ৮ নভেম্বর, রাত ১টা",en:"Robot · 8 Nov, 1 am"}},
+ {id:"bec",name:"BEC",bdt:null,wait:1},{id:"lulu",name:"LuLu",bdt:null,wait:1},{id:"city",name:"City Intl.",bdt:null,wait:1}];
 function loadLive(){try{fetch("rates.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||!j.houses)return;
  HOUSES.forEach(function(h){var x=j.houses[h.id];if(x&&x.rates&&x.rates.BDT){h.bdt=x.rates.BDT;var dt=new Date(x.at);h.src={bn:(x.stale?"পুরনো · ":"")+dt.toLocaleString("bn-BD"),en:(x.stale?"old · ":"")+dt.toLocaleString("en-GB")};}});if(tab==="money")render();}).catch(function(){});}catch(e){}}
 function vHouses(){if(D.lang&&D.lang!=="bn"&&D.lang!=="en")return '<div class="card"><div class="soon">'+esc(t("mSoon"))+'</div></div>';var best=Math.max.apply(null,HOUSES.map(function(h){return h.bdt||0;})),bn=D.lang!=="en";
  var h='<div class="card"><h2>💱 '+(bn?"১ দিনার = কত টাকা (আনুমানিক)":"1 KD = ? BDT (approx.)")+'</h2>';
- HOUSES.forEach(function(x){h+='<button class="row" data-rate="'+(x.bdt||"")+'" style="width:100%;background:none;border:0;border-bottom:1px dashed var(--line);font:inherit;color:inherit;text-align:start"><span>🏦 <span><b>'+esc(x.name)+'</b>'+(x.bdt&&x.bdt===best?' ⭐':'')+'<br><small style="color:var(--mut)">'+esc(x.bdt?x.src[bn?"bn":"en"]:(bn?"রোবট আনবে":"robot will fetch"))+'</small></span></span><b>'+(x.bdt?money(x.bdt,3):"—")+'</b></button>';});
+ HOUSES.forEach(function(x){h+='<button class="row" data-rate="'+(x.bdt||"")+'" style="width:100%;background:none;border:0;border-bottom:1px dashed var(--line);font:inherit;color:inherit;text-align:start"><span>🏦 <span><b>'+esc(x.name)+'</b>'+(x.bdt&&x.bdt===best?' ⭐':'')+'<br><small style="color:var(--mut)">'+esc(x.bdt?x.src[bn?"bn":"en"]:(bn?"এক্সচেঞ্জের অনুমতি লাগবে":"needs the exchange's permission"))+'</small></span></span><b>'+(x.bdt?money(x.bdt,3):"—")+'</b></button>';});
  return h+'<div class="note">ℹ️ '+(bn?"রেটে টাচ করলে নিচের হিসাবে বসে যাবে। পাঠানোর আগে এক্সচেঞ্জে রেট মিলিয়ে নিন।":"Tap a rate to use it below. Confirm the rate at the exchange before sending.")+'</div></div>';}
 function vMoney(){var M=D.money,res=num(M.amt)*num(M.rate);
  var h=vHouses()+'<div class="card"><label class="f">💵 '+esc(t("mAmount"))+'</label><input id="mamt" inputmode="decimal" value="'+esc(M.amt||"")+'" placeholder="0"><label class="f">💱 '+esc(t("mRate"))+'</label><input id="mrate" inputmode="decimal" value="'+esc(M.rate||"")+'" placeholder="0">';
