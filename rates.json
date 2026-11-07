@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-07T21:59:58.775Z",
+  "updated": "2026-11-07T22:02:03.612Z",
   "reference": {
     "BDT": 406.124881,
     "INR": 304.475709,
@@ -22,25 +22,15 @@
         "LKR": 1068.03375,
         "EGP": 174.641984
       },
-      "at": "2026-11-07T21:59:58.775Z"
-    },
-    "lulu": {
-      "name": "LuLu Exchange",
-      "url": "https://luluexchange.com/kuwait/ar/currency-converter/kwd-to-bdt/",
-      "rates": {
-        "BDT": 500
-      },
-      "at": "2026-11-07T21:59:58.775Z"
+      "at": "2026-11-07T22:02:03.612Z"
     },
     "muzaini": {
       "name": "Al Muzaini Exchange",
       "url": "https://www.muzaini.com/",
       "rates": {
-        "BDT": 399.249,
-        "INR": 302.508,
-        "EGP": 174.642
+        "INR": 302.508
       },
-      "at": "2026-11-07T21:59:58.775Z"
+      "at": "2026-11-07T22:02:03.612Z"
     }
   }
 }
