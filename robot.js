@@ -8,9 +8,9 @@ const fs = require("fs");
 const SOURCES = [
   { id: "almulla", name: "Al Mulla Exchange", url: "https://www.almullaexchange.com/" },
   { id: "lulu", name: "LuLu Exchange", url: "https://luluexchange.com/kuwait/ar/currency-converter/kwd-to-bdt/" },
-  { id: "bec", name: "BEC Exchange", url: "https://www.bec.com.kw/" },
+  // BEC: its website firewall blocks automated visitors, so we don't read it (ask BEC for permission/API).
   { id: "muzaini", name: "Al Muzaini Exchange", url: "https://www.muzaini.com/" },
-  { id: "city", name: "City International Exchange", url: "https://cityinternationalexchange.com/" },
+  // City International Exchange: website has a broken security certificate; skipped for now.
 ];
 
 // Currencies we care about, with a sane range for "1 KWD = ?".
@@ -28,6 +28,9 @@ function extract(text, tag) {
     let m;
     while ((m = re.exec(text))) {
       const v = parseFloat(m[1]);
+      // Skip amounts like "500 KWD" in conversion tables: that is dinars, not a rate.
+      const after = text.slice(m.index + m[0].length, m.index + m[0].length + 8);
+      if (/^\s*(KWD|KD|دينار)/i.test(after)) continue;
       if (v >= lo && v <= hi) {
         out[code] = v;
         if (tag) console.log(tag, code, "context:", JSON.stringify(text.slice(Math.max(0, m.index - 100), m.index + 60)));
