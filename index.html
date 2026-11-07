@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0f766e">
+<title>DutyBook – প্রবাসী শ্রমিকের হিসাব</title>
+<style>
+:root{--g:#0f766e;--g2:#14b8a6;--bg:#f4f7f6;--card:#fff;--ink:#14211f;--mut:#5b6b68;--red:#dc2626;--yel:#d97706;--ok:#16a34a;--line:#e3e9e7}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,"Noto Sans Bengali","Noto Sans Devanagari","Noto Naskh Arabic",sans-serif;font-size:18px}
+#app{max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:96px}
+header{background:var(--g);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:5}
+header h1{font-size:20px;margin:0;flex:1}
+header small{display:block;font-size:13px;opacity:.85;font-weight:400}
+.langbtn{background:rgba(255,255,255,.18);border:0;color:#fff;font-size:22px;border-radius:12px;padding:6px 10px}
+main{padding:12px}
+.card{background:var(--card);border-radius:18px;padding:14px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.card h2{font-size:18px;margin:0 0 10px}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:center;z-index:6}
+nav .in{display:flex;max-width:480px;width:100%}
+nav button{flex:1;border:0;background:none;padding:8px 2px 10px;font-size:12px;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:2px}
+nav button b{font-size:26px;line-height:1.1}
+nav button.on{color:var(--g);font-weight:700}
+nav button.on b{transform:scale(1.12)}
+.stamps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stamp{border:3px solid transparent;border-radius:14px;background:#eef4f3;padding:10px 4px;font-size:15px;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--ink)}
+.stamp b{font-size:28px}
+.stamp.on{border-color:var(--g);background:#ccfbf1}
+.hint{color:var(--mut);font-size:15px;margin:8px 2px 0;text-align:center}
+.mhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.mhead button{border:0;background:#eef4f3;border-radius:12px;font-size:24px;width:48px;height:44px}
+.mhead strong{font-size:19px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.wd{text-align:center;font-size:12px;color:var(--mut);padding:2px 0}
+.day{aspect-ratio:1/1.1;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0;color:var(--ink);position:relative}
+.day.fri{background:#fff7ed}
+.day.today{outline:3px solid var(--g2)}
+.day .ic{font-size:20px;line-height:1.1;min-height:22px}
+.day .ot{position:absolute;bottom:1px;font-size:10px;color:#7c3aed;font-weight:700}
+.day.blank{border:0;background:none}
+.sum{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:10px;text-align:center;font-size:13px}
+.sum div{background:#eef4f3;border-radius:10px;padding:6px 2px}
+.sum b{display:block;font-size:18px}
+.sum .sl{display:block;font-size:11px;color:var(--mut);line-height:1.2;margin-top:2px}
+label.f{display:block;margin:10px 0 4px;font-size:15px;color:var(--mut)}
+input,select{width:100%;font-size:22px;padding:12px;border:2px solid var(--line);border-radius:14px;background:#fff;color:var(--ink)}
+input:focus,select:focus{outline:none;border-color:var(--g2)}
+.row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line);font-size:17px;gap:8px}
+.row span:first-child{display:flex;gap:8px;align-items:center}
+.plus{color:var(--ok);font-weight:700}.minus{color:var(--red);font-weight:700}
+.total{background:var(--g);color:#fff;border-radius:16px;padding:16px;text-align:center;margin-top:12px}
+.total small{display:block;font-size:15px;opacity:.9}
+.total b{display:block;font-size:34px;margin-top:4px}
+.big{width:100%;border:0;border-radius:16px;background:var(--g2);color:#fff;font-size:20px;padding:14px;margin-top:10px;font-weight:700}
+.big.alt{background:#eef4f3;color:var(--ink)}
+.doc{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.doc .e{font-size:34px}
+.doc .t{flex:1}
+.doc .t input{font-size:18px;padding:8px;margin-top:4px}
+.badge{border-radius:12px;padding:6px 10px;font-size:15px;font-weight:700;text-align:center;min-width:92px}
+.b-ok{background:#dcfce7;color:#166534}.b-y{background:#fef3c7;color:#92400e}.b-r{background:#fee2e2;color:#991b1b}.b-n{background:#eef4f3;color:var(--mut)}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+.seg button{border:3px solid var(--line);background:#fff;border-radius:14px;padding:12px 6px;font-size:16px;color:var(--ink)}
+.seg button.on{border-color:var(--g);background:#ccfbf1;font-weight:700}
+.note{font-size:14px;color:var(--mut);margin-top:10px;line-height:1.5}
+.soon{background:#fef3c7;border-radius:14px;padding:12px;font-size:16px;text-align:center;color:#92400e}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:20;padding:16px}
+.dlg{background:#fff;border-radius:20px;padding:18px;width:100%;max-width:380px}
+.langs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.langs button{border:2px solid var(--line);background:#fff;border-radius:16px;padding:14px 6px;font-size:18px;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--ink)}
+.langs button b{font-size:38px}
+.counter{display:flex;align-items:center;justify-content:center;gap:16px;margin:14px 0}
+.counter button{width:64px;height:64px;border-radius:50%;border:0;background:#eef4f3;font-size:32px}
+.counter b{font-size:44px;min-width:70px;text-align:center}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.toast{position:fixed;bottom:110px;left:50%;transform:translateX(-50%);background:#14211f;color:#fff;padding:10px 16px;border-radius:12px;font-size:15px;z-index:30;max-width:90%}
+details summary{font-size:16px;color:var(--g);padding:6px 0;cursor:pointer}
+[dir=rtl] .row,[dir=rtl] .doc{direction:rtl}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+(function(){
+"use strict";
+var T={
+bn:{name:"বাংলা",flag:"🇧🇩",cur:"টাকা",tag:"প্রবাসী শ্রমিকের হিসাব",chooseLang:"আপনার ভাষা বেছে নিন",
+tabDuty:"ডিউটি",tabSalary:"বেতন",tabDocs:"কাগজপত্র",tabGrat:"গ্র্যাচুইটি",tabMoney:"টাকা পাঠান",
+stDuty:"ডিউটি",stDouble:"ডাবল",stOT:"ওভারটাইম",stOff:"ছুটি",stAbsent:"অনুপস্থিত",stErase:"মুছুন",
+tapHint:"উপরে একটা বেছে নিন, তারপর তারিখে টাচ করুন",otHours:"ওভারটাইম কত ঘণ্টা?",ok:"ঠিক আছে",cancel:"বাদ দিন",
+monthSalary:"মাসিক বেতন (দিনার)",settings:"বেতনের নিয়ম বদলান",workDays:"মাসে কত দিন ধরে হিসাব (সাধারণত ২৬)",hoursDay:"দিনে কাজের ঘণ্টা",otRate:"ওভারটাইম রেট (আইনে ১.২৫)",doubleRate:"ডাবল ডিউটিতে কত দিনের বেতন বেশি",
+days:"দিন",hours:"ঘণ্টা",base:"মূল বেতন",absentCut:"অনুপস্থিত কাটা",doubleAdd:"ডাবল ডিউটি",otAdd:"ওভারটাইম",total:"এই মাসে মোট পাওনা",listen:"🔊 শুনুন",
+speak:"এই মাসে আপনার মোট পাওনা {x} দিনার",salaryFirst:"আগে উপরে মাসিক বেতন লিখুন",
+docIqama:"ইকামা / সিভিল আইডি",docVisa:"ভিসা",docPassport:"পাসপোর্ট",docLicense:"ড্রাইভিং লাইসেন্স",daysLeft:"{n} দিন বাকি",expired:"মেয়াদ শেষ!",notSet:"তারিখ দিন",docsNote:"মেয়াদ শেষের তারিখ দিন। ৬০ দিনের কম থাকলে হলুদ, ৩০ দিনের কম থাকলে লাল দেখাবে।",
+gStart:"কাজ শুরুর তারিখ",gEnd:"কাজ শেষের তারিখ",gSalary:"শেষ মাসের বেতন (দিনার)",gHow:"চাকরি কিভাবে শেষ হলো?",gContract:"চুক্তি শেষ / কোম্পানি বাদ দিয়েছে",gResign:"নিজে ছেড়ে দিয়েছি",
+gYears:"চাকরি: {y} বছর {m} মাস",gResult:"আপনার গ্র্যাচুইটি",gNote:"কুয়েতের বেসরকারি খাতের শ্রম আইন ৬/২০১০ অনুযায়ী আনুমানিক হিসাব।",gNone:"৩ বছরের কম চাকরিতে নিজে ছেড়ে দিলে আইনে গ্র্যাচুইটি নেই।",
+mAmount:"কত দিনার পাঠাবেন?",mRate:"আজকের রেট: ১ দিনার = কত টাকা?",mResult:"পরিবার পাবে",mSoon:"⏳ সব এক্সচেঞ্জের আজকের রেট এক জায়গায় — শীঘ্রই আসছে",
+disc:"এই হিসাব আনুমানিক। নিশ্চিত হতে চুক্তিপত্র দেখুন।",kd:"দিনার",noVoice:"এই ফোনে এই ভাষার ভয়েস নেই",
+months:["জানুয়ারি","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","আগস্ট","সেপ্টেম্বর","অক্টোবর","নভেম্বর","ডিসেম্বর"],wd:["রবি","সোম","মঙ্গল","বুধ","বৃহঃ","শুক্র","শনি"]},
+en:{name:"English",flag:"🇬🇧",cur:"home currency",tag:"Expat worker's calculator",chooseLang:"Choose your language",
+tabDuty:"Duty",tabSalary:"Salary",tabDocs:"Papers",tabGrat:"Gratuity",tabMoney:"Send money",
+stDuty:"Duty",stDouble:"Double",stOT:"Overtime",stOff:"Off day",stAbsent:"Absent",stErase:"Erase",
+tapHint:"Pick one above, then tap the dates",otHours:"How many overtime hours?",ok:"OK",cancel:"Cancel",
+monthSalary:"Monthly salary (KD)",settings:"Change salary rules",workDays:"Days per month for daily pay (usually 26)",hoursDay:"Work hours per day",otRate:"Overtime rate (law: 1.25)",doubleRate:"Extra days' pay for a double duty",
+days:"days",hours:"hours",base:"Basic salary",absentCut:"Absent deduction",doubleAdd:"Double duty",otAdd:"Overtime",total:"Total due this month",listen:"🔊 Listen",
+speak:"Your total due this month is {x} dinar",salaryFirst:"First enter your monthly salary above",
+docIqama:"Iqama / Civil ID",docVisa:"Visa",docPassport:"Passport",docLicense:"Driving licence",daysLeft:"{n} days left",expired:"Expired!",notSet:"Set date",docsNote:"Enter expiry dates. Yellow under 60 days, red under 30 days.",
+gStart:"Start date",gEnd:"End date",gSalary:"Last monthly salary (KD)",gHow:"How did the job end?",gContract:"Contract ended / company ended it",gResign:"I resigned",
+gYears:"Service: {y} years {m} months",gResult:"Your gratuity",gNote:"Estimate under Kuwait Private Sector Labour Law 6/2010.",gNone:"Resigning with under 3 years' service: no gratuity by law.",
+mAmount:"How many dinars to send?",mRate:"Today's rate: 1 KD = ?",mResult:"Family receives",mSoon:"⏳ Today's rates of all exchanges in one place — coming soon",
+disc:"This is an estimate. Check your contract to be sure.",kd:"KD",noVoice:"No voice for this language on this phone",
+months:["January","February","March","April","May","June","July","August","September","October","November","December"],wd:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]},
+hi:{name:"हिन्दी",flag:"🇮🇳",cur:"रुपये",tag:"प्रवासी मज़दूर का हिसाब",chooseLang:"अपनी भाषा चुनें",
+tabDuty:"ड्यूटी",tabSalary:"तनख्वाह",tabDocs:"कागज़ात",tabGrat:"ग्रेच्युटी",tabMoney:"पैसे भेजें",
+stDuty:"ड्यूटी",stDouble:"डबल",stOT:"ओवरटाइम",stOff:"छुट्टी",stAbsent:"गैरहाज़िर",stErase:"मिटाएँ",
+tapHint:"ऊपर से एक चुनें, फिर तारीख पर टच करें",otHours:"ओवरटाइम कितने घंटे?",ok:"ठीक है",cancel:"रद्द करें",
+monthSalary:"महीने की तनख्वाह (दीनार)",settings:"तनख्वाह के नियम बदलें",workDays:"महीने के कितने दिन से हिसाब (आमतौर पर 26)",hoursDay:"रोज़ काम के घंटे",otRate:"ओवरटाइम रेट (कानून: 1.25)",doubleRate:"डबल ड्यूटी पर कितने दिन की तनख्वाह ज़्यादा",
+days:"दिन",hours:"घंटे",base:"मूल तनख्वाह",absentCut:"गैरहाज़िरी कटौती",doubleAdd:"डबल ड्यूटी",otAdd:"ओवरटाइम",total:"इस महीने कुल बकाया",listen:"🔊 सुनें",
+speak:"इस महीने आपका कुल बकाया {x} दीनार है",salaryFirst:"पहले ऊपर महीने की तनख्वाह लिखें",
+docIqama:"इकामा / सिविल आईडी",docVisa:"वीज़ा",docPassport:"पासपोर्ट",docLicense:"ड्राइविंग लाइसेंस",daysLeft:"{n} दिन बाकी",expired:"मियाद खत्म!",notSet:"तारीख डालें",docsNote:"मियाद खत्म होने की तारीख डालें। 60 दिन से कम पर पीला, 30 से कम पर लाल।",
+gStart:"काम शुरू की तारीख",gEnd:"काम खत्म की तारीख",gSalary:"आखिरी महीने की तनख्वाह (दीनार)",gHow:"नौकरी कैसे खत्म हुई?",gContract:"कॉन्ट्रैक्ट खत्म / कंपनी ने निकाला",gResign:"मैंने खुद छोड़ी",
+gYears:"नौकरी: {y} साल {m} महीने",gResult:"आपकी ग्रेच्युटी",gNote:"कुवैत निजी क्षेत्र श्रम कानून 6/2010 के अनुसार अनुमान।",gNone:"3 साल से कम में खुद छोड़ने पर कानूनन ग्रेच्युटी नहीं।",
+mAmount:"कितने दीनार भेजेंगे?",mRate:"आज का रेट: 1 दीनार = कितने रुपये?",mResult:"परिवार को मिलेगा",mSoon:"⏳ सभी एक्सचेंज के आज के रेट एक जगह — जल्द आ रहा है",
+disc:"यह हिसाब अनुमान है। पक्का करने के लिए कॉन्ट्रैक्ट देखें।",kd:"दीनार",noVoice:"इस फ़ोन में इस भाषा की आवाज़ नहीं है",
+months:["जनवरी","फ़रवरी","मार्च","अप्रैल","मई","जून","जुलाई","अगस्त","सितंबर","अक्टूबर","नवंबर","दिसंबर"],wd:["रवि","सोम","मंगल","बुध","गुरु","शुक्र","शनि"]},
+ur:{name:"اردو",flag:"🇵🇰",cur:"روپے",tag:"پردیسی مزدور کا حساب",chooseLang:"اپنی زبان چنیں",rtl:1,
+tabDuty:"ڈیوٹی",tabSalary:"تنخواہ",tabDocs:"کاغذات",tabGrat:"گریجویٹی",tabMoney:"پیسے بھیجیں",
+stDuty:"ڈیوٹی",stDouble:"ڈبل",stOT:"اوور ٹائم",stOff:"چھٹی",stAbsent:"غیر حاضر",stErase:"مٹائیں",
+tapHint:"اوپر سے ایک چنیں، پھر تاریخ کو چھوئیں",otHours:"اوور ٹائم کتنے گھنٹے؟",ok:"ٹھیک ہے",cancel:"منسوخ",
+monthSalary:"ماہانہ تنخواہ (دینار)",settings:"تنخواہ کے اصول بدلیں",workDays:"مہینے کے کتنے دن سے حساب (عام طور پر 26)",hoursDay:"روزانہ کام کے گھنٹے",otRate:"اوور ٹائم ریٹ (قانون: 1.25)",doubleRate:"ڈبل ڈیوٹی پر کتنے دن کی تنخواہ زیادہ",
+days:"دن",hours:"گھنٹے",base:"بنیادی تنخواہ",absentCut:"غیر حاضری کٹوتی",doubleAdd:"ڈبل ڈیوٹی",otAdd:"اوور ٹائم",total:"اس مہینے کل واجب",listen:"🔊 سنیں",
+speak:"اس مہینے آپ کا کل واجب {x} دینار ہے",salaryFirst:"پہلے اوپر ماہانہ تنخواہ لکھیں",
+docIqama:"اقامہ / سول آئی ڈی",docVisa:"ویزا",docPassport:"پاسپورٹ",docLicense:"ڈرائیونگ لائسنس",daysLeft:"{n} دن باقی",expired:"میعاد ختم!",notSet:"تاریخ ڈالیں",docsNote:"میعاد ختم ہونے کی تاریخ ڈالیں۔ 60 دن سے کم پر پیلا، 30 سے کم پر سرخ۔",
+gStart:"کام شروع کی تاریخ",gEnd:"کام ختم کی تاریخ",gSalary:"آخری ماہ کی تنخواہ (دینار)",gHow:"نوکری کیسے ختم ہوئی؟",gContract:"معاہدہ ختم / کمپنی نے نکالا",gResign:"میں نے خود چھوڑی",
+gYears:"نوکری: {y} سال {m} مہینے",gResult:"آپ کی گریجویٹی",gNote:"کویت نجی شعبہ لیبر قانون 6/2010 کے مطابق اندازہ۔",gNone:"3 سال سے کم میں خود چھوڑنے پر قانوناً گریجویٹی نہیں۔",
+mAmount:"کتنے دینار بھیجیں گے؟",mRate:"آج کا ریٹ: 1 دینار = کتنے روپے؟",mResult:"گھر والوں کو ملے گا",mSoon:"⏳ تمام ایکسچینج کے آج کے ریٹ ایک جگہ — جلد آ رہا ہے",
+disc:"یہ حساب اندازہ ہے۔ یقین کے لیے معاہدہ دیکھیں۔",kd:"دینار",noVoice:"اس فون میں اس زبان کی آواز نہیں",
+months:["جنوری","فروری","مارچ","اپریل","مئی","جون","جولائی","اگست","ستمبر","اکتوبر","نومبر","دسمبر"],wd:["اتوار","پیر","منگل","بدھ","جمعرات","جمعہ","ہفتہ"]},
+ne:{name:"नेपाली",flag:"🇳🇵",cur:"रुपैयाँ",tag:"विदेशमा काम गर्नेको हिसाब",chooseLang:"आफ्नो भाषा छान्नुहोस्",
+tabDuty:"ड्युटी",tabSalary:"तलब",tabDocs:"कागजात",tabGrat:"ग्र्याच्युटी",tabMoney:"पैसा पठाउनुहोस्",
+stDuty:"ड्युटी",stDouble:"डबल",stOT:"ओभरटाइम",stOff:"बिदा",stAbsent:"अनुपस्थित",stErase:"मेटाउनुहोस्",
+tapHint:"माथि एउटा छान्नुहोस्, अनि मितिमा छुनुहोस्",otHours:"ओभरटाइम कति घण्टा?",ok:"ठीक छ",cancel:"रद्द",
+monthSalary:"मासिक तलब (दिनार)",settings:"तलबको नियम बदल्नुहोस्",workDays:"महिनाको कति दिनले हिसाब (सामान्यतया २६)",hoursDay:"दिनको कामको घण्टा",otRate:"ओभरटाइम दर (कानून: १.२५)",doubleRate:"डबल ड्युटीमा कति दिनको तलब बढी",
+days:"दिन",hours:"घण्टा",base:"मूल तलब",absentCut:"अनुपस्थित कटौती",doubleAdd:"डबल ड्युटी",otAdd:"ओभरटाइम",total:"यो महिना जम्मा पाउनुपर्ने",listen:"🔊 सुन्नुहोस्",
+speak:"यो महिना तपाईंले जम्मा {x} दिनार पाउनुपर्छ",salaryFirst:"पहिले माथि मासिक तलब लेख्नुहोस्",
+docIqama:"इकामा / सिभिल आईडी",docVisa:"भिसा",docPassport:"राहदानी",docLicense:"ड्राइभिङ लाइसेन्स",daysLeft:"{n} दिन बाँकी",expired:"म्याद सकियो!",notSet:"मिति राख्नुहोस्",docsNote:"म्याद सकिने मिति राख्नुहोस्। ६० दिनभन्दा कम भए पहेँलो, ३० भन्दा कम भए रातो।",
+gStart:"काम सुरु मिति",gEnd:"काम सकिएको मिति",gSalary:"अन्तिम महिनाको तलब (दिनार)",gHow:"जागिर कसरी सकियो?",gContract:"सम्झौता सकियो / कम्पनीले हटायो",gResign:"आफैँ छोडेँ",
+gYears:"सेवा: {y} वर्ष {m} महिना",gResult:"तपाईंको ग्र्याच्युटी",gNote:"कुवेत निजी क्षेत्र श्रम कानून ६/२०१० अनुसार अनुमान।",gNone:"३ वर्षभन्दा कममा आफैँ छोडे कानूनअनुसार ग्र्याच्युटी छैन।",
+mAmount:"कति दिनार पठाउने?",mRate:"आजको दर: १ दिनार = कति रुपैयाँ?",mResult:"परिवारले पाउँछ",mSoon:"⏳ सबै एक्सचेन्जको आजको दर एकै ठाउँमा — छिट्टै आउँदैछ",
+disc:"यो हिसाब अनुमान हो। पक्का गर्न सम्झौता हेर्नुहोस्।",kd:"दिनार",noVoice:"यो फोनमा यो भाषाको आवाज छैन",
+months:["जनवरी","फेब्रुअरी","मार्च","अप्रिल","मे","जुन","जुलाई","अगस्ट","सेप्टेम्बर","अक्टोबर","नोभेम्बर","डिसेम्बर"],wd:["आइत","सोम","मंगल","बुध","बिही","शुक्र","शनि"]}
+};
+var VOICE={bn:"bn-BD",en:"en-US",hi:"hi-IN",ur:"ur-PK",ne:"ne-NP"};
+var DIG={bn:"০১২৩৪৫৬৭৮৯",ne:"०१२३४५६७८९"};
+var KEY="dutybook_v1";
+var D=load();
+var tab="duty",stamp="duty",view=new Date();view.setDate(1);
+
+function load(){var d=null;try{d=JSON.parse(localStorage.getItem(KEY));}catch(e){}
+ d=d||{};d.days=d.days||{};d.docs=d.docs||{};d.grat=d.grat||{how:"contract"};d.money=d.money||{};
+ if(d.workDays==null)d.workDays=26;if(d.hoursDay==null)d.hoursDay=8;if(d.otRate==null)d.otRate=1.25;if(d.dbl==null)d.dbl=1;return d;}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(D));}catch(e){}}
+function t(k){var L=T[D.lang||"bn"];return (L[k]!=null?L[k]:T.en[k]);}
+function nd(x){var s=String(x),m=DIG[D.lang];if(!m)return s;return s.replace(/[0-9]/g,function(c){return m[+c];});}
+function money(x,dec){return nd((Math.round(x*Math.pow(10,dec))/Math.pow(10,dec)).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,","));}
+function num(v){v=String(v==null?"":v).replace(/[০-৯]/g,function(c){return "০১২৩৪৫৬৭৮৯".indexOf(c);}).replace(/[०-९]/g,function(c){return "०१२३४५६७८९".indexOf(c);}).replace(/[٠-٩]/g,function(c){return "٠١٢٣٤٥٦٧٨٩".indexOf(c);}).replace(/[۰-۹]/g,function(c){return "۰۱۲۳۴۵۶۷۸۹".indexOf(c);}).replace(",",".");var n=parseFloat(v);return isNaN(n)?0:n;}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function ymd(y,m,d){return y+"-"+String(m+1).padStart(2,"0")+"-"+String(d).padStart(2,"0");}
+function toast(msg){var e=document.createElement("div");e.className="toast";e.textContent=msg;document.body.appendChild(e);setTimeout(function(){e.remove();},2500);}
+function speak(text){try{var s=window.speechSynthesis;if(!s){toast(t("noVoice"));return;}var u=new SpeechSynthesisUtterance(text);var code=VOICE[D.lang||"bn"];u.lang=code;var vs=s.getVoices();var v=vs.filter(function(x){return x.lang&&x.lang.replace("_","-").toLowerCase().indexOf(code.slice(0,2))===0;})[0];if(v)u.voice=v;else if(vs.length)toast(t("noVoice"));u.rate=.9;s.cancel();s.speak(u);}catch(e){toast(t("noVoice"));}}
+
+var ICON={duty:"✅",double:"✖️2",off:"🏖️",absent:"❌"};
+var STAMPS=[["duty","✅","stDuty"],["double","✖️2","stDouble"],["ot","⏱️","stOT"],["off","🏖️","stOff"],["absent","❌","stAbsent"],["erase","🧽","stErase"]];
+
+function monthStats(){var y=view.getFullYear(),m=view.getMonth(),n=new Date(y,m+1,0).getDate(),s={duty:0,double:0,off:0,absent:0,ot:0};
+ for(var d=1;d<=n;d++){var r=D.days[ymd(y,m,d)];if(!r)continue;if(r.s)s[r.s]++;if(r.ot)s.ot+=r.ot;}return s;}
+
+function render(){
+ var L=T[D.lang||"bn"];document.documentElement.lang=D.lang||"bn";document.documentElement.dir=L.rtl?"rtl":"ltr";
+ var h='<header><div style="font-size:30px">📒</div><h1>DutyBook<small>'+esc(t("tag"))+'</small></h1><button class="langbtn" id="lb">'+L.flag+'</button></header><main>';
+ if(tab==="duty")h+=vDuty();else if(tab==="salary")h+=vSalary();else if(tab==="docs")h+=vDocs();else if(tab==="grat")h+=vGrat();else h+=vMoney();
+ h+='</main><nav><div class="in">'+[["duty","📅"],["salary","💰"],["docs","🪪"],["grat","🎁"],["money","💸"]].map(function(x){return '<button data-tab="'+x[0]+'" class="'+(tab===x[0]?"on":"")+'"><b>'+x[1]+'</b>'+esc(t("tab"+x[0].charAt(0).toUpperCase()+x[0].slice(1)))+'</button>';}).join("")+'</div></nav>';
+ document.getElementById("app").innerHTML=h;bind();
+ if(!D.lang)langDialog();
+}
+function vDuty(){
+ var L=T[D.lang||"bn"],y=view.getFullYear(),m=view.getMonth(),first=new Date(y,m,1).getDay(),n=new Date(y,m+1,0).getDate(),now=new Date(),tk=ymd(now.getFullYear(),now.getMonth(),now.getDate());
+ var h='<div class="card"><div class="stamps">'+STAMPS.map(function(s){return '<button class="stamp '+(stamp===s[0]?"on":"")+'" data-stamp="'+s[0]+'"><b>'+s[1]+'</b>'+esc(t(s[2]))+'</button>';}).join("")+'</div><div class="hint">👆 '+esc(t("tapHint"))+'</div></div>';
+ h+='<div class="card"><div class="mhead"><button id="pm">'+(L.rtl?"▶":"◀")+'</button><strong>'+esc(L.months[m])+' '+nd(y)+'</strong><button id="nm">'+(L.rtl?"◀":"▶")+'</button></div><div class="cal">';
+ h+=L.wd.map(function(w){return '<div class="wd">'+esc(w)+'</div>';}).join("");
+ for(var i=0;i<first;i++)h+='<div class="day blank"></div>';
+ for(var d=1;d<=n;d++){var k=ymd(y,m,d),r=D.days[k]||{},dow=(first+d-1)%7;
+  h+='<button class="day'+(dow===5?" fri":"")+(k===tk?" today":"")+'" data-day="'+k+'"><span>'+nd(d)+'</span><span class="ic">'+(r.s?ICON[r.s]:"")+'</span>'+(r.ot?'<span class="ot">+'+nd(r.ot)+'h</span>':"")+'</button>';}
+ var s=monthStats();
+ var sb=function(ic,v,lab){return '<div>'+ic+'<b>'+nd(v)+'</b><span class="sl">'+esc(lab)+'</span></div>';};
+ h+='</div><div class="sum">'+sb("✅",s.duty,t("stDuty"))+sb("✖️2",s.double,t("stDouble"))+sb("⏱️",s.ot,t("stOT")+" ("+t("hours")+")")+sb("🏖️",s.off,t("stOff"))+sb("❌",s.absent,t("stAbsent"))+'</div></div>';
+ return h;
+}
+function calc(){var s=monthStats(),sal=num(D.salary),daily=sal/(num(D.workDays)||26),hourly=daily/(num(D.hoursDay)||8);
+ var a=s.absent*daily,dd=s.double*daily*num(D.dbl),ot=s.ot*hourly*(num(D.otRate)||1.25);return{s:s,sal:sal,a:a,dd:dd,ot:ot,tot:Math.max(0,sal-a+dd+ot)};}
+function vSalary(){
+ var L=T[D.lang||"bn"],c=calc(),m=view.getMonth();
+ var h='<div class="card"><label class="f">💰 '+esc(t("monthSalary"))+'</label><input id="sal" inputmode="decimal" value="'+esc(D.salary||"")+'" placeholder="0">';
+ h+='<details><summary>⚙️ '+esc(t("settings"))+'</summary><label class="f">'+esc(t("workDays"))+'</label><input id="wdays" inputmode="decimal" value="'+esc(D.workDays)+'"><label class="f">'+esc(t("hoursDay"))+'</label><input id="hday" inputmode="decimal" value="'+esc(D.hoursDay)+'"><label class="f">'+esc(t("otRate"))+'</label><input id="otr" inputmode="decimal" value="'+esc(D.otRate)+'"><label class="f">'+esc(t("doubleRate"))+'</label><input id="dbl" inputmode="decimal" value="'+esc(D.dbl)+'"></details></div>';
+ h+='<div class="card"><h2>📅 '+esc(L.months[m])+' '+nd(view.getFullYear())+'</h2>';
+ if(!c.sal){h+='<div class="soon">'+esc(t("salaryFirst"))+'</div></div>';return h;}
+ h+=row("💵",t("base"),"",c.sal,"")+row("❌",t("absentCut"),nd(c.s.absent)+" "+t("days"),c.a,"minus")+row("✖️2",t("doubleAdd"),nd(c.s.double)+" "+t("days"),c.dd,"plus")+row("⏱️",t("otAdd"),nd(c.s.ot)+" "+t("hours"),c.ot,"plus");
+ h+='<div class="total"><small>'+esc(t("total"))+'</small><b>'+money(c.tot,3)+' '+esc(t("kd"))+'</b></div><button class="big" id="say">'+esc(t("listen"))+'</button><div class="note">ℹ️ '+esc(t("disc"))+'</div></div>';
+ return h;
+}
+function row(ic,label,sub,val,cls){return '<div class="row"><span>'+ic+' '+esc(label)+(sub?' <small style="color:var(--mut)">('+esc(sub)+')</small>':"")+'</span><span class="'+cls+'">'+(cls==="minus"?"− ":cls==="plus"?"+ ":"")+money(val,3)+'</span></div>';}
+function vDocs(){
+ var docs=[["iqama","🪪","docIqama"],["visa","🛂","docVisa"],["passport","📘","docPassport"],["license","🚗","docLicense"]],now=new Date();now.setHours(0,0,0,0);
+ var h='<div class="card">';
+ docs.forEach(function(d){var v=D.docs[d[0]],b='<span class="badge b-n">'+esc(t("notSet"))+'</span>';
+  if(v){var left=Math.round((new Date(v+"T00:00:00")-now)/864e5);b=left<0?'<span class="badge b-r">⚠️ '+esc(t("expired"))+'</span>':'<span class="badge '+(left<30?"b-r":left<60?"b-y":"b-ok")+'">'+esc(t("daysLeft").replace("{n}",nd(left)))+'</span>';}
+  h+='<div class="doc"><div class="e">'+d[1]+'</div><div class="t"><b>'+esc(t(d[2]))+'</b><input type="date" data-doc="'+d[0]+'" value="'+esc(v||"")+'"></div>'+b+'</div>';});
+ return h+'<div class="note">ℹ️ '+esc(t("docsNote"))+'</div></div>';
+}
+function gratCalc(){var g=D.grat,sal=num(g.salary);if(!g.start||!g.end||!sal)return null;
+ var a=new Date(g.start+"T00:00:00"),b=new Date(g.end+"T00:00:00");if(b<=a)return null;
+ var yrs=(b-a)/864e5/365,full=Math.min(5,yrs)*15*(sal/26)+Math.max(0,yrs-5)*sal;full=Math.min(full,18*sal);
+ var f=1;if(g.how==="resign"){f=yrs<3?0:yrs<5?.5:yrs<10?2/3:1;}
+ var mo=Math.floor(yrs*12+1e-9);return{y:Math.floor(mo/12),m:mo%12,amt:full*f,none:f===0};}
+function vGrat(){var g=D.grat,r=gratCalc();
+ var h='<div class="card"><label class="f">📅 '+esc(t("gStart"))+'</label><input type="date" id="gs" value="'+esc(g.start||"")+'"><label class="f">🏁 '+esc(t("gEnd"))+'</label><input type="date" id="ge" value="'+esc(g.end||"")+'"><label class="f">💰 '+esc(t("gSalary"))+'</label><input id="gsal" inputmode="decimal" value="'+esc(g.salary||"")+'" placeholder="0">';
+ h+='<label class="f">❓ '+esc(t("gHow"))+'</label><div class="seg"><button data-how="contract" class="'+(g.how!=="resign"?"on":"")+'">📄 '+esc(t("gContract"))+'</button><button data-how="resign" class="'+(g.how==="resign"?"on":"")+'">🚶 '+esc(t("gResign"))+'</button></div></div>';
+ if(r){h+='<div class="card"><div class="row"><span>⏳ '+esc(t("gYears").replace("{y}",nd(r.y)).replace("{m}",nd(r.m)))+'</span></div>';
+  h+=r.none?'<div class="soon" style="margin-top:10px">'+esc(t("gNone"))+'</div>':'<div class="total"><small>'+esc(t("gResult"))+'</small><b>'+money(r.amt,3)+' '+esc(t("kd"))+'</b></div><button class="big" id="gsay">'+esc(t("listen"))+'</button>';
+  h+='<div class="note">ℹ️ '+esc(t("gNote"))+' '+esc(t("disc"))+'</div></div>';}
+ return h;}
+// Approximate BDT rates until the robot's rates.json is live. Each carries its source.
+var HOUSES=[
+ {id:"almulla",name:"Al Mulla",bdt:400.325,src:{bn:"গুগল, ৭ নভেম্বর ২০২৬, দুপুর ১টা",en:"Google, 7 Nov 2026, 1 pm"}},
+ {id:"muzaini",name:"Al Muzaini",bdt:397.99,src:{bn:"বিশ্বব্যাংক জরিপ (পুরনো)",en:"World Bank survey (old)"}},
+ {id:"bec",name:"BEC",bdt:null},{id:"lulu",name:"LuLu",bdt:null},{id:"city",name:"City Intl.",bdt:null}];
+function loadLive(){try{fetch("rates.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||!j.houses)return;
+ HOUSES.forEach(function(h){var x=j.houses[h.id];if(x&&x.rates&&x.rates.BDT){h.bdt=x.rates.BDT;var dt=new Date(x.at);h.src={bn:(x.stale?"পুরনো · ":"")+dt.toLocaleString("bn-BD"),en:(x.stale?"old · ":"")+dt.toLocaleString("en-GB")};}});if(tab==="money")render();}).catch(function(){});}catch(e){}}
+function vHouses(){if(D.lang&&D.lang!=="bn"&&D.lang!=="en")return '<div class="card"><div class="soon">'+esc(t("mSoon"))+'</div></div>';var best=Math.max.apply(null,HOUSES.map(function(h){return h.bdt||0;})),bn=D.lang!=="en";
+ var h='<div class="card"><h2>💱 '+(bn?"১ দিনার = কত টাকা (আনুমানিক)":"1 KD = ? BDT (approx.)")+'</h2>';
+ HOUSES.forEach(function(x){h+='<button class="row" data-rate="'+(x.bdt||"")+'" style="width:100%;background:none;border:0;border-bottom:1px dashed var(--line);font:inherit;color:inherit;text-align:start"><span>🏦 <span><b>'+esc(x.name)+'</b>'+(x.bdt&&x.bdt===best?' ⭐':'')+'<br><small style="color:var(--mut)">'+esc(x.bdt?x.src[bn?"bn":"en"]:(bn?"রোবট আনবে":"robot will fetch"))+'</small></span></span><b>'+(x.bdt?money(x.bdt,3):"—")+'</b></button>';});
+ return h+'<div class="note">ℹ️ '+(bn?"রেটে টাচ করলে নিচের হিসাবে বসে যাবে। পাঠানোর আগে এক্সচেঞ্জে রেট মিলিয়ে নিন।":"Tap a rate to use it below. Confirm the rate at the exchange before sending.")+'</div></div>';}
+function vMoney(){var M=D.money,res=num(M.amt)*num(M.rate);
+ var h=vHouses()+'<div class="card"><label class="f">💵 '+esc(t("mAmount"))+'</label><input id="mamt" inputmode="decimal" value="'+esc(M.amt||"")+'" placeholder="0"><label class="f">💱 '+esc(t("mRate"))+'</label><input id="mrate" inputmode="decimal" value="'+esc(M.rate||"")+'" placeholder="0">';
+ h+='<div class="total"><small>'+esc(t("mResult"))+'</small><b id="mres">'+money(res,0)+' '+esc(t("cur"))+'</b></div></div>';return h;}
+
+function bind(){
+ var $=function(id){return document.getElementById(id);};
+ $("lb").onclick=langDialog;
+ document.querySelectorAll("[data-tab]").forEach(function(b){b.onclick=function(){tab=b.dataset.tab;render();window.scrollTo(0,0);};});
+ document.querySelectorAll("[data-stamp]").forEach(function(b){b.onclick=function(){stamp=b.dataset.stamp;render();};});
+ document.querySelectorAll("[data-day]").forEach(function(b){b.onclick=function(){tapDay(b.dataset.day);};});
+ if($("pm")){$("pm").onclick=function(){view.setMonth(view.getMonth()-1);render();};$("nm").onclick=function(){view.setMonth(view.getMonth()+1);render();};}
+ [["sal","salary"],["wdays","workDays"],["hday","hoursDay"],["otr","otRate"],["dbl","dbl"]].forEach(function(p){var e=$(p[0]);if(e)e.onchange=function(){D[p[1]]=e.value.trim();save();var op=document.querySelector("details")&&document.querySelector("details").open;render();if(op)document.querySelector("details").open=true;};});
+ if($("say"))$("say").onclick=function(){speak(t("speak").replace("{x}",money(calc().tot,3)));};
+ document.querySelectorAll("[data-doc]").forEach(function(e){e.onchange=function(){if(e.value)D.docs[e.dataset.doc]=e.value;else delete D.docs[e.dataset.doc];save();render();};});
+ [["gs","start"],["ge","end"],["gsal","salary"]].forEach(function(p){var e=$(p[0]);if(e)e.onchange=function(){D.grat[p[1]]=e.value.trim();save();render();};});
+ document.querySelectorAll("[data-how]").forEach(function(b){b.onclick=function(){D.grat.how=b.dataset.how;save();render();};});
+ if($("gsay"))$("gsay").onclick=function(){var r=gratCalc();if(r)speak(t("gResult")+" "+money(r.amt,3)+" "+t("kd"));};
+ document.querySelectorAll("[data-rate]").forEach(function(b){b.onclick=function(){if(!b.dataset.rate)return;D.money.rate=b.dataset.rate;save();render();};});
+ ["mamt","mrate"].forEach(function(id){var e=$(id);if(e)e.oninput=function(){D.money[id==="mamt"?"amt":"rate"]=e.value.trim();save();$("mres").textContent=money(num(D.money.amt)*num(D.money.rate),0)+" "+t("cur");};});
+}
+function tapDay(k){var r=D.days[k]||{};
+ if(stamp==="erase"){delete D.days[k];save();render();return;}
+ if(stamp==="ot"){otDialog(k,r.ot||2);return;}
+ if(r.s===stamp)delete r.s;else r.s=stamp;
+ if(!r.s&&!r.ot)delete D.days[k];else D.days[k]=r;save();render();}
+function otDialog(k,v){var ov=document.createElement("div");ov.className="ov";
+ ov.innerHTML='<div class="dlg"><h2 style="text-align:center;margin:0">⏱️ '+esc(t("otHours"))+'</h2><div class="counter"><button id="om">−</button><b id="ov">'+nd(v)+'</b><button id="op">+</button></div><div class="two"><button class="big alt" id="oc">'+esc(t("cancel"))+'</button><button class="big" id="ok">'+esc(t("ok"))+'</button></div></div>';
+ document.body.appendChild(ov);var set=function(x){v=Math.max(0,Math.min(16,x));document.getElementById("ov").textContent=nd(v);};
+ document.getElementById("om").onclick=function(){set(v-1);};document.getElementById("op").onclick=function(){set(v+1);};
+ document.getElementById("oc").onclick=function(){ov.remove();};
+ document.getElementById("ok").onclick=function(){var r=D.days[k]||{};if(v)r.ot=v;else delete r.ot;if(!r.s&&!r.ot)delete D.days[k];else D.days[k]=r;save();ov.remove();render();};}
+function langDialog(){if(document.querySelector(".ov"))return;var ov=document.createElement("div");ov.className="ov";
+ ov.innerHTML='<div class="dlg"><h2 style="text-align:center;margin:0 0 12px">🌐 ভাষা · Language · भाषा · زبان</h2><div class="langs">'+Object.keys(T).map(function(k){return '<button data-l="'+k+'"><b>'+T[k].flag+'</b>'+T[k].name+'</button>';}).join("")+'</div></div>';
+ document.body.appendChild(ov);ov.querySelectorAll("[data-l]").forEach(function(b){b.onclick=function(){D.lang=b.dataset.l;save();ov.remove();render();};});}
+try{if(window.speechSynthesis)speechSynthesis.getVoices();}catch(e){}
+render();loadLive();
+})();
+</script>
+</body>
+</html>
