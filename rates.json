@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-07T21:53:46.094Z",
+  "updated": "2026-11-07T21:57:23.383Z",
   "reference": {
     "BDT": 406.124881,
     "INR": 304.475709,
@@ -10,6 +10,28 @@
     "EGP": 174.793809
   },
   "houses": {
+    "almulla": {
+      "name": "Al Mulla Exchange",
+      "url": "https://www.almullaexchange.com/",
+      "rates": {
+        "BDT": 403.042,
+        "INR": 302.50779,
+        "PKR": 903.000581,
+        "NPR": 485.013095,
+        "PHP": 200.012001,
+        "LKR": 1068.03375,
+        "EGP": 174.641984
+      },
+      "at": "2026-11-07T21:57:23.383Z"
+    },
+    "lulu": {
+      "name": "LuLu Exchange",
+      "url": "https://luluexchange.com/kuwait/ar/currency-converter/kwd-to-bdt/",
+      "rates": {
+        "BDT": 500
+      },
+      "at": "2026-11-07T21:57:23.383Z"
+    },
     "muzaini": {
       "name": "Al Muzaini Exchange",
       "url": "https://www.muzaini.com/",
@@ -18,7 +40,7 @@
         "INR": 302.508,
         "EGP": 174.642
       },
-      "at": "2026-11-07T21:53:46.094Z"
+      "at": "2026-11-07T21:57:23.383Z"
     }
   }
 }
