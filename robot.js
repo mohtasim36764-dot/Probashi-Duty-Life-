@@ -30,7 +30,7 @@ function extract(text, tag) {
       const v = parseFloat(m[1]);
       // Skip amounts like "500 KWD" in conversion tables: that is dinars, not a rate.
       const after = text.slice(m.index + m[0].length, m.index + m[0].length + 8);
-      if (/^\s*([A-Z]{3}|KD|دينار)\b/.test(after)) continue;
+      if (/^[ \t]*([A-Z]{3}|KD|دينار)\b/.test(after)) continue;
       if (v >= lo && v <= hi) {
         out[code] = v;
         if (tag) console.log(tag, code, "context:", JSON.stringify(text.slice(Math.max(0, m.index - 100), m.index + 60)));
