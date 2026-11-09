@@ -447,7 +447,7 @@ function bind(){
  if($("cvprint"))$("cvprint").onclick=function(){try{window.print();}catch(e){toast(t("printNo"));}};
  if($("cvcopy"))$("cvcopy").onclick=function(){copy(cvText());};
  // Backup
- if($("bksave"))$("bksave").onclick=function(){try{var b=new Blob([backupCode()],{type:"text/plain"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="probashi-backup-"+ymd(new Date().getFullYear(),new Date().getMonth(),new Date().getDate())+".txt";document.body.appendChild(a);a.click();a.remove();}catch(e){copy(backupCode());}};
+ if($("bksave"))$("bksave").onclick=function(){var framed=false;try{framed=window.self!==window.top;}catch(e){framed=true;}if(framed){copy(backupCode());return;}try{var b=new Blob([backupCode()],{type:"text/plain"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="probashi-backup-"+ymd(new Date().getFullYear(),new Date().getMonth(),new Date().getDate())+".txt";document.body.appendChild(a);a.click();a.remove();}catch(e){copy(backupCode());}};
  if($("bkcopy"))$("bkcopy").onclick=function(){copy(backupCode());};
  if($("bkgo"))$("bkgo").onclick=function(){restore($("bkpaste").value);};
  if($("bkfile"))$("bkfile").onchange=function(){var f=this.files&&this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){restore(r.result);};r.readAsText(f);};
