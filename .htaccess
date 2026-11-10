@@ -1,0 +1,12 @@
+# Hide robot and project files from visitors
+<FilesMatch "^(robot\.js|README\.md|\.gitignore)$">
+  Require all denied
+</FilesMatch>
+RedirectMatch 404 /\.git
+RedirectMatch 404 /\.github
+<Files "sw.js">
+  Header set Cache-Control "no-cache"
+</Files>
+<Files "rates.json">
+  Header set Cache-Control "no-cache"
+</Files>

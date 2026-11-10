@@ -1,0 +1,17 @@
+{
+  "name": "Probashi Duty Life – প্রবাসীর সাথী",
+  "short_name": "Probashi Duty",
+  "description": "প্রবাসী শ্রমিকের ডিউটি, বেতন, কাগজপত্র, গ্র্যাচুইটি, টাকা পাঠানো, সিভি ও চাকরি",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f2f5f4",
+  "theme_color": "#0b5d56",
+  "lang": "bn",
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}

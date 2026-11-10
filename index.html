@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0b5d56">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <title>Probashi Duty Life – প্রবাসীর সাথী</title>
 <style>
 :root{--p:#0b5d56;--p2:#0f766e;--a:#14b8a6;--gold:#f59e0b;--bg:#f2f5f4;--card:#fff;--ink:#0f1f1d;--mut:#60706d;--line:#e2e8e6;--red:#dc2626;--ok:#15803d;--r:20px}
@@ -137,7 +140,7 @@ details summary{font-size:15px;color:var(--p2);padding:8px 0;cursor:pointer;font
 "use strict";
 /* ---------- Text in each language (missing keys fall back to English) ---------- */
 var T={
-bn:{name:"বাংলা",flag:"🇧🇩",cur:"টাকা",tag:"প্রবাসীর বিশ্বস্ত সাথী",chooseLang:"ভাষা বেছে নিন",
+bn:{name:"বাংলা",flag:"🇧🇩",cur:"টাকা",tag:"প্রবাসীর বিশ্বস্ত সাথী",install:"📲 ফোনে অ্যাপ ইনস্টল করুন",installIos:"আইফোনে: নিচের Share বোতাম চাপুন → \"Add to Home Screen\"",chooseLang:"ভাষা বেছে নিন",
 hello:"আসসালামু আলাইকুম 👋",helloSub:"আপনার কাজ, বেতন আর কাগজপত্র — সব এক জায়গায়",
 navHome:"হোম",navDuty:"ডিউটি",navSalary:"বেতন",navMoney:"টাকা",navMore:"আরো",
 tDuty:"ডিউটি",tSalary:"বেতন",tDocs:"কাগজপত্র",tGrat:"গ্র্যাচুইটি",tMoney:"টাকা পাঠান",tCv:"সিভি বানান",tJobs:"চাকরি",tHelp:"জরুরি সাহায্য",tBackup:"ব্যাকআপ",
@@ -157,7 +160,7 @@ jobsWarn:"⚠️ সাবধান: চাকরির নামে টাক�
 helpCall:"জরুরি নম্বর (কুয়েত)",helpEmergency:"পুলিশ / অ্যাম্বুলেন্স / ফায়ার",helpEmbassy:"বাংলাদেশ দূতাবাস হটলাইন",helpGov:"দরকারি সরকারি সাইট",helpNote:"নম্বর বদলাতে পারে। দূতাবাসের অফিসিয়াল পেজে মিলিয়ে নিন।",
 bkIntro:"আপনার সব তথ্য শুধু এই ফোনে থাকে। ফোন হারালে যেন না হারায়, মাঝে মাঝে ব্যাকআপ নিন।",bkSave:"💾 ব্যাকআপ ফাইল নিন",bkCopy:"📋 ব্যাকআপ কোড কপি করুন",bkRestore:"ফেরত আনুন",bkFile:"📂 ব্যাকআপ ফাইল বেছে নিন",bkPaste:"অথবা ব্যাকআপ কোড এখানে পেস্ট করুন",bkDone:"সব তথ্য ফেরত এসেছে ✅",bkBad:"ভুল ব্যাকআপ — আবার চেষ্টা করুন",bkHow:"ফাইল বা কোডটা নিজের হোয়াটসঅ্যাপ বা Google Drive-এ রেখে দিন।",back:"← ফিরে যান",
 months:["জানুয়ারি","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","আগস্ট","সেপ্টেম্বর","অক্টোবর","নভেম্বর","ডিসেম্বর"],wd:["রবি","সোম","মঙ্গল","বুধ","বৃহঃ","শুক্র","শনি"]},
-en:{name:"English",flag:"🇬🇧",cur:"home currency",tag:"Your trusted companion abroad",chooseLang:"Choose your language",
+en:{name:"English",flag:"🇬🇧",cur:"home currency",tag:"Your trusted companion abroad",install:"📲 Install the app on your phone",installIos:"On iPhone: tap Share → \"Add to Home Screen\"",chooseLang:"Choose your language",
 hello:"Hello 👋",helloSub:"Your duty, salary and papers — all in one place",
 navHome:"Home",navDuty:"Duty",navSalary:"Salary",navMoney:"Money",navMore:"More",
 tDuty:"Duty",tSalary:"Salary",tDocs:"Papers",tGrat:"Gratuity",tMoney:"Send money",tCv:"Make CV",tJobs:"Jobs",tHelp:"Emergency help",tBackup:"Backup",
@@ -315,9 +318,14 @@ function vHome(){
  h+='<button class="stat" data-go="duty"><small>📅 '+esc(t("dutyDays"))+'</small><b>'+nd(c.s.duty+c.s.double)+' <span>'+esc(t("days"))+'</span></b><span>✖️2 '+nd(c.s.double)+' · ⏱️ '+nd(c.s.ot)+'h</span></button>';
  h+='<button class="stat" data-go="docs"><small>🪪 '+esc(t("nextDoc"))+'</small>'+(nearest?'<b style="font-size:15px">'+esc(nearest.name)+'</b>'+badge(nearest.left):'<b>—</b><span>'+esc(t("noDoc"))+'</span>')+'</button>';
  h+='<button class="stat" data-go="money"><small>💸 '+esc(t("bestRate"))+'</small>'+(best?'<b>'+money(best.bdt,2)+' <span>৳</span></b><span>'+esc(best.name)+'</span>':'<b>—</b>')+'</button></div>';
+ if(installEvt)h+='<button class="btn gold" id="inst">'+esc(t("install"))+'</button>';
+ else if(isIos()&&!standalone())h+='<div class="info" style="margin-top:10px">📲 '+esc(t("installIos"))+'</div>';
  h+='<div class="sec">'+esc(t("allTools"))+'</div>'+tilesHtml();
  return h;
 }
+var installEvt=null;
+function standalone(){try{return window.matchMedia("(display-mode: standalone)").matches||navigator.standalone;}catch(e){return false;}}
+function isIos(){return /iphone|ipad|ipod/i.test(navigator.userAgent||"");}
 function tilesHtml(){return '<div class="tiles">'+TOOLS.map(function(x){return '<button class="tile" data-go="'+x[0]+'"><i class="'+x[2]+'">'+x[1]+'</i>'+esc(t(x[3]))+'</button>';}).join("")+'</div>';}
 function vMore(){return '<div class="lift"></div>'+tilesHtml()+'<button class="btn alt" id="lb2" style="margin-top:14px">🌐 '+esc(L().name)+' · Language</button>';}
 function bestHouse(){var b=null;HOUSES.forEach(function(h){if(h.bdt&&(!b||h.bdt>b.bdt))b=h;});return b;}
@@ -423,6 +431,7 @@ function vBackup(){
 /* ---------- Events ---------- */
 function bind(){
  $("lb").onclick=langDialog;if($("lb2"))$("lb2").onclick=langDialog;
+ if($("inst"))$("inst").onclick=function(){var e=installEvt;installEvt=null;try{e.prompt();}catch(x){}render();};
  if($("bk"))$("bk").onclick=function(){go("more");};
  document.querySelectorAll("[data-go]").forEach(function(b){b.onclick=function(){go(b.dataset.go);};});
  document.querySelectorAll("[data-stamp]").forEach(function(b){b.onclick=function(){stamp=b.dataset.stamp;render();};});
@@ -466,9 +475,11 @@ function langDialog(){if(document.querySelector(".ov"))return;var ov=document.cr
  ov.innerHTML='<div class="dlg"><h2 style="text-align:center;margin:0 0 12px">🌐 ভাষা · Language · भाषा · زبان</h2><div class="langs">'+Object.keys(T).map(function(k){return '<button data-l="'+k+'"><b>'+T[k].flag+'</b>'+T[k].name+'</button>';}).join("")+'</div></div>';
  document.body.appendChild(ov);ov.querySelectorAll("[data-l]").forEach(function(b){b.onclick=function(){D.lang=b.dataset.l;save();ov.remove();render();};});}
 function loadLive(){try{fetch("rates.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||!j.houses)return;
- HOUSES.forEach(function(h){var x=j.houses[h.id];if(x&&x.rates&&x.rates.BDT){h.bdt=x.rates.BDT;var dt=new Date(x.at);h.src={bn:(x.stale?"পুরনো · ":"")+dt.toLocaleString("bn-BD"),en:(x.stale?"old · ":"")+dt.toLocaleString("en-GB")};}});
+ HOUSES.forEach(function(h){var x=j.houses[h.id];if(x&&x.rates&&x.rates.BDT){h.bdt=x.rates.BDT;var dt=new Date(x.at);var o={day:"numeric",month:"long",hour:"numeric",minute:"2-digit",timeZone:"Asia/Kuwait"};h.src={bn:(x.stale?"পুরনো · ":"রোবট · ")+dt.toLocaleString("bn-BD",o),en:(x.stale?"old · ":"Robot · ")+dt.toLocaleString("en-GB",o)};}});
  if(tab==="money"||tab==="home")render();}).catch(function(){});}catch(e){}}
 try{if(window.speechSynthesis)speechSynthesis.getVoices();}catch(e){}
+window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();installEvt=e;if(tab==="home")render();});
+try{if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js");}catch(e){}
 render();loadLive();
 })();
 </script>
