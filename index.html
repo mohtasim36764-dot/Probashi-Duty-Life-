@@ -474,10 +474,13 @@ function otDialog(k,v){var ov=document.createElement("div");ov.className="ov";
 function langDialog(){if(document.querySelector(".ov"))return;var ov=document.createElement("div");ov.className="ov";
  ov.innerHTML='<div class="dlg"><h2 style="text-align:center;margin:0 0 12px">🌐 ভাষা · Language · भाषा · زبان</h2><div class="langs">'+Object.keys(T).map(function(k){return '<button data-l="'+k+'"><b>'+T[k].flag+'</b>'+T[k].name+'</button>';}).join("")+'</div></div>';
  document.body.appendChild(ov);ov.querySelectorAll("[data-l]").forEach(function(b){b.onclick=function(){D.lang=b.dataset.l;save();ov.remove();render();};});}
-function loadLive(){try{fetch("rates.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||!j.houses)return;
+// Live rates: the site's own copy and the robot's copy on GitHub; the newest one wins.
+var RATE_URLS=["rates.json","https://raw.githubusercontent.com/mohtasim36764-dot/Probashi-Duty-Life-/main/rates.json"];
+function applyRates(j){if(!j||!j.houses)return;
  HOUSES.forEach(function(h){var x=j.houses[h.id];if(x&&x.rates&&x.rates.BDT){h.bdt=x.rates.BDT;var dt=new Date(x.at);var o={day:"numeric",month:"long",hour:"numeric",minute:"2-digit",timeZone:"Asia/Kuwait"};h.src={bn:(x.stale?"পুরনো · ":"রোবট · ")+dt.toLocaleString("bn-BD",o),en:(x.stale?"old · ":"Robot · ")+dt.toLocaleString("en-GB",o)};}});
- if(tab==="money"||tab==="home")render();}).catch(function(){});}catch(e){}}
-try{if(window.speechSynthesis)speechSynthesis.getVoices();}catch(e){}
+ if(tab==="money"||tab==="home")render();}
+function loadLive(){var best=null,left=RATE_URLS.length;
+ RATE_URLS.forEach(function(u){try{fetch(u,{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}).then(function(j){if(j&&j.updated&&(!best||j.updated>best.updated))best=j;if(--left===0&&best)applyRates(best);});}catch(e){if(--left===0&&best)applyRates(best);}});}
 window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();installEvt=e;if(tab==="home")render();});
 try{if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js");}catch(e){}
 render();loadLive();
