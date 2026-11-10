@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0b5d56">
+<meta name="theme-color" content="#3b1d4a">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -15,7 +15,19 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-
 button{font-family:inherit;cursor:pointer}
 a{color:var(--p2)}
 #app{max-width:520px;margin:0 auto;min-height:100vh;padding-bottom:92px}
-header{background:linear-gradient(135deg,#0b5d56,#0f766e 55%,#14b8a6);color:#fff;padding:16px 16px 22px;border-radius:0 0 26px 26px;position:relative}
+header{background:#3b1d4a;color:#fff;padding:16px 16px 22px;border-radius:0 0 26px 26px;position:relative;overflow:hidden;min-height:150px}
+header.big{min-height:250px}
+header .scene{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+header::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,8,24,.55),rgba(20,8,24,0) 55%);z-index:0}
+header>*:not(.scene){position:relative;z-index:1}
+header .htitle,header .hsub{text-shadow:0 1px 6px rgba(0,0,0,.45)}
+#splash{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;background:#3b1d4a;color:#fff;transition:opacity .6s}
+#splash{background:linear-gradient(180deg,#1f0f2b 0%,#3b1d4a 55%,#3b1d4a 100%)}
+#splash .scene{position:absolute;left:0;right:0;bottom:0;width:100%;height:auto;max-height:75vh}
+#splash .st{position:relative;margin-top:22vh;text-align:center;padding:0 24px;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+#splash .st b{display:block;font-size:30px;letter-spacing:.3px}
+#splash .st span{display:block;margin-top:10px;font-size:18px;opacity:.95}
+#splash.hide{opacity:0;pointer-events:none}
 .top{display:flex;align-items:center;gap:10px}
 .logo{width:42px;height:42px;border-radius:13px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:24px}
 .top h1{font-size:19px;margin:0;flex:1;letter-spacing:.2px}
@@ -140,7 +152,7 @@ details summary{font-size:15px;color:var(--p2);padding:8px 0;cursor:pointer;font
 "use strict";
 /* ---------- Text in each language (missing keys fall back to English) ---------- */
 var T={
-bn:{name:"বাংলা",flag:"🇧🇩",cur:"টাকা",tag:"প্রবাসীর বিশ্বস্ত সাথী",install:"📲 ফোনে অ্যাপ ইনস্টল করুন",installIos:"আইফোনে: নিচের Share বোতাম চাপুন → \"Add to Home Screen\"",chooseLang:"ভাষা বেছে নিন",
+bn:{name:"বাংলা",flag:"🇧🇩",cur:"টাকা",tag:"প্রবাসীর বিশ্বস্ত সাথী",splash:"ঘাম ঝরে মরুভূমিতে, স্বপ্ন থাকে দেশে",install:"📲 ফোনে অ্যাপ ইনস্টল করুন",installIos:"আইফোনে: নিচের Share বোতাম চাপুন → \"Add to Home Screen\"",chooseLang:"ভাষা বেছে নিন",
 hello:"আসসালামু আলাইকুম 👋",helloSub:"আপনার কাজ, বেতন আর কাগজপত্র — সব এক জায়গায়",
 navHome:"হোম",navDuty:"ডিউটি",navSalary:"বেতন",navMoney:"টাকা",navMore:"আরো",
 tDuty:"ডিউটি",tSalary:"বেতন",tDocs:"কাগজপত্র",tGrat:"গ্র্যাচুইটি",tMoney:"টাকা পাঠান",tCv:"সিভি বানান",tJobs:"চাকরি",tHelp:"জরুরি সাহায্য",tBackup:"ব্যাকআপ",
@@ -160,7 +172,7 @@ jobsWarn:"⚠️ সাবধান: চাকরির নামে টাক�
 helpCall:"জরুরি নম্বর (কুয়েত)",helpEmergency:"পুলিশ / অ্যাম্বুলেন্স / ফায়ার",helpEmbassy:"বাংলাদেশ দূতাবাস হটলাইন",helpGov:"দরকারি সরকারি সাইট",helpNote:"নম্বর বদলাতে পারে। দূতাবাসের অফিসিয়াল পেজে মিলিয়ে নিন।",
 bkIntro:"আপনার সব তথ্য শুধু এই ফোনে থাকে। ফোন হারালে যেন না হারায়, মাঝে মাঝে ব্যাকআপ নিন।",bkSave:"💾 ব্যাকআপ ফাইল নিন",bkCopy:"📋 ব্যাকআপ কোড কপি করুন",bkRestore:"ফেরত আনুন",bkFile:"📂 ব্যাকআপ ফাইল বেছে নিন",bkPaste:"অথবা ব্যাকআপ কোড এখানে পেস্ট করুন",bkDone:"সব তথ্য ফেরত এসেছে ✅",bkBad:"ভুল ব্যাকআপ — আবার চেষ্টা করুন",bkHow:"ফাইল বা কোডটা নিজের হোয়াটসঅ্যাপ বা Google Drive-এ রেখে দিন।",back:"← ফিরে যান",
 months:["জানুয়ারি","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","আগস্ট","সেপ্টেম্বর","অক্টোবর","নভেম্বর","ডিসেম্বর"],wd:["রবি","সোম","মঙ্গল","বুধ","বৃহঃ","শুক্র","শনি"]},
-en:{name:"English",flag:"🇬🇧",cur:"home currency",tag:"Your trusted companion abroad",install:"📲 Install the app on your phone",installIos:"On iPhone: tap Share → \"Add to Home Screen\"",chooseLang:"Choose your language",
+en:{name:"English",flag:"🇬🇧",cur:"home currency",tag:"Your trusted companion abroad",splash:"Sweat in the desert, dreams back home",install:"📲 Install the app on your phone",installIos:"On iPhone: tap Share → \"Add to Home Screen\"",chooseLang:"Choose your language",
 hello:"Hello 👋",helloSub:"Your duty, salary and papers — all in one place",
 navHome:"Home",navDuty:"Duty",navSalary:"Salary",navMoney:"Money",navMore:"More",
 tDuty:"Duty",tSalary:"Salary",tDocs:"Papers",tGrat:"Gratuity",tMoney:"Send money",tCv:"Make CV",tJobs:"Jobs",tHelp:"Emergency help",tBackup:"Backup",
@@ -180,7 +192,7 @@ jobsWarn:"⚠️ Careful: anyone asking money for a job or selling visas may be 
 helpCall:"Emergency numbers (Kuwait)",helpEmergency:"Police / Ambulance / Fire",helpEmbassy:"Bangladesh Embassy hotline",helpGov:"Useful official sites",helpNote:"Numbers can change. Confirm on the embassy's official page.",
 bkIntro:"All your data stays only on this phone. Take a backup now and then so you don't lose it if the phone is lost.",bkSave:"💾 Save backup file",bkCopy:"📋 Copy backup code",bkRestore:"Restore",bkFile:"📂 Choose backup file",bkPaste:"Or paste a backup code here",bkDone:"All data restored ✅",bkBad:"Invalid backup — try again",bkHow:"Keep the file or code in your own WhatsApp or Google Drive.",back:"← Back",
 months:["January","February","March","April","May","June","July","August","September","October","November","December"],wd:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]},
-hi:{name:"हिन्दी",flag:"🇮🇳",cur:"रुपये",tag:"प्रवासी का भरोसेमंद साथी",hello:"नमस्ते 👋",helloSub:"आपकी ड्यूटी, तनख्वाह और कागज़ात — सब एक जगह",
+hi:{name:"हिन्दी",flag:"🇮🇳",cur:"रुपये",tag:"प्रवासी का भरोसेमंद साथी",splash:"पसीना रेगिस्तान में, सपने घर पर",hello:"नमस्ते 👋",helloSub:"आपकी ड्यूटी, तनख्वाह और कागज़ात — सब एक जगह",
 navHome:"होम",navDuty:"ड्यूटी",navSalary:"तनख्वाह",navMoney:"पैसे",navMore:"और",
 tDuty:"ड्यूटी",tSalary:"तनख्वाह",tDocs:"कागज़ात",tGrat:"ग्रेच्युटी",tMoney:"पैसे भेजें",tCv:"सीवी बनाएँ",tJobs:"नौकरी",tHelp:"आपातकालीन मदद",tBackup:"बैकअप",
 thisMonth:"इस महीने बकाया",nextDoc:"सबसे पास की मियाद",bestRate:"आज का सबसे अच्छा रेट",dutyDays:"इस महीने ड्यूटी",allTools:"सभी सुविधाएँ",
@@ -195,7 +207,7 @@ gYears:"नौकरी: {y} साल {m} महीने",gResult:"आपक�
 mAmount:"कितने दीनार भेजेंगे?",mRate:"रेट: 1 दीनार = कितने रुपये?",mResult:"परिवार को मिलेगा",mSoon:"⏳ आपकी मुद्रा के रेट जल्द आ रहे हैं",
 disc:"यह हिसाब अनुमान है। पक्का करने के लिए कॉन्ट्रैक्ट देखें।",kd:"दीनार",noVoice:"इस फ़ोन में इस भाषा की आवाज़ नहीं है",back:"← वापस",
 months:["जनवरी","फ़रवरी","मार्च","अप्रैल","मई","जून","जुलाई","अगस्त","सितंबर","अक्टूबर","नवंबर","दिसंबर"],wd:["रवि","सोम","मंगल","बुध","गुरु","शुक्र","शनि"]},
-ur:{name:"اردو",flag:"🇵🇰",cur:"روپے",tag:"پردیسی کا بھروسہ مند ساتھی",rtl:1,hello:"السلام علیکم 👋",helloSub:"آپ کی ڈیوٹی، تنخواہ اور کاغذات — سب ایک جگہ",
+ur:{name:"اردو",flag:"🇵🇰",cur:"روپے",tag:"پردیسی کا بھروسہ مند ساتھی",splash:"پسینہ صحرا میں، خواب گھر میں",rtl:1,hello:"السلام علیکم 👋",helloSub:"آپ کی ڈیوٹی، تنخواہ اور کاغذات — سب ایک جگہ",
 navHome:"ہوم",navDuty:"ڈیوٹی",navSalary:"تنخواہ",navMoney:"پیسے",navMore:"مزید",
 tDuty:"ڈیوٹی",tSalary:"تنخواہ",tDocs:"کاغذات",tGrat:"گریجویٹی",tMoney:"پیسے بھیجیں",tCv:"سی وی بنائیں",tJobs:"نوکری",tHelp:"ہنگامی مدد",tBackup:"بیک اپ",
 thisMonth:"اس مہینے واجب",nextDoc:"قریب ترین میعاد",bestRate:"آج کا بہترین ریٹ",dutyDays:"اس مہینے ڈیوٹی",allTools:"تمام سہولیات",
@@ -210,7 +222,7 @@ gYears:"نوکری: {y} سال {m} مہینے",gResult:"آپ کی گریجویٹ
 mAmount:"کتنے دینار بھیجیں گے؟",mRate:"ریٹ: 1 دینار = کتنے روپے؟",mResult:"گھر والوں کو ملے گا",mSoon:"⏳ آپ کی کرنسی کے ریٹ جلد آ رہے ہیں",
 disc:"یہ حساب اندازہ ہے۔ یقین کے لیے معاہدہ دیکھیں۔",kd:"دینار",noVoice:"اس فون میں اس زبان کی آواز نہیں",back:"← واپس",
 months:["جنوری","فروری","مارچ","اپریل","مئی","جون","جولائی","اگست","ستمبر","اکتوبر","نومبر","دسمبر"],wd:["اتوار","پیر","منگل","بدھ","جمعرات","جمعہ","ہفتہ"]},
-ne:{name:"नेपाली",flag:"🇳🇵",cur:"रुपैयाँ",tag:"विदेशमा भरपर्दो साथी",hello:"नमस्ते 👋",helloSub:"तपाईंको ड्युटी, तलब र कागजात — सबै एकै ठाउँमा",
+ne:{name:"नेपाली",flag:"🇳🇵",cur:"रुपैयाँ",tag:"विदेशमा भरपर्दो साथी",splash:"पसिना मरुभूमिमा, सपना घरमा",hello:"नमस्ते 👋",helloSub:"तपाईंको ड्युटी, तलब र कागजात — सबै एकै ठाउँमा",
 navHome:"होम",navDuty:"ड्युटी",navSalary:"तलब",navMoney:"पैसा",navMore:"थप",
 tDuty:"ड्युटी",tSalary:"तलब",tDocs:"कागजात",tGrat:"ग्र्याच्युटी",tMoney:"पैसा पठाउनुहोस्",tCv:"सीभी बनाउनुहोस्",tJobs:"जागिर",tHelp:"आपतकालीन सहयोग",tBackup:"ब्याकअप",
 thisMonth:"यो महिना पाउनुपर्ने",nextDoc:"नजिकको म्याद",bestRate:"आजको राम्रो दर",dutyDays:"यो महिना ड्युटी",allTools:"सबै सुविधा",
@@ -229,6 +241,7 @@ months:["जनवरी","फेब्रुअरी","मार्च","अ�
 var VOICE={bn:"bn-BD",en:"en-US",hi:"hi-IN",ur:"ur-PK",ne:"ne-NP"};
 var DIG={bn:"০১২৩৪৫৬৭৮৯",ne:"०१२३४५६७८९"};
 var KEY="dutybook_v1";
+var SCENE='<svg class="scene" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" preserveAspectRatio="xMidYMax slice"> <defs> <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"> <stop offset="0" stop-color="#3b1d4a"/> <stop offset=".45" stop-color="#b4442b"/> <stop offset=".8" stop-color="#f08a24"/> <stop offset="1" stop-color="#f7c35c"/> </linearGradient> <radialGradient id="sun" cx=".5" cy=".5" r=".5"> <stop offset="0" stop-color="#fff3c4"/> <stop offset=".6" stop-color="#ffd166"/> <stop offset="1" stop-color="#ffb347" stop-opacity="0"/> </radialGradient> <linearGradient id="d1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8743a"/><stop offset="1" stop-color="#a65a2b"/></linearGradient> <linearGradient id="d2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f4a24"/><stop offset="1" stop-color="#6e361b"/></linearGradient> <linearGradient id="d3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a2414"/><stop offset="1" stop-color="#2b140b"/></linearGradient> <g id="camel"> <path d="M0 0 C2 -8 8 -12 14 -12 C17 -20 25 -21 29 -13 C33 -13 37 -11 38 -7 L42 -16 C43 -19 46 -21 49 -20 L52 -19 C53 -18 52 -17 50 -17 L47 -16 L41 -2 C40 1 37 3 34 3 L6 3 C2 3 0 2 0 0 Z"/> <path d="M4 2 L3 18 L5 18 L7 3 Z M10 2 L11 18 L13 18 L13 3 Z M29 2 L28 18 L30 18 L32 3 Z M35 1 L37 18 L39 18 L38 2 Z"/> <path d="M0 -1 L-3 7 L-2 7 L1 0 Z"/> </g> </defs> <rect width="400" height="220" fill="url(#sky)"/> <g fill="#fff" opacity=".7"><circle cx="40" cy="22" r="1"/><circle cx="92" cy="12" r=".8"/><circle cx="150" cy="30" r="1"/><circle cx="300" cy="16" r=".9"/><circle cx="352" cy="38" r="1"/><circle cx="250" cy="8" r=".7"/></g> <circle cx="300" cy="128" r="60" fill="url(#sun)"/> <circle cx="300" cy="128" r="26" fill="#fff1b8"/> <path d="M0 140 C60 118 110 128 160 136 C220 146 260 120 320 126 C360 130 385 138 400 134 L400 220 L0 220 Z" fill="url(#d1)"/> <g fill="#3a1a10" opacity=".9"> <use href="#camel" transform="translate(178 121) scale(.62)"/> <use href="#camel" transform="translate(212 123) scale(.58)"/> <use href="#camel" transform="translate(244 124) scale(.54)"/> <path d="M208 113 L212 118 M240 116 L244 119" stroke="#3a1a10" stroke-width=".6"/> </g> <path d="M0 168 C70 150 120 160 190 166 C250 172 300 152 400 160 L400 220 L0 220 Z" fill="url(#d2)"/> <path d="M0 196 C80 178 160 186 230 192 C300 198 350 184 400 188 L400 220 L0 220 Z" fill="url(#d3)"/> <g fill="#1a0c06" transform="translate(84 150)"> <ellipse cx="0" cy="0" rx="5.2" ry="2.2"/> <path d="M-4 0 C-4 -6 4 -6 4 0 Z"/> <circle cx="0" cy="3" r="3.6"/> <path d="M-4 7 C-6 14 -6 20 -5 26 L5 26 C6 20 6 14 4 7 Z"/> <path d="M-5 9 C-12 9 -14 14 -13 22 L-6 22 C-5 16 -5 12 -5 9 Z"/> <path d="M-4 25 L-8 40 L-5 40 L-1 27 Z M2 25 L6 40 L9 40 L4 26 Z"/> <path d="M4 9 L10 18 L8 19 L3 12 Z"/> </g> <g fill="#1a0c06" opacity=".35"><ellipse cx="66" cy="194" rx="2" ry=".8"/><ellipse cx="54" cy="197" rx="2" ry=".8"/><ellipse cx="42" cy="199" rx="2" ry=".8"/><ellipse cx="30" cy="202" rx="2" ry=".8"/></g> <g stroke="#fff" stroke-opacity=".18" fill="none" stroke-width="1.2"><path d="M120 150 q6 -4 12 0 t12 0"/><path d="M330 172 q6 -4 12 0 t12 0"/></g> </svg>';
 var D=load();
 var tab="home",stamp="duty",view=new Date();view.setDate(1);
 
@@ -300,7 +313,7 @@ function render(){
  var l=L();document.documentElement.lang=D.lang||"bn";document.documentElement.dir=l.rtl?"rtl":"ltr";
  var titles={home:[t("hello"),t("helloSub")],more:[t("allTools"),""]};
  TOOLS.forEach(function(x){titles[x[0]]=[x[1]+" "+t(x[3]),""];});
- var h='<header><div class="top"><div class="logo">🌙</div><h1>Probashi Duty Life<small>'+esc(t("tag"))+'</small></h1><button class="langbtn" id="lb" aria-label="language">'+l.flag+'</button></div>';
+ var h='<header class="'+(tab==="home"?"big":"")+'">'+SCENE+'<div class="top"><div class="logo">🐫</div><h1>Probashi Duty Life<small>'+esc(t("tag"))+'</small></h1><button class="langbtn" id="lb" aria-label="language">'+l.flag+'</button></div>';
  h+='<div class="htitle">'+esc(titles[tab][0])+'</div>'+(titles[tab][1]?'<div class="hsub">'+esc(titles[tab][1])+'</div>':'');
  if(!NAVSET[tab]&&tab!=="more")h+='<button class="back" id="bk">'+esc(t("back"))+'</button>';
  h+='</header><main>';
@@ -484,6 +497,8 @@ function loadLive(){var best=null,left=RATE_URLS.length;
 window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();installEvt=e;if(tab==="home")render();});
 try{if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js");}catch(e){}
 render();loadLive();
+(function(){var sp=document.createElement("div");sp.id="splash";sp.innerHTML=SCENE.replace('xMidYMax slice','xMidYMax meet').replace('viewBox="0 0 400 220"','viewBox="62 0 268 220"')+'<div class="st"><b>🐫 Probashi Duty Life</b><span>'+esc(t("splash"))+'</span></div>';document.body.appendChild(sp);
+ var gone=function(){sp.classList.add("hide");setTimeout(function(){sp.remove();},700);};sp.onclick=gone;setTimeout(gone,2200);})();
 })();
 </script>
 </body>
