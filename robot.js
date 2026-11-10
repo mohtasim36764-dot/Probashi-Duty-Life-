@@ -75,21 +75,27 @@ async function readSource(browser, src) {
   }
 }
 
-// Market reference rate (not an exchange house rate), from a free public API.
+// Market reference rates (not exchange-house rates), from a free public API.
+// "reference" = 1 KWD in other currencies (kept for old app versions);
+// "usd" = 1 USD in each currency, so the app can work out any Gulf currency -> home currency.
+const GULF = ["KWD", "SAR", "AED", "QAR", "BHD", "OMR"];
 async function reference() {
   try {
-    const r = await fetch("https://open.er-api.com/v6/latest/KWD");
+    const r = await fetch("https://open.er-api.com/v6/latest/USD");
     const j = await r.json();
-    const out = {};
-    for (const c of Object.keys(CUR)) if (j.rates && j.rates[c]) out[c] = j.rates[c];
-    return out;
-  } catch (_) { return {}; }
+    const usd = {};
+    for (const c of GULF.concat(Object.keys(CUR))) if (j.rates && j.rates[c]) usd[c] = j.rates[c];
+    const ref = {};
+    if (usd.KWD) for (const c of Object.keys(CUR)) if (usd[c]) ref[c] = +(usd[c] / usd.KWD).toFixed(4);
+    return { ref, usd };
+  } catch (_) { return { ref: {}, usd: {} }; }
 }
 
 (async () => {
   const old = fs.existsSync("rates.json") ? JSON.parse(fs.readFileSync("rates.json", "utf8")) : { houses: {} };
   const now = new Date().toISOString();
-  const result = { updated: now, reference: await reference(), houses: {} };
+  const m = await reference();
+  const result = { updated: now, reference: m.ref, usd: m.usd, houses: {} };
   const browser = await chromium.launch();
   // Some sites have certificate problems on www; this only affects reading public rate pages.
   let okCount = 0;
