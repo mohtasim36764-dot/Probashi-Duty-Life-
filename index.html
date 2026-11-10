@@ -130,6 +130,17 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--a);box-s
 #cvp table{width:100%;border-collapse:collapse}
 #cvp td{padding:2px 0;vertical-align:top}
 #cvp td:first-child{width:38%;color:#444}
+#cvp.modern{display:grid;grid-template-columns:38% 62%;padding:0;overflow:hidden}
+#cvp.modern .side{background:#0b5d56;color:#e6fffb;padding:14px 12px;font-family:system-ui,sans-serif;font-size:12px}
+#cvp.modern .side img,#cvp.modern .noph{width:84px;height:100px;object-fit:cover;border-radius:8px;display:block;margin:0 auto 8px;background:rgba(255,255,255,.15);text-align:center;line-height:100px;font-size:34px}
+#cvp.modern .sn{font-size:16px;font-weight:700;text-align:center;color:#fff;line-height:1.2}
+#cvp.modern .st2{text-align:center;color:#fcd34d;font-weight:700;margin:2px 0 6px}
+#cvp.modern .side h4{color:#fcd34d;border-color:rgba(255,255,255,.3)}
+#cvp.modern .side ul{padding-inline-start:14px}
+#cvp.modern .kv{margin-bottom:4px}#cvp.modern .kv span{display:block;opacity:.75;font-size:10.5px}
+#cvp.modern .main{padding:14px 14px}
+#cvp.modern .main h4:first-child{margin-top:0}
+@media print{#cvp.modern .side{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 .ov{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:20;padding:16px}
 .dlg{background:#fff;border-radius:22px;padding:18px;width:100%;max-width:400px;max-height:90vh;overflow:auto}
 .langs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -152,44 +163,44 @@ details summary{font-size:15px;color:var(--p2);padding:8px 0;cursor:pointer;font
 "use strict";
 /* ---------- Text in each language (missing keys fall back to English) ---------- */
 var T={
-bn:{name:"বাংলা",flag:"🇧🇩",cur:"টাকা",tag:"প্রবাসীর বিশ্বস্ত সাথী",splash:"ঘাম ঝরে মরুভূমিতে, স্বপ্ন থাকে দেশে",install:"📲 ফোনে অ্যাপ ইনস্টল করুন",installIos:"আইফোনে: নিচের Share বোতাম চাপুন → \"Add to Home Screen\"",chooseLang:"ভাষা বেছে নিন",
+bn:{name:"বাংলা",flag:"🇧🇩",cur:"টাকা",tag:"প্রবাসীর বিশ্বস্ত সাথী",chooseCountry:"আপনি কোন দেশে কাজ করেন?",countryWhy:"দেশ অনুযায়ী বেতনের নিয়ম, গ্র্যাচুইটি, মুদ্রা আর জরুরি নম্বর বদলাবে",chCountry:"দেশ বদলান",mkt:"বাজার রেট",mktNote:"আন্তর্জাতিক বাজার রেট — এক্সচেঞ্জের রেট একটু কম-বেশি হতে পারে",helpMail:"দূতাবাসের ইমেইল",cvSum:"নিজের সম্পর্কে ২-৩ লাইন (Profile)",cvAutoSum:"✨ নিজে থেকে লিখে দাও",cvLoc:"এখন কোন দেশে আছেন",cvAvail:"কবে থেকে কাজে যোগ দিতে পারবেন",cvVisa:"ভিসার অবস্থা",cvCert:"সার্টিফিকেট / ট্রেনিং কোর্স",cvPass:"পাসপোর্টের মেয়াদ শেষ",cvRef:"রেফারেন্স (যদি থাকে)",cvStyle:"সিভির ডিজাইন",splash:"ঘাম ঝরে মরুভূমিতে, স্বপ্ন থাকে দেশে",install:"📲 ফোনে অ্যাপ ইনস্টল করুন",installIos:"আইফোনে: নিচের Share বোতাম চাপুন → \"Add to Home Screen\"",chooseLang:"ভাষা বেছে নিন",
 hello:"আসসালামু আলাইকুম 👋",helloSub:"আপনার কাজ, বেতন আর কাগজপত্র — সব এক জায়গায়",
 navHome:"হোম",navDuty:"ডিউটি",navSalary:"বেতন",navMoney:"টাকা",navMore:"আরো",
 tDuty:"ডিউটি",tSalary:"বেতন",tDocs:"কাগজপত্র",tGrat:"গ্র্যাচুইটি",tMoney:"টাকা পাঠান",tCv:"সিভি বানান",tJobs:"চাকরি",tHelp:"জরুরি সাহায্য",tBackup:"ব্যাকআপ",
 thisMonth:"এই মাসের পাওনা",nextDoc:"সবচেয়ে কাছের মেয়াদ",bestRate:"আজকের সেরা রেট",dutyDays:"এই মাসে ডিউটি",allTools:"সব সুবিধা",setSalary:"বেতন লিখুন",noDoc:"তারিখ দিন",
 stDuty:"ডিউটি",stDouble:"ডাবল",stOT:"ওভারটাইম",stOff:"ছুটি",stAbsent:"অনুপস্থিত",stErase:"মুছুন",
 tapHint:"উপরে একটা বেছে নিন, তারপর তারিখে টাচ করুন",otHours:"ওভারটাইম কত ঘণ্টা?",ok:"ঠিক আছে",cancel:"বাদ দিন",
-monthSalary:"মাসিক বেতন (দিনার)",settings:"বেতনের নিয়ম বদলান",workDays:"মাসে কত দিন ধরে হিসাব (সাধারণত ২৬)",hoursDay:"দিনে কাজের ঘণ্টা",otRate:"ওভারটাইম রেট (আইনে ১.২৫)",doubleRate:"ডাবল ডিউটিতে কত দিনের বেতন বেশি",
+monthSalary:"মাসিক বেতন ({c})",settings:"বেতনের নিয়ম বদলান",workDays:"মাসে কত দিন ধরে হিসাব (সাধারণত {wd})",hoursDay:"দিনে কাজের ঘণ্টা",otRate:"ওভারটাইম রেট (আইনে {ot})",doubleRate:"ডাবল ডিউটিতে কত দিনের বেতন বেশি",
 days:"দিন",hours:"ঘণ্টা",base:"মূল বেতন",absentCut:"অনুপস্থিত কাটা",doubleAdd:"ডাবল ডিউটি",otAdd:"ওভারটাইম",total:"এই মাসে মোট পাওনা",listen:"🔊 শুনুন",
-speak:"এই মাসে আপনার মোট পাওনা {x} দিনার",salaryFirst:"আগে উপরে মাসিক বেতন লিখুন",
-docIqama:"ইকামা / সিভিল আইডি",docVisa:"ভিসা",docPassport:"পাসপোর্ট",docLicense:"ড্রাইভিং লাইসেন্স",daysLeft:"{n} দিন বাকি",expired:"মেয়াদ শেষ!",notSet:"তারিখ দিন",docsNote:"মেয়াদ শেষের তারিখ দিন। ৬০ দিনের কম থাকলে হলুদ, ৩০ দিনের কম থাকলে লাল দেখাবে। অ্যাপ খুললেই হোমে দেখাবে।",
-gStart:"কাজ শুরুর তারিখ",gEnd:"কাজ শেষের তারিখ",gSalary:"শেষ মাসের বেতন (দিনার)",gHow:"চাকরি কিভাবে শেষ হলো?",gContract:"চুক্তি শেষ / কোম্পানি বাদ দিয়েছে",gResign:"নিজে ছেড়ে দিয়েছি",
-gYears:"চাকরি: {y} বছর {m} মাস",gResult:"আপনার গ্র্যাচুইটি",gNote:"কুয়েতের বেসরকারি খাতের শ্রম আইন ৬/২০১০ অনুযায়ী আনুমানিক হিসাব।",gNone:"৩ বছরের কম চাকরিতে নিজে ছেড়ে দিলে আইনে গ্র্যাচুইটি নেই।",
-mAmount:"কত দিনার পাঠাবেন?",mRate:"রেট: ১ দিনার = কত টাকা?",mResult:"পরিবার পাবে",mSoon:"⏳ আপনার দেশের মুদ্রার রেট শীঘ্রই আসছে",ratesTitle:"১ দিনার = কত টাকা",rateTap:"রেটে টাচ করলে নিচের হিসাবে বসে যাবে। পাঠানোর আগে এক্সচেঞ্জে রেট মিলিয়ে নিন।",needPerm:"এক্সচেঞ্জের অনুমতি লাগবে",
-disc:"এই হিসাব আনুমানিক। নিশ্চিত হতে চুক্তিপত্র দেখুন।",kd:"দিনার",noVoice:"এই ফোনে এই ভাষার ভয়েস নেই",
+speak:"এই মাসে আপনার মোট পাওনা {x} {c}",salaryFirst:"আগে উপরে মাসিক বেতন লিখুন",
+docIqama:"{doc}",docVisa:"ভিসা",docPassport:"পাসপোর্ট",docLicense:"ড্রাইভিং লাইসেন্স",daysLeft:"{n} দিন বাকি",expired:"মেয়াদ শেষ!",notSet:"তারিখ দিন",docsNote:"মেয়াদ শেষের তারিখ দিন। ৬০ দিনের কম থাকলে হলুদ, ৩০ দিনের কম থাকলে লাল দেখাবে। অ্যাপ খুললেই হোমে দেখাবে।",
+gStart:"কাজ শুরুর তারিখ",gEnd:"কাজ শেষের তারিখ",gSalary:"{sb} ({c})",gHow:"চাকরি কিভাবে শেষ হলো?",gContract:"চুক্তি শেষ / কোম্পানি বাদ দিয়েছে",gResign:"নিজে ছেড়ে দিয়েছি",
+gYears:"চাকরি: {y} বছর {m} মাস",gResult:"আপনার গ্র্যাচুইটি",gNote:"{law} অনুযায়ী আনুমানিক হিসাব।",gNone:"এই চাকরির মেয়াদে আইন অনুযায়ী গ্র্যাচুইটি পাওনা হয় না।",
+mAmount:"কত {c} পাঠাবেন?",mRate:"রেট: ১ {c} = কত টাকা?",mResult:"পরিবার পাবে",mSoon:"⏳ আপনার দেশের মুদ্রার রেট শীঘ্রই আসছে",ratesTitle:"১ {c} = কত টাকা",rateTap:"রেটে টাচ করলে নিচের হিসাবে বসে যাবে। পাঠানোর আগে এক্সচেঞ্জে রেট মিলিয়ে নিন।",needPerm:"এক্সচেঞ্জের অনুমতি লাগবে",
+disc:"এই হিসাব আনুমানিক। নিশ্চিত হতে চুক্তিপত্র দেখুন।",kd:"{c}",noVoice:"এই ফোনে এই ভাষার ভয়েস নেই",
 cvIntro:"নিয়োগকর্তারা ইংরেজি সিভি পড়েন, তাই সিভি ইংরেজিতে তৈরি হবে। ঘরগুলো ইংরেজিতে পূরণ করুন।",cvPhoto:"ছবি দিন",cvName:"পুরো নাম (পাসপোর্টের মতো)",cvTitle:"কাজের পদ (যেমন Electrician)",cvPhone:"মোবাইল / হোয়াটসঅ্যাপ",cvEmail:"ইমেইল (যদি থাকে)",cvNat:"জাতীয়তা",cvDob:"জন্ম তারিখ",cvExp:"কাজের অভিজ্ঞতা",cvAddExp:"+ অভিজ্ঞতা যোগ করুন",cvRole:"পদ",cvCompany:"কোম্পানি",cvCountry:"দেশ",cvYears:"কত বছর",cvSkills:"দক্ষতা (টাচ করে বাছুন)",cvMore:"অন্য দক্ষতা (কমা দিয়ে লিখুন)",cvLangs:"ভাষা",cvEdu:"পড়াশোনা / ট্রেনিং",cvLic:"গাড়ির লাইসেন্স (যদি থাকে)",cvPreview:"সিভি দেখুন",cvPrint:"🖨️ প্রিন্ট / PDF",cvCopy:"📋 লেখা কপি",cvWa:"💬 হোয়াটসঅ্যাপে পাঠান",remove:"মুছুন",copied:"কপি হয়েছে",printNo:"এখানে প্রিন্ট হয় না — আপনার সাইটে বসানোর পর হবে",
 jobsWarn:"⚠️ সাবধান: চাকরির নামে টাকা চাইলে বা ভিসা বিক্রি করলে সেটা প্রতারণা হতে পারে। শুধু সরকার-অনুমোদিত এজেন্সি আর বিশ্বস্ত সাইট ব্যবহার করুন।",jobsDemand:"উপসাগরে এখন যেসব কাজের চাহিদা বেশি",jobsSites:"বিশ্বস্ত চাকরির সাইট",jobsCvHint:"আগে সিভি বানিয়ে নিন, তারপর এসব সাইটে আবেদন করুন।",govTag:"সরকারি",
-helpCall:"জরুরি নম্বর (কুয়েত)",helpEmergency:"পুলিশ / অ্যাম্বুলেন্স / ফায়ার",helpEmbassy:"বাংলাদেশ দূতাবাস হটলাইন",helpGov:"দরকারি সরকারি সাইট",helpNote:"নম্বর বদলাতে পারে। দূতাবাসের অফিসিয়াল পেজে মিলিয়ে নিন।",
+helpCall:"জরুরি নম্বর ({n})",helpEmergency:"পুলিশ / অ্যাম্বুলেন্স / ফায়ার",helpEmbassy:"বাংলাদেশ দূতাবাস হটলাইন",helpGov:"দরকারি সরকারি সাইট",helpNote:"নম্বর বদলাতে পারে। দূতাবাসের অফিসিয়াল পেজে মিলিয়ে নিন।",
 bkIntro:"আপনার সব তথ্য শুধু এই ফোনে থাকে। ফোন হারালে যেন না হারায়, মাঝে মাঝে ব্যাকআপ নিন।",bkSave:"💾 ব্যাকআপ ফাইল নিন",bkCopy:"📋 ব্যাকআপ কোড কপি করুন",bkRestore:"ফেরত আনুন",bkFile:"📂 ব্যাকআপ ফাইল বেছে নিন",bkPaste:"অথবা ব্যাকআপ কোড এখানে পেস্ট করুন",bkDone:"সব তথ্য ফেরত এসেছে ✅",bkBad:"ভুল ব্যাকআপ — আবার চেষ্টা করুন",bkHow:"ফাইল বা কোডটা নিজের হোয়াটসঅ্যাপ বা Google Drive-এ রেখে দিন।",back:"← ফিরে যান",
 months:["জানুয়ারি","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","আগস্ট","সেপ্টেম্বর","অক্টোবর","নভেম্বর","ডিসেম্বর"],wd:["রবি","সোম","মঙ্গল","বুধ","বৃহঃ","শুক্র","শনি"]},
-en:{name:"English",flag:"🇬🇧",cur:"home currency",tag:"Your trusted companion abroad",splash:"Sweat in the desert, dreams back home",install:"📲 Install the app on your phone",installIos:"On iPhone: tap Share → \"Add to Home Screen\"",chooseLang:"Choose your language",
+en:{name:"English",flag:"🇬🇧",cur:"home currency",tag:"Your trusted companion abroad",chooseCountry:"Which country do you work in?",countryWhy:"Salary rules, gratuity, currency and emergency numbers change by country",chCountry:"Change country",mkt:"Market rate",mktNote:"International market rate — exchange rates can be a little higher or lower",helpMail:"Embassy email",cvSum:"2–3 lines about you (Profile)",cvAutoSum:"✨ Write it for me",cvLoc:"Country you are in now",cvAvail:"When can you join",cvVisa:"Visa status",cvCert:"Certificates / training courses",cvPass:"Passport valid until",cvRef:"Reference (if any)",cvStyle:"CV design",splash:"Sweat in the desert, dreams back home",install:"📲 Install the app on your phone",installIos:"On iPhone: tap Share → \"Add to Home Screen\"",chooseLang:"Choose your language",
 hello:"Hello 👋",helloSub:"Your duty, salary and papers — all in one place",
 navHome:"Home",navDuty:"Duty",navSalary:"Salary",navMoney:"Money",navMore:"More",
 tDuty:"Duty",tSalary:"Salary",tDocs:"Papers",tGrat:"Gratuity",tMoney:"Send money",tCv:"Make CV",tJobs:"Jobs",tHelp:"Emergency help",tBackup:"Backup",
 thisMonth:"Due this month",nextDoc:"Next expiry",bestRate:"Best rate today",dutyDays:"Duty days this month",allTools:"All tools",setSalary:"Enter salary",noDoc:"Add dates",
 stDuty:"Duty",stDouble:"Double",stOT:"Overtime",stOff:"Off day",stAbsent:"Absent",stErase:"Erase",
 tapHint:"Pick one above, then tap the dates",otHours:"How many overtime hours?",ok:"OK",cancel:"Cancel",
-monthSalary:"Monthly salary (KD)",settings:"Change salary rules",workDays:"Days per month for daily pay (usually 26)",hoursDay:"Work hours per day",otRate:"Overtime rate (law: 1.25)",doubleRate:"Extra days' pay for a double duty",
+monthSalary:"Monthly salary ({c})",settings:"Change salary rules",workDays:"Days per month for daily pay (usually {wd})",hoursDay:"Work hours per day",otRate:"Overtime rate (law: {ot})",doubleRate:"Extra days' pay for a double duty",
 days:"days",hours:"hours",base:"Basic salary",absentCut:"Absent deduction",doubleAdd:"Double duty",otAdd:"Overtime",total:"Total due this month",listen:"🔊 Listen",
-speak:"Your total due this month is {x} dinar",salaryFirst:"First enter your monthly salary above",
-docIqama:"Iqama / Civil ID",docVisa:"Visa",docPassport:"Passport",docLicense:"Driving licence",daysLeft:"{n} days left",expired:"Expired!",notSet:"Set date",docsNote:"Enter expiry dates. Yellow under 60 days, red under 30 days. Shown on Home whenever you open the app.",
-gStart:"Start date",gEnd:"End date",gSalary:"Last monthly salary (KD)",gHow:"How did the job end?",gContract:"Contract ended / company ended it",gResign:"I resigned",
-gYears:"Service: {y} years {m} months",gResult:"Your gratuity",gNote:"Estimate under Kuwait Private Sector Labour Law 6/2010.",gNone:"Resigning with under 3 years' service: no gratuity by law.",
-mAmount:"How many dinars to send?",mRate:"Rate: 1 KD = ?",mResult:"Family receives",mSoon:"⏳ Rates for your home currency are coming soon",ratesTitle:"1 KD = ? BDT",rateTap:"Tap a rate to use it below. Confirm the rate at the exchange before sending.",needPerm:"needs the exchange's permission",
-disc:"This is an estimate. Check your contract to be sure.",kd:"KD",noVoice:"No voice for this language on this phone",
+speak:"Your total due this month is {x} {c}",salaryFirst:"First enter your monthly salary above",
+docIqama:"{doc}",docVisa:"Visa",docPassport:"Passport",docLicense:"Driving licence",daysLeft:"{n} days left",expired:"Expired!",notSet:"Set date",docsNote:"Enter expiry dates. Yellow under 60 days, red under 30 days. Shown on Home whenever you open the app.",
+gStart:"Start date",gEnd:"End date",gSalary:"{sb} ({c})",gHow:"How did the job end?",gContract:"Contract ended / company ended it",gResign:"I resigned",
+gYears:"Service: {y} years {m} months",gResult:"Your gratuity",gNote:"Estimate under {law}.",gNone:"No gratuity is due by law for this length of service.",
+mAmount:"How much {c} to send?",mRate:"Rate: 1 {c} = ?",mResult:"Family receives",mSoon:"⏳ Rates for your home currency are coming soon",ratesTitle:"1 {c} = ? BDT",rateTap:"Tap a rate to use it below. Confirm the rate at the exchange before sending.",needPerm:"needs the exchange's permission",
+disc:"This is an estimate. Check your contract to be sure.",kd:"{c}",noVoice:"No voice for this language on this phone",
 cvIntro:"Employers read CVs in English, so your CV is made in English. Fill the boxes in English.",cvPhoto:"Add photo",cvName:"Full name (as in passport)",cvTitle:"Job title (e.g. Electrician)",cvPhone:"Mobile / WhatsApp",cvEmail:"Email (if any)",cvNat:"Nationality",cvDob:"Date of birth",cvExp:"Work experience",cvAddExp:"+ Add experience",cvRole:"Position",cvCompany:"Company",cvCountry:"Country",cvYears:"Years",cvSkills:"Skills (tap to choose)",cvMore:"Other skills (comma separated)",cvLangs:"Languages",cvEdu:"Education / training",cvLic:"Driving licence (if any)",cvPreview:"CV preview",cvPrint:"🖨️ Print / PDF",cvCopy:"📋 Copy text",cvWa:"💬 Send on WhatsApp",remove:"Remove",copied:"Copied",printNo:"Printing doesn't work here — it will on your own site",
 jobsWarn:"⚠️ Careful: anyone asking money for a job or selling visas may be a fraud. Use only government-approved agencies and trusted sites.",jobsDemand:"Jobs in high demand in the Gulf now",jobsSites:"Trusted job sites",jobsCvHint:"Make your CV first, then apply on these sites.",govTag:"Govt.",
-helpCall:"Emergency numbers (Kuwait)",helpEmergency:"Police / Ambulance / Fire",helpEmbassy:"Bangladesh Embassy hotline",helpGov:"Useful official sites",helpNote:"Numbers can change. Confirm on the embassy's official page.",
+helpCall:"Emergency numbers ({n})",helpEmergency:"Police / Ambulance / Fire",helpEmbassy:"Bangladesh Embassy hotline",helpGov:"Useful official sites",helpNote:"Numbers can change. Confirm on the embassy's official page.",
 bkIntro:"All your data stays only on this phone. Take a backup now and then so you don't lose it if the phone is lost.",bkSave:"💾 Save backup file",bkCopy:"📋 Copy backup code",bkRestore:"Restore",bkFile:"📂 Choose backup file",bkPaste:"Or paste a backup code here",bkDone:"All data restored ✅",bkBad:"Invalid backup — try again",bkHow:"Keep the file or code in your own WhatsApp or Google Drive.",back:"← Back",
 months:["January","February","March","April","May","June","July","August","September","October","November","December"],wd:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]},
 hi:{name:"हिन्दी",flag:"🇮🇳",cur:"रुपये",tag:"प्रवासी का भरोसेमंद साथी",splash:"पसीना रेगिस्तान में, सपने घर पर",hello:"नमस्ते 👋",helloSub:"आपकी ड्यूटी, तनख्वाह और कागज़ात — सब एक जगह",
@@ -198,14 +209,14 @@ tDuty:"ड्यूटी",tSalary:"तनख्वाह",tDocs:"कागज�
 thisMonth:"इस महीने बकाया",nextDoc:"सबसे पास की मियाद",bestRate:"आज का सबसे अच्छा रेट",dutyDays:"इस महीने ड्यूटी",allTools:"सभी सुविधाएँ",
 stDuty:"ड्यूटी",stDouble:"डबल",stOT:"ओवरटाइम",stOff:"छुट्टी",stAbsent:"गैरहाज़िर",stErase:"मिटाएँ",
 tapHint:"ऊपर से एक चुनें, फिर तारीख पर टच करें",otHours:"ओवरटाइम कितने घंटे?",ok:"ठीक है",cancel:"रद्द करें",
-monthSalary:"महीने की तनख्वाह (दीनार)",settings:"तनख्वाह के नियम बदलें",workDays:"महीने के कितने दिन से हिसाब (आमतौर पर 26)",hoursDay:"रोज़ काम के घंटे",otRate:"ओवरटाइम रेट (कानून: 1.25)",doubleRate:"डबल ड्यूटी पर कितने दिन की तनख्वाह ज़्यादा",
+monthSalary:"महीने की तनख्वाह ({c})",settings:"तनख्वाह के नियम बदलें",workDays:"महीने के कितने दिन से हिसाब (आमतौर पर {wd})",hoursDay:"रोज़ काम के घंटे",otRate:"ओवरटाइम रेट (कानून: {ot})",doubleRate:"डबल ड्यूटी पर कितने दिन की तनख्वाह ज़्यादा",
 days:"दिन",hours:"घंटे",base:"मूल तनख्वाह",absentCut:"गैरहाज़िरी कटौती",doubleAdd:"डबल ड्यूटी",otAdd:"ओवरटाइम",total:"इस महीने कुल बकाया",listen:"🔊 सुनें",
-speak:"इस महीने आपका कुल बकाया {x} दीनार है",salaryFirst:"पहले ऊपर महीने की तनख्वाह लिखें",
-docIqama:"इकामा / सिविल आईडी",docVisa:"वीज़ा",docPassport:"पासपोर्ट",docLicense:"ड्राइविंग लाइसेंस",daysLeft:"{n} दिन बाकी",expired:"मियाद खत्म!",notSet:"तारीख डालें",
-gStart:"काम शुरू की तारीख",gEnd:"काम खत्म की तारीख",gSalary:"आखिरी महीने की तनख्वाह (दीनार)",gHow:"नौकरी कैसे खत्म हुई?",gContract:"कॉन्ट्रैक्ट खत्म / कंपनी ने निकाला",gResign:"मैंने खुद छोड़ी",
-gYears:"नौकरी: {y} साल {m} महीने",gResult:"आपकी ग्रेच्युटी",gNote:"कुवैत निजी क्षेत्र श्रम कानून 6/2010 के अनुसार अनुमान।",gNone:"3 साल से कम में खुद छोड़ने पर कानूनन ग्रेच्युटी नहीं।",
-mAmount:"कितने दीनार भेजेंगे?",mRate:"रेट: 1 दीनार = कितने रुपये?",mResult:"परिवार को मिलेगा",mSoon:"⏳ आपकी मुद्रा के रेट जल्द आ रहे हैं",
-disc:"यह हिसाब अनुमान है। पक्का करने के लिए कॉन्ट्रैक्ट देखें।",kd:"दीनार",noVoice:"इस फ़ोन में इस भाषा की आवाज़ नहीं है",back:"← वापस",
+speak:"इस महीने आपका कुल बकाया {x} {c} है",salaryFirst:"पहले ऊपर महीने की तनख्वाह लिखें",
+docVisa:"वीज़ा",docPassport:"पासपोर्ट",docLicense:"ड्राइविंग लाइसेंस",daysLeft:"{n} दिन बाकी",expired:"मियाद खत्म!",notSet:"तारीख डालें",
+gStart:"काम शुरू की तारीख",gEnd:"काम खत्म की तारीख",gHow:"नौकरी कैसे खत्म हुई?",gContract:"कॉन्ट्रैक्ट खत्म / कंपनी ने निकाला",gResign:"मैंने खुद छोड़ी",
+gYears:"नौकरी: {y} साल {m} महीने",gResult:"आपकी ग्रेच्युटी",
+mAmount:"कितने {c} भेजेंगे?",mRate:"रेट: 1 {c} = कितने रुपये?",mResult:"परिवार को मिलेगा",mSoon:"⏳ आपकी मुद्रा के रेट जल्द आ रहे हैं",
+disc:"यह हिसाब अनुमान है। पक्का करने के लिए कॉन्ट्रैक्ट देखें।",kd:"{c}",noVoice:"इस फ़ोन में इस भाषा की आवाज़ नहीं है",back:"← वापस",
 months:["जनवरी","फ़रवरी","मार्च","अप्रैल","मई","जून","जुलाई","अगस्त","सितंबर","अक्टूबर","नवंबर","दिसंबर"],wd:["रवि","सोम","मंगल","बुध","गुरु","शुक्र","शनि"]},
 ur:{name:"اردو",flag:"🇵🇰",cur:"روپے",tag:"پردیسی کا بھروسہ مند ساتھی",splash:"پسینہ صحرا میں، خواب گھر میں",rtl:1,hello:"السلام علیکم 👋",helloSub:"آپ کی ڈیوٹی، تنخواہ اور کاغذات — سب ایک جگہ",
 navHome:"ہوم",navDuty:"ڈیوٹی",navSalary:"تنخواہ",navMoney:"پیسے",navMore:"مزید",
@@ -213,14 +224,14 @@ tDuty:"ڈیوٹی",tSalary:"تنخواہ",tDocs:"کاغذات",tGrat:"گریجو
 thisMonth:"اس مہینے واجب",nextDoc:"قریب ترین میعاد",bestRate:"آج کا بہترین ریٹ",dutyDays:"اس مہینے ڈیوٹی",allTools:"تمام سہولیات",
 stDuty:"ڈیوٹی",stDouble:"ڈبل",stOT:"اوور ٹائم",stOff:"چھٹی",stAbsent:"غیر حاضر",stErase:"مٹائیں",
 tapHint:"اوپر سے ایک چنیں، پھر تاریخ کو چھوئیں",otHours:"اوور ٹائم کتنے گھنٹے؟",ok:"ٹھیک ہے",cancel:"منسوخ",
-monthSalary:"ماہانہ تنخواہ (دینار)",settings:"تنخواہ کے اصول بدلیں",workDays:"مہینے کے کتنے دن سے حساب (عام طور پر 26)",hoursDay:"روزانہ کام کے گھنٹے",otRate:"اوور ٹائم ریٹ (قانون: 1.25)",doubleRate:"ڈبل ڈیوٹی پر کتنے دن کی تنخواہ زیادہ",
+monthSalary:"ماہانہ تنخواہ ({c})",settings:"تنخواہ کے اصول بدلیں",workDays:"مہینے کے کتنے دن سے حساب (عام طور پر {wd})",hoursDay:"روزانہ کام کے گھنٹے",otRate:"اوور ٹائم ریٹ (قانون: {ot})",doubleRate:"ڈبل ڈیوٹی پر کتنے دن کی تنخواہ زیادہ",
 days:"دن",hours:"گھنٹے",base:"بنیادی تنخواہ",absentCut:"غیر حاضری کٹوتی",doubleAdd:"ڈبل ڈیوٹی",otAdd:"اوور ٹائم",total:"اس مہینے کل واجب",listen:"🔊 سنیں",
-speak:"اس مہینے آپ کا کل واجب {x} دینار ہے",salaryFirst:"پہلے اوپر ماہانہ تنخواہ لکھیں",
-docIqama:"اقامہ / سول آئی ڈی",docVisa:"ویزا",docPassport:"پاسپورٹ",docLicense:"ڈرائیونگ لائسنس",daysLeft:"{n} دن باقی",expired:"میعاد ختم!",notSet:"تاریخ ڈالیں",
-gStart:"کام شروع کی تاریخ",gEnd:"کام ختم کی تاریخ",gSalary:"آخری ماہ کی تنخواہ (دینار)",gHow:"نوکری کیسے ختم ہوئی؟",gContract:"معاہدہ ختم / کمپنی نے نکالا",gResign:"میں نے خود چھوڑی",
-gYears:"نوکری: {y} سال {m} مہینے",gResult:"آپ کی گریجویٹی",gNote:"کویت نجی شعبہ لیبر قانون 6/2010 کے مطابق اندازہ۔",gNone:"3 سال سے کم میں خود چھوڑنے پر قانوناً گریجویٹی نہیں۔",
-mAmount:"کتنے دینار بھیجیں گے؟",mRate:"ریٹ: 1 دینار = کتنے روپے؟",mResult:"گھر والوں کو ملے گا",mSoon:"⏳ آپ کی کرنسی کے ریٹ جلد آ رہے ہیں",
-disc:"یہ حساب اندازہ ہے۔ یقین کے لیے معاہدہ دیکھیں۔",kd:"دینار",noVoice:"اس فون میں اس زبان کی آواز نہیں",back:"← واپس",
+speak:"اس مہینے آپ کا کل واجب {x} {c} ہے",salaryFirst:"پہلے اوپر ماہانہ تنخواہ لکھیں",
+docVisa:"ویزا",docPassport:"پاسپورٹ",docLicense:"ڈرائیونگ لائسنس",daysLeft:"{n} دن باقی",expired:"میعاد ختم!",notSet:"تاریخ ڈالیں",
+gStart:"کام شروع کی تاریخ",gEnd:"کام ختم کی تاریخ",gHow:"نوکری کیسے ختم ہوئی؟",gContract:"معاہدہ ختم / کمپنی نے نکالا",gResign:"میں نے خود چھوڑی",
+gYears:"نوکری: {y} سال {m} مہینے",gResult:"آپ کی گریجویٹی",
+mAmount:"کتنے {c} بھیجیں گے؟",mRate:"ریٹ: 1 {c} = کتنے روپے؟",mResult:"گھر والوں کو ملے گا",mSoon:"⏳ آپ کی کرنسی کے ریٹ جلد آ رہے ہیں",
+disc:"یہ حساب اندازہ ہے۔ یقین کے لیے معاہدہ دیکھیں۔",kd:"{c}",noVoice:"اس فون میں اس زبان کی آواز نہیں",back:"← واپس",
 months:["جنوری","فروری","مارچ","اپریل","مئی","جون","جولائی","اگست","ستمبر","اکتوبر","نومبر","دسمبر"],wd:["اتوار","پیر","منگل","بدھ","جمعرات","جمعہ","ہفتہ"]},
 ne:{name:"नेपाली",flag:"🇳🇵",cur:"रुपैयाँ",tag:"विदेशमा भरपर्दो साथी",splash:"पसिना मरुभूमिमा, सपना घरमा",hello:"नमस्ते 👋",helloSub:"तपाईंको ड्युटी, तलब र कागजात — सबै एकै ठाउँमा",
 navHome:"होम",navDuty:"ड्युटी",navSalary:"तलब",navMoney:"पैसा",navMore:"थप",
@@ -228,14 +239,14 @@ tDuty:"ड्युटी",tSalary:"तलब",tDocs:"कागजात",tGrat:
 thisMonth:"यो महिना पाउनुपर्ने",nextDoc:"नजिकको म्याद",bestRate:"आजको राम्रो दर",dutyDays:"यो महिना ड्युटी",allTools:"सबै सुविधा",
 stDuty:"ड्युटी",stDouble:"डबल",stOT:"ओभरटाइम",stOff:"बिदा",stAbsent:"अनुपस्थित",stErase:"मेटाउनुहोस्",
 tapHint:"माथि एउटा छान्नुहोस्, अनि मितिमा छुनुहोस्",otHours:"ओभरटाइम कति घण्टा?",ok:"ठीक छ",cancel:"रद्द",
-monthSalary:"मासिक तलब (दिनार)",settings:"तलबको नियम बदल्नुहोस्",workDays:"महिनाको कति दिनले हिसाब (सामान्यतया २६)",hoursDay:"दिनको कामको घण्टा",otRate:"ओभरटाइम दर (कानून: १.२५)",doubleRate:"डबल ड्युटीमा कति दिनको तलब बढी",
+monthSalary:"मासिक तलब ({c})",settings:"तलबको नियम बदल्नुहोस्",workDays:"महिनाको कति दिनले हिसाब (सामान्यतया {wd})",hoursDay:"दिनको कामको घण्टा",otRate:"ओभरटाइम दर (कानून: {ot})",doubleRate:"डबल ड्युटीमा कति दिनको तलब बढी",
 days:"दिन",hours:"घण्टा",base:"मूल तलब",absentCut:"अनुपस्थित कटौती",doubleAdd:"डबल ड्युटी",otAdd:"ओभरटाइम",total:"यो महिना जम्मा पाउनुपर्ने",listen:"🔊 सुन्नुहोस्",
-speak:"यो महिना तपाईंले जम्मा {x} दिनार पाउनुपर्छ",salaryFirst:"पहिले माथि मासिक तलब लेख्नुहोस्",
-docIqama:"इकामा / सिभिल आईडी",docVisa:"भिसा",docPassport:"राहदानी",docLicense:"ड्राइभिङ लाइसेन्स",daysLeft:"{n} दिन बाँकी",expired:"म्याद सकियो!",notSet:"मिति राख्नुहोस्",
-gStart:"काम सुरु मिति",gEnd:"काम सकिएको मिति",gSalary:"अन्तिम महिनाको तलब (दिनार)",gHow:"जागिर कसरी सकियो?",gContract:"सम्झौता सकियो / कम्पनीले हटायो",gResign:"आफैँ छोडेँ",
-gYears:"सेवा: {y} वर्ष {m} महिना",gResult:"तपाईंको ग्र्याच्युटी",gNote:"कुवेत निजी क्षेत्र श्रम कानून ६/२०१० अनुसार अनुमान।",gNone:"३ वर्षभन्दा कममा आफैँ छोडे कानूनअनुसार ग्र्याच्युटी छैन।",
-mAmount:"कति दिनार पठाउने?",mRate:"दर: १ दिनार = कति रुपैयाँ?",mResult:"परिवारले पाउँछ",mSoon:"⏳ तपाईंको मुद्राको दर छिट्टै आउँदैछ",
-disc:"यो हिसाब अनुमान हो। पक्का गर्न सम्झौता हेर्नुहोस्।",kd:"दिनार",noVoice:"यो फोनमा यो भाषाको आवाज छैन",back:"← फर्कनुहोस्",
+speak:"यो महिना तपाईंले जम्मा {x} {c} पाउनुपर्छ",salaryFirst:"पहिले माथि मासिक तलब लेख्नुहोस्",
+docVisa:"भिसा",docPassport:"राहदानी",docLicense:"ड्राइभिङ लाइसेन्स",daysLeft:"{n} दिन बाँकी",expired:"म्याद सकियो!",notSet:"मिति राख्नुहोस्",
+gStart:"काम सुरु मिति",gEnd:"काम सकिएको मिति",gHow:"जागिर कसरी सकियो?",gContract:"सम्झौता सकियो / कम्पनीले हटायो",gResign:"आफैँ छोडेँ",
+gYears:"सेवा: {y} वर्ष {m} महिना",gResult:"तपाईंको ग्र्याच्युटी",
+mAmount:"कति {c} पठाउने?",mRate:"दर: १ {c} = कति रुपैयाँ?",mResult:"परिवारले पाउँछ",mSoon:"⏳ तपाईंको मुद्राको दर छिट्टै आउँदैछ",
+disc:"यो हिसाब अनुमान हो। पक्का गर्न सम्झौता हेर्नुहोस्।",kd:"{c}",noVoice:"यो फोनमा यो भाषाको आवाज छैन",back:"← फर्कनुहोस्",
 months:["जनवरी","फेब्रुअरी","मार्च","अप्रिल","मे","जुन","जुलाई","अगस्ट","सेप्टेम्बर","अक्टोबर","नोभेम्बर","डिसेम्बर"],wd:["आइत","सोम","मंगल","बुध","बिही","शुक्र","शनि"]}
 };
 var VOICE={bn:"bn-BD",en:"en-US",hi:"hi-IN",ur:"ur-PK",ne:"ne-NP"};
@@ -247,8 +258,8 @@ var tab="home",stamp="duty",view=new Date();view.setDate(1);
 
 /* ---------- Exchange rates: robot values (updated by rates.json when hosted) ---------- */
 var HOUSES=[
- {id:"almulla",name:"Al Mulla",bdt:403.044,src:{bn:"রোবট · ১০ নভেম্বর, বিকেল ৫টা",en:"Robot · 10 Nov, 5 pm"}},
- {id:"muzaini",name:"Al Muzaini",bdt:399.249,src:{bn:"রোবট · ১০ নভেম্বর, বিকেল ৫টা",en:"Robot · 10 Nov, 5 pm"}},
+ {id:"almulla",name:"Al Mulla",bdt:403.044,src:{bn:"রোবট · ১০ নভেম্বর, রাত ১০টা",en:"Robot · 10 Nov, 10 pm"}},
+ {id:"muzaini",name:"Al Muzaini",bdt:399.249,src:{bn:"রোবট · ১০ নভেম্বর, রাত ১০টা",en:"Robot · 10 Nov, 10 pm"}},
  {id:"bec",name:"BEC",bdt:null},{id:"lulu",name:"LuLu",bdt:null},{id:"city",name:"City Intl.",bdt:null}];
 
 /* ---------- Trusted links (official / well-known sites only) ---------- */
@@ -259,14 +270,53 @@ var JOBSITES=[
  {i:"🔎",c:"c2",n:"Naukrigulf",u:"https://www.naukrigulf.com/",bn:"উপসাগরের দেশগুলোর চাকরি",en:"Jobs across the Gulf"},
  {i:"🌍",c:"c5",n:"GulfTalent",u:"https://www.gulftalent.com/",bn:"দক্ষ ও অভিজ্ঞদের চাকরি",en:"Jobs for skilled professionals"},
  {i:"🔗",c:"c8",n:"LinkedIn Jobs",u:"https://www.linkedin.com/jobs/",bn:"বিশ্বজুড়ে কোম্পানির সরাসরি চাকরি",en:"Direct company jobs worldwide"},
- {i:"📰",c:"c9",n:"Indeed Kuwait",u:"https://kw.indeed.com/",bn:"কুয়েতের চাকরির বিজ্ঞাপন",en:"Job listings in Kuwait"}];
+ {i:"📰",c:"c9",n:"Indeed",u:"https://kw.indeed.com/",bn:"চাকরির বিজ্ঞাপন",en:"Job listings",indeed:1}];
 var GOVSITES=[
- {i:"🪪",c:"c3",n:"PACI (Kuwait)",u:"https://www.paci.gov.kw/",bn:"সিভিল আইডি সংক্রান্ত সেবা",en:"Civil ID services"},
- {i:"📱",c:"c1",n:"Sahel (Kuwait)",u:"https://sahel.gov.kw/",bn:"কুয়েত সরকারের সেবার অ্যাপ",en:"Kuwait government services app"},
- {i:"👷",c:"c2",n:"PAM (Kuwait)",u:"https://www.pam.gov.kw/",bn:"কুয়েতের জনশক্তি কর্তৃপক্ষ — শ্রম অভিযোগ",en:"Public Authority for Manpower — labour issues"},
  {i:"🤝",c:"c6",n:"Wage Earners' Welfare Board",u:"https://wewb.gov.bd/",bn:"প্রবাসী কল্যাণ বোর্ড (বাংলাদেশ)",en:"Expatriate welfare board (Bangladesh)"}];
 var DEMAND=[["⚡","Electrician","ইলেকট্রিশিয়ান"],["🔧","Plumber","প্লাম্বার"],["🔥","Welder","ওয়েল্ডার"],["❄️","HVAC Technician","এসি টেকনিশিয়ান"],["🧱","Mason","রাজমিস্ত্রি"],["🏗️","Steel Fixer","রড মিস্ত্রি"],["🪚","Carpenter","কাঠমিস্ত্রি"],["🧩","Tile Setter","টাইলস মিস্ত্রি"],["⚙️","Machine Operator","মেশিন অপারেটর"],["🚚","Heavy Driver","ভারী গাড়ির চালক"],["🏗️","Crane Operator","ক্রেন অপারেটর"],["👷","Helper / Labour","হেল্পার"]];
 var SKILLS=["Electrical wiring","Plumbing","Welding","AC repair","Masonry","Steel fixing","Carpentry","Tiling","Painting","Machine operation","Heavy driving","Light driving","Forklift","Cleaning","Cooking","Security guard","Warehouse","Computer basics","Safety (HSE)","Customer service"];
+
+
+/* ---------- Countries: everything that changes with the selected country ---------- */
+var BD_HOTLINE=["+880 9610 102030",{bn:"বাংলাদেশ সরকারের ২৪ ঘণ্টার প্রবাসী হটলাইন",en:"Bangladesh govt. 24-hour expatriate hotline"}];
+var CTY={
+ KW:{flag:"🇰🇼",bn:"কুয়েত",en:"Kuwait",cur:"KWD",dec:3,c:{bn:"দিনার",en:"KD",hi:"दीनार",ur:"دینار",ne:"दिनार"},days:26,ot:1.25,
+  doc:{bn:"সিভিল আইডি",en:"Civil ID"},law:{bn:"কুয়েতের বেসরকারি খাতের শ্রম আইন ৬/২০১০",en:"Kuwait Private Sector Labour Law 6/2010"},sb:{bn:"শেষ মাসের বেতন",en:"Last monthly salary"},
+  grat:function(y,sal){return Math.min(Math.min(5,y)*15*(sal/26)+Math.max(0,y-5)*sal,18*sal);},resign:function(y){return y<3?0:y<5?.5:y<10?2/3:1;},gmin:0,
+  emerg:[["112",{bn:"পুলিশ / অ্যাম্বুলেন্স / ফায়ার",en:"Police / Ambulance / Fire"}]],
+  emb:[["+965 69920013"],["+965 66516404"],["+965 50895161"]],mail:"mission.kuwait@mofa.gov.bd",indeed:"kw",
+  gov:[{i:"🪪",c:"c3",n:"PACI",u:"https://www.paci.gov.kw/",bn:"সিভিল আইডি সংক্রান্ত সেবা",en:"Civil ID services"},{i:"📱",c:"c1",n:"Sahel",u:"https://sahel.gov.kw/",bn:"কুয়েত সরকারের সেবার অ্যাপ",en:"Kuwait government services app"},{i:"👷",c:"c2",n:"PAM",u:"https://www.pam.gov.kw/",bn:"জনশক্তি কর্তৃপক্ষ — শ্রম অভিযোগ",en:"Public Authority for Manpower — labour issues"}]},
+ SA:{flag:"🇸🇦",bn:"সৌদি আরব",en:"Saudi Arabia",cur:"SAR",dec:2,c:{bn:"রিয়াল",en:"SAR",hi:"रियाल",ur:"ریال",ne:"रियाल"},days:30,ot:1.5,
+  doc:{bn:"ইকামা",en:"Iqama"},law:{bn:"সৌদি শ্রম আইনের ধারা ৮৪-৮৫",en:"Saudi Labour Law, Articles 84–85"},sb:{bn:"শেষ মাসের মোট বেতন (ভাতাসহ)",en:"Last total monthly wage (with allowances)"},
+  grat:function(y,sal){return Math.min(5,y)*.5*sal+Math.max(0,y-5)*sal;},resign:function(y){return y<2?0:y<5?1/3:y<10?2/3:1;},gmin:0,
+  emerg:[["911",{bn:"জরুরি (সব সেবা)",en:"Unified emergency"}],["999",{bn:"পুলিশ",en:"Police"}],["997",{bn:"অ্যাম্বুলেন্স",en:"Ambulance"}],["998",{bn:"ফায়ার / সিভিল ডিফেন্স",en:"Fire / Civil Defence"}]],
+  emb:[["8001000125",{bn:"দূতাবাস: শ্রম বিষয়ক (ফ্রি কল)",en:"Embassy: labour matters (toll-free)"}],["8001000126",{bn:"দূতাবাস: পাসপোর্ট (ফ্রি কল)",en:"Embassy: passport (toll-free)"}],["+966 570212180",{bn:"দূতাবাস: মৃত্যু সংক্রান্ত জরুরি",en:"Embassy: death-related emergency"}]],mail:"",indeed:"sa",
+  gov:[{i:"🛡️",c:"c3",n:"Absher",u:"https://www.absher.sa/",bn:"ইকামা, ভিসা, এক্সিট-রিএন্ট্রি সেবা",en:"Iqama, visa and exit–re-entry services"},{i:"📋",c:"c1",n:"Qiwa",u:"https://qiwa.sa/",bn:"কাজের চুক্তি, ওয়ার্ক পারমিট, চাকরি বদল",en:"Work contracts, permits and job transfer"},{i:"👷",c:"c2",n:"MHRSD",u:"https://www.hrsd.gov.sa/",bn:"মানবসম্পদ মন্ত্রণালয় — শ্রম অভিযোগ",en:"Ministry of Human Resources — labour issues"}]},
+ AE:{flag:"🇦🇪",bn:"আরব আমিরাত (দুবাই)",en:"UAE (Dubai)",cur:"AED",dec:2,c:{bn:"দিরহাম",en:"AED",hi:"दिरहम",ur:"درہم",ne:"दिरहाम"},days:30,ot:1.25,
+  doc:{bn:"এমিরেটস আইডি",en:"Emirates ID"},law:{bn:"আমিরাতের শ্রম আইন (ডিক্রি-ল ৩৩/২০২১)",en:"UAE Labour Law (Decree-Law 33/2021)"},sb:{bn:"শেষ মাসের মূল বেতন (Basic, ভাতা ছাড়া)",en:"Last basic monthly salary (no allowances)"},
+  grat:function(y,sal){return Math.min(Math.min(5,y)*21*(sal/30)+Math.max(0,y-5)*30*(sal/30),24*sal);},resign:function(){return 1;},gmin:1,
+  emerg:[["999",{bn:"পুলিশ",en:"Police"}],["998",{bn:"অ্যাম্বুলেন্স",en:"Ambulance"}],["997",{bn:"ফায়ার / সিভিল ডিফেন্স",en:"Fire / Civil Defence"}]],
+  emb:[["+971 56 611 7215",{bn:"দূতাবাস, আবুধাবি",en:"Embassy, Abu Dhabi"}],["+971 50 816 8253",{bn:"কনস্যুলেট, দুবাই",en:"Consulate, Dubai"}]],mail:"mission.abudhabi@mofa.gov.bd",indeed:"ae",
+  gov:[{i:"👷",c:"c2",n:"MOHRE",u:"https://www.mohre.gov.ae/",bn:"মানবসম্পদ মন্ত্রণালয় — চুক্তি ও শ্রম অভিযোগ",en:"Ministry of Human Resources — contracts and labour issues"},{i:"🪪",c:"c3",n:"ICP",u:"https://icp.gov.ae/",bn:"এমিরেটস আইডি ও ভিসা সেবা",en:"Emirates ID and visa services"},{i:"🏛️",c:"c1",n:"u.ae",u:"https://u.ae/",bn:"আমিরাত সরকারের অফিসিয়াল পোর্টাল",en:"Official UAE government portal"}]},
+ QA:{flag:"🇶🇦",bn:"কাতার",en:"Qatar",cur:"QAR",dec:2,c:{bn:"রিয়াল",en:"QAR",hi:"रियाल",ur:"ریال",ne:"रियाल"},days:30,ot:1.25,
+  doc:{bn:"কাতার আইডি (QID)",en:"Qatar ID (QID)"},law:{bn:"কাতারের শ্রম আইন ১৪/২০০৪ (অন্তত ৩ সপ্তাহের মূল বেতন)",en:"Qatar Labour Law 14/2004 (minimum 3 weeks' basic pay)"},sb:{bn:"শেষ মাসের মূল বেতন (Basic)",en:"Last basic monthly salary"},
+  grat:function(y,sal){return y*21*(sal/30);},resign:function(){return 1;},gmin:1,
+  emerg:[["999",{bn:"পুলিশ / অ্যাম্বুলেন্স / ফায়ার",en:"Police / Ambulance / Fire"}]],
+  emb:[],mail:"mission.doha@mofa.gov.bd",indeed:"qa",
+  gov:[{i:"👷",c:"c2",n:"Ministry of Labour",u:"https://www.mol.gov.qa/",bn:"শ্রম মন্ত্রণালয় — চুক্তি ও অভিযোগ",en:"Ministry of Labour — contracts and complaints"},{i:"📱",c:"c3",n:"MOI / Metrash",u:"https://portal.moi.gov.qa/",bn:"আইডি, ভিসা — মেট্রাশ অ্যাপ",en:"ID and visa — Metrash app"},{i:"🏛️",c:"c1",n:"Hukoomi",u:"https://hukoomi.gov.qa/",bn:"কাতার সরকারের অফিসিয়াল পোর্টাল",en:"Official Qatar government portal"}]},
+ BH:{flag:"🇧🇭",bn:"বাহরাইন",en:"Bahrain",cur:"BHD",dec:3,c:{bn:"দিনার",en:"BD",hi:"दीनार",ur:"دینار",ne:"दिनार"},days:30,ot:1.25,
+  doc:{bn:"সিপিআর (CPR)",en:"CPR (ID card)"},law:{bn:"বাহরাইনের শ্রম আইন ৩৬/২০১২ (২০২৪ থেকে SIO পরিশোধ করে)",en:"Bahrain Labour Law 36/2012 (paid by SIO since 2024)"},sb:{bn:"শেষ মাসের বেতন",en:"Last monthly salary"},
+  grat:function(y,sal){return Math.min(3,y)*.5*sal+Math.max(0,y-3)*sal;},resign:function(){return 1;},gmin:0,
+  emerg:[["999",{bn:"পুলিশ / অ্যাম্বুলেন্স / ফায়ার",en:"Police / Ambulance / Fire"}]],
+  emb:[["+973 3337 5155",{bn:"দূতাবাস হটলাইন",en:"Embassy hotline"}],["+973 1723 3925",{bn:"দূতাবাস অফিস",en:"Embassy office"}]],mail:"mission.manama@mofa.gov.bd",indeed:"bh",
+  gov:[{i:"👷",c:"c2",n:"LMRA",u:"https://www.lmra.gov.bh/",bn:"ওয়ার্ক পারমিট ও শ্রম বাজার কর্তৃপক্ষ",en:"Work permits — Labour Market Regulatory Authority"},{i:"🤝",c:"c1",n:"SIO",u:"https://www.sio.gov.bh/",bn:"সামাজিক বীমা — চাকরি শেষের পাওনা",en:"Social Insurance — end-of-service pay"},{i:"🏛️",c:"c3",n:"bahrain.bh",u:"https://www.bahrain.bh/",bn:"বাহরাইন সরকারের অফিসিয়াল পোর্টাল",en:"Official Bahrain government portal"}]}};
+var CTY_ORDER=["SA","AE","KW","QA","BH"];
+/* Market rate: 1 USD in each currency (robot keeps this fresh; these are the fallback values). */
+var USD={"KWD":0.310638,"SAR":3.75,"AED":3.6725,"QAR":3.64,"BHD":0.376,"BDT":124.258644,"INR":93.929192,"PKR":276.541346,"NPR":150.276886};
+function C(){return CTY[D.country]||CTY.KW;}
+function cname(){var c=C();return isBn()?c.bn:c.en;}
+function cur(){var c=C();return c.c[D.lang||"bn"]||c.c.en;}
+function loc(o){return o?(isBn()?o.bn:o.en):"";}
 
 /* ---------- Helpers ---------- */
 function load(){var d=null;try{d=JSON.parse(localStorage.getItem(KEY));}catch(e){}
@@ -274,7 +324,8 @@ function load(){var d=null;try{d=JSON.parse(localStorage.getItem(KEY));}catch(e)
  if(d.workDays==null)d.workDays=26;if(d.hoursDay==null)d.hoursDay=8;if(d.otRate==null)d.otRate=1.25;if(d.dbl==null)d.dbl=1;return d;}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(D));}catch(e){toast("⚠️ storage full");}}
 function L(){return T[D.lang||"bn"];}
-function t(k){var x=L()[k];return x!=null?x:T.en[k];}
+function t(k){var x=L()[k];if(x==null)x=T.en[k];if(typeof x!=="string")return x;var c=C();
+ return x.replace(/\{c\}/g,cur()).replace(/\{n\}/g,cname()).replace(/\{doc\}/g,loc(c.doc)).replace(/\{law\}/g,loc(c.law)).replace(/\{sb\}/g,loc(c.sb)).replace(/\{ot\}/g,nd(c.ot)).replace(/\{wd\}/g,nd(c.days));}
 function isBn(){return (D.lang||"bn")==="bn";}
 function nd(x){var s=String(x),m=DIG[D.lang||"bn"];if(!m)return s;return s.replace(/[0-9]/g,function(c){return m[+c];});}
 function money(x,dec){return nd((Math.round(x*Math.pow(10,dec))/Math.pow(10,dec)).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,","));}
@@ -301,8 +352,8 @@ function calc(y,m){var s=monthStats(y,m),sal=num(D.salary),daily=sal/(num(D.work
  var a=s.absent*daily,dd=s.double*daily*num(D.dbl),ot=s.ot*hourly*(num(D.otRate)||1.25);return{s:s,sal:sal,a:a,dd:dd,ot:ot,tot:Math.max(0,sal-a+dd+ot)};}
 function gratCalc(){var g=D.grat,sal=num(g.salary);if(!g.start||!g.end||!sal)return null;
  var a=new Date(g.start+"T00:00:00"),b=new Date(g.end+"T00:00:00");if(b<=a)return null;
- var yrs=(b-a)/864e5/365,full=Math.min(5,yrs)*15*(sal/26)+Math.max(0,yrs-5)*sal;full=Math.min(full,18*sal);
- var f=1;if(g.how==="resign"){f=yrs<3?0:yrs<5?.5:yrs<10?2/3:1;}
+ var c=C(),yrs=(b-a)/864e5/365,full=yrs<c.gmin?0:c.grat(yrs,sal);
+ var f=yrs<c.gmin?0:1;if(f&&g.how==="resign")f=c.resign(yrs);
  var mo=Math.floor(yrs*12+1e-9);return{y:Math.floor(mo/12),m:mo%12,amt:full*f,none:f===0};}
 function docLeft(v){var now=new Date();now.setHours(0,0,0,0);return Math.round((new Date(v+"T00:00:00")-now)/864e5);}
 function badge(left){return left<0?'<span class="badge b-r">⚠️ '+esc(t("expired"))+'</span>':'<span class="badge '+(left<30?"b-r":left<60?"b-y":"b-ok")+'">'+esc(t("daysLeft").replace("{n}",nd(left)))+'</span>';}
@@ -313,7 +364,7 @@ function render(){
  var l=L();document.documentElement.lang=D.lang||"bn";document.documentElement.dir=l.rtl?"rtl":"ltr";
  var titles={home:[t("hello"),t("helloSub")],more:[t("allTools"),""]};
  TOOLS.forEach(function(x){titles[x[0]]=[x[1]+" "+t(x[3]),""];});
- var h='<header class="'+(tab==="home"?"big":"")+'">'+SCENE+'<div class="top"><div class="logo">🐫</div><h1>Probashi Duty Life<small>'+esc(t("tag"))+'</small></h1><button class="langbtn" id="lb" aria-label="language">'+l.flag+'</button></div>';
+ var h='<header class="'+(tab==="home"?"big":"")+'">'+SCENE+'<div class="top"><div class="logo">🐫</div><h1>Probashi Duty Life<small>'+esc(t("tag"))+'</small></h1><button class="langbtn" id="cb" aria-label="country" style="margin-inline-end:6px">'+C().flag+'</button><button class="langbtn" id="lb" aria-label="language">'+l.flag+'</button></div>';
  h+='<div class="htitle">'+esc(titles[tab][0])+'</div>'+(titles[tab][1]?'<div class="hsub">'+esc(titles[tab][1])+'</div>':'');
  if(!NAVSET[tab]&&tab!=="more")h+='<button class="back" id="bk">'+esc(t("back"))+'</button>';
  h+='</header><main>';
@@ -321,13 +372,13 @@ function render(){
  var navOn=NAVSET[tab]?tab:"more";
  h+='</main><nav><div class="in">'+NAV.map(function(x){return '<button data-go="'+x[0]+'" class="'+(navOn===x[0]?"on":"")+'"><b>'+x[1]+'</b>'+esc(t(x[2]))+'</button>';}).join("")+'</div></nav>';
  $("app").innerHTML=h;bind();
- if(!D.lang)langDialog();
+ if(!D.lang)langDialog();else if(!D.country)countryDialog();
 }
 function vHome(){
- var now=new Date(),c=calc(now.getFullYear(),now.getMonth()),best=bestHouse(),nearest=null;
+ var now=new Date(),c=calc(now.getFullYear(),now.getMonth()),best=(D.country==="KW"||!D.country)?bestHouse():(market()?{bdt:market(),name:t("mkt")}:null),nearest=null;
  DOCS.forEach(function(d){var v=D.docs[d[0]];if(v){var left=docLeft(v);if(!nearest||left<nearest.left)nearest={left:left,name:t(d[2])};}});
  var h='<div class="stats lift">';
- h+='<button class="stat" data-go="salary"><small>💰 '+esc(t("thisMonth"))+'</small><b>'+(c.sal?money(c.tot,3)+' <span>'+esc(t("kd"))+'</span>':'—')+'</b><span>'+(c.sal?"":esc(t("setSalary")))+'</span></button>';
+ h+='<button class="stat" data-go="salary"><small>💰 '+esc(t("thisMonth"))+'</small><b>'+(c.sal?money(c.tot,C().dec)+' <span>'+esc(t("kd"))+'</span>':'—')+'</b><span>'+(c.sal?"":esc(t("setSalary")))+'</span></button>';
  h+='<button class="stat" data-go="duty"><small>📅 '+esc(t("dutyDays"))+'</small><b>'+nd(c.s.duty+c.s.double)+' <span>'+esc(t("days"))+'</span></b><span>✖️2 '+nd(c.s.double)+' · ⏱️ '+nd(c.s.ot)+'h</span></button>';
  h+='<button class="stat" data-go="docs"><small>🪪 '+esc(t("nextDoc"))+'</small>'+(nearest?'<b style="font-size:15px">'+esc(nearest.name)+'</b>'+badge(nearest.left):'<b>—</b><span>'+esc(t("noDoc"))+'</span>')+'</button>';
  h+='<button class="stat" data-go="money"><small>💸 '+esc(t("bestRate"))+'</small>'+(best?'<b>'+money(best.bdt,2)+' <span>৳</span></b><span>'+esc(best.name)+'</span>':'<b>—</b>')+'</button></div>';
@@ -340,7 +391,7 @@ var installEvt=null;
 function standalone(){try{return window.matchMedia("(display-mode: standalone)").matches||navigator.standalone;}catch(e){return false;}}
 function isIos(){return /iphone|ipad|ipod/i.test(navigator.userAgent||"");}
 function tilesHtml(){return '<div class="tiles">'+TOOLS.map(function(x){return '<button class="tile" data-go="'+x[0]+'"><i class="'+x[2]+'">'+x[1]+'</i>'+esc(t(x[3]))+'</button>';}).join("")+'</div>';}
-function vMore(){return '<div class="lift"></div>'+tilesHtml()+'<button class="btn alt" id="lb2" style="margin-top:14px">🌐 '+esc(L().name)+' · Language</button>';}
+function vMore(){return '<div class="lift"></div>'+tilesHtml()+'<button class="btn alt" id="cb2" style="margin-top:14px">'+C().flag+' '+esc(cname())+' · '+esc(t("chCountry"))+'</button><button class="btn alt" id="lb2" style="margin-top:14px">🌐 '+esc(L().name)+' · Language</button>';}
 function bestHouse(){var b=null;HOUSES.forEach(function(h){if(h.bdt&&(!b||h.bdt>b.bdt))b=h;});return b;}
 function vDuty(){
  var l=L(),y=view.getFullYear(),m=view.getMonth(),first=new Date(y,m,1).getDay(),n=new Date(y,m+1,0).getDate(),now=new Date(),tk=ymd(now.getFullYear(),now.getMonth(),now.getDate());
@@ -361,9 +412,9 @@ function vSalary(){
  h+='<div class="card"><h2>📅 '+esc(l.months[m])+' '+nd(view.getFullYear())+'</h2>';
  if(!c.sal)return h+'<div class="warn">'+esc(t("salaryFirst"))+'</div></div>';
  h+=row("💵",t("base"),"",c.sal,"")+row("❌",t("absentCut"),nd(c.s.absent)+" "+t("days"),c.a,"minus")+row("✖️2",t("doubleAdd"),nd(c.s.double)+" "+t("days"),c.dd,"plus")+row("⏱️",t("otAdd"),nd(c.s.ot)+" "+t("hours"),c.ot,"plus");
- return h+'<div class="total"><small>'+esc(t("total"))+'</small><b>'+money(c.tot,3)+' '+esc(t("kd"))+'</b></div><button class="btn" id="say">'+esc(t("listen"))+'</button><div class="note">ℹ️ '+esc(t("disc"))+'</div></div>';
+ return h+'<div class="total"><small>'+esc(t("total"))+'</small><b>'+money(c.tot,C().dec)+' '+esc(t("kd"))+'</b></div><button class="btn" id="say">'+esc(t("listen"))+'</button><div class="note">ℹ️ '+esc(t("disc"))+'</div></div>';
 }
-function row(ic,label,sub,val,cls){return '<div class="row"><span>'+ic+' '+esc(label)+(sub?' <small style="color:var(--mut)">('+esc(sub)+')</small>':"")+'</span><span class="'+cls+'">'+(cls==="minus"?"− ":cls==="plus"?"+ ":"")+money(val,3)+'</span></div>';}
+function row(ic,label,sub,val,cls){return '<div class="row"><span>'+ic+' '+esc(label)+(sub?' <small style="color:var(--mut)">('+esc(sub)+')</small>':"")+'</span><span class="'+cls+'">'+(cls==="minus"?"− ":cls==="plus"?"+ ":"")+money(val,C().dec)+'</span></div>';}
 function vDocs(){
  var h='<div class="card lift">';
  DOCS.forEach(function(d){var v=D.docs[d[0]],b=v?badge(docLeft(v)):'<span class="badge b-n">'+esc(t("notSet"))+'</span>';
@@ -374,46 +425,73 @@ function vGrat(){var g=D.grat,r=gratCalc();
  var h='<div class="card lift"><label class="f" style="margin-top:0">📅 '+esc(t("gStart"))+'</label><input type="date" id="gs" value="'+esc(g.start||"")+'"><label class="f">🏁 '+esc(t("gEnd"))+'</label><input type="date" id="ge" value="'+esc(g.end||"")+'"><label class="f">💰 '+esc(t("gSalary"))+'</label><input id="gsal" inputmode="decimal" value="'+esc(g.salary||"")+'" placeholder="0">';
  h+='<label class="f">❓ '+esc(t("gHow"))+'</label><div class="seg"><button data-how="contract" class="'+(g.how!=="resign"?"on":"")+'">📄 '+esc(t("gContract"))+'</button><button data-how="resign" class="'+(g.how==="resign"?"on":"")+'">🚶 '+esc(t("gResign"))+'</button></div></div>';
  if(r){h+='<div class="card"><div class="row"><span>⏳ '+esc(t("gYears").replace("{y}",nd(r.y)).replace("{m}",nd(r.m)))+'</span></div>';
-  h+=r.none?'<div class="warn" style="margin-top:10px">'+esc(t("gNone"))+'</div>':'<div class="total"><small>'+esc(t("gResult"))+'</small><b>'+money(r.amt,3)+' '+esc(t("kd"))+'</b></div><button class="btn" id="gsay">'+esc(t("listen"))+'</button>';
+  h+=r.none?'<div class="warn" style="margin-top:10px">'+esc(t("gNone"))+'</div>':'<div class="total"><small>'+esc(t("gResult"))+'</small><b>'+money(r.amt,C().dec)+' '+esc(t("kd"))+'</b></div><button class="btn" id="gsay">'+esc(t("listen"))+'</button>';
   h+='<div class="note">ℹ️ '+esc(t("gNote"))+' '+esc(t("disc"))+'</div></div>';}
  return h;}
+function market(){var u=USD,c=C();return (u.BDT&&u[c.cur])?u.BDT/u[c.cur]:null;}
 function vHouses(){var lg=D.lang||"bn";if(lg!=="bn"&&lg!=="en")return '<div class="card lift"><div class="info">'+esc(t("mSoon"))+'</div></div>';
- var best=bestHouse(),k=lg==="en"?"en":"bn";
- var h='<div class="card lift"><h2>💱 '+esc(t("ratesTitle"))+'</h2>';
- HOUSES.forEach(function(x){h+='<button class="row" data-rate="'+(x.bdt||"")+'" style="width:100%;background:none;border:0;border-bottom:1px dashed var(--line);font:inherit;color:inherit;text-align:start"><span>🏦 <span><b>'+esc(x.name)+'</b>'+(best&&x===best?' <span class="tag">⭐ BEST</span>':'')+'<br><small style="color:var(--mut)">'+esc(x.bdt?x.src[k]:t("needPerm"))+'</small></span></span><b>'+(x.bdt?money(x.bdt,3):"—")+'</b></button>';});
+ var k=lg==="en"?"en":"bn",m=market(),h='<div class="card lift"><h2>💱 '+esc(t("ratesTitle"))+'</h2>';
+ if(D.country==="KW"||!D.country){var best=bestHouse();
+  HOUSES.forEach(function(x){h+=rateRow(x.name,x.bdt?x.src[k]:t("needPerm"),x.bdt,best&&x===best);});}
+ if(m)h+=rateRow("📊 "+t("mkt"),t("mktNote"),m,false,2);
  return h+'<div class="note">ℹ️ '+esc(t("rateTap"))+'</div></div>';}
+function rateRow(name,sub,val,best,dec){return '<button class="row" data-rate="'+(val?(+val).toFixed(3):"")+'" style="width:100%;background:none;border:0;border-bottom:1px dashed var(--line);font:inherit;color:inherit;text-align:start"><span>🏦 <span><b>'+esc(name)+'</b>'+(best?' <span class="tag">⭐ BEST</span>':'')+'<br><small style="color:var(--mut)">'+esc(sub)+'</small></span></span><b>'+(val?money(val,dec||3):"—")+'</b></button>';}
 function vMoney(){var M=D.money,res=num(M.amt)*num(M.rate);
  return vHouses()+'<div class="card"><label class="f" style="margin-top:0">💵 '+esc(t("mAmount"))+'</label><input id="mamt" inputmode="decimal" value="'+esc(M.amt||"")+'" placeholder="0"><label class="f">💱 '+esc(t("mRate"))+'</label><input id="mrate" inputmode="decimal" value="'+esc(M.rate||"")+'" placeholder="0"><div class="total"><small>'+esc(t("mResult"))+'</small><b id="mres">'+money(res,0)+' '+esc(t("cur"))+'</b></div></div>';}
 
 /* ---------- CV builder ---------- */
+var GCC_NAMES=["Kuwait","Saudi Arabia","UAE","Qatar","Bahrain","Oman"];
+var AVAIL=["Immediately","Within 1 week","Within 1 month","After notice period"];
+var VISA=["Transferable visa (NOC available)","Employment visa","Visit visa","In home country — ready to travel"];
 function cvField(id,label,type,ph){return '<label class="f">'+esc(label)+'</label><input data-cv="'+id+'" '+(type?'type="'+type+'" ':'')+'value="'+esc(D.cv[id]||"")+'" placeholder="'+esc(ph||"")+'">';}
+function cvSelect(id,label,opts){var v=D.cv[id]||"";return '<label class="f">'+esc(label)+'</label><select data-cv="'+id+'"><option value="">—</option>'+opts.map(function(o){return '<option'+(o===v?' selected':'')+'>'+esc(o)+'</option>';}).join("")+'</select>';}
+function totalYears(){var y=0;D.cv.exp.forEach(function(e){y+=num(e.years);});return Math.round(y*10)/10;}
+function gulfCountries(){var out=[];D.cv.exp.forEach(function(e){var c=(e.country||"").trim();if(c&&out.indexOf(c)<0)out.push(c);});return out;}
+function autoSummary(){var cv=D.cv,yrs=totalYears(),cs=gulfCountries(),sk=allSkills().slice(0,3);
+ var s=(cv.title||"Skilled worker")+(yrs?" with "+yrs+" year"+(yrs===1?"":"s")+" of experience":"")+(cs.length?" in "+cs.join(", "):"")+".";
+ if(sk.length)s+=" Skilled in "+sk.join(", ")+".";
+ s+=" Hardworking, reliable and safety-minded, with a good record of following instructions and working in a team.";
+ if(cv.avail)s+=" Available to join: "+cv.avail.toLowerCase()+".";return s;}
 function vCv(){var cv=D.cv;
  var h='<div class="card lift"><div class="info">ℹ️ '+esc(t("cvIntro"))+'</div>';
+ h+='<label class="f">🎨 '+esc(t("cvStyle"))+'</label><div class="seg"><button data-cvstyle="classic" class="'+(cv.style!=="modern"?"on":"")+'">📄 Classic</button><button data-cvstyle="modern" class="'+(cv.style==="modern"?"on":"")+'">✨ Modern</button></div>';
  h+='<label class="f">📷 '+esc(t("cvPhoto"))+'</label><div class="photo">'+(cv.photo?'<img src="'+cv.photo+'" alt="">':'<div class="ph">👤</div>')+'<div style="flex:1"><input type="file" accept="image/*" id="cvph" style="font-size:14px">'+(cv.photo?'<button class="x" id="cvphx">'+esc(t("remove"))+'</button>':'')+'</div></div>';
  h+=cvField("name",t("cvName"),"","MD ...")+cvField("title",t("cvTitle"),"","Electrician")+cvField("phone",t("cvPhone"),"tel","+965 ...")+cvField("email",t("cvEmail"),"email","")+cvField("nat",t("cvNat"),"","Bangladeshi")+cvField("dob",t("cvDob"),"date","");
+ h+=cvSelect("loc",t("cvLoc"),GCC_NAMES.concat(["Bangladesh","India","Pakistan","Nepal"]))+cvSelect("visa",t("cvVisa"),VISA)+cvSelect("avail",t("cvAvail"),AVAIL)+cvField("pass",t("cvPass"),"date","");
  h+='<label class="f">🧰 '+esc(t("cvExp"))+'</label>';
- cv.exp.forEach(function(e,i){h+='<div class="exp"><input data-exp="'+i+'" data-k="role" value="'+esc(e.role||"")+'" placeholder="'+esc(t("cvRole"))+'"><input data-exp="'+i+'" data-k="company" value="'+esc(e.company||"")+'" placeholder="'+esc(t("cvCompany"))+'"><div class="two"><input data-exp="'+i+'" data-k="country" value="'+esc(e.country||"")+'" placeholder="'+esc(t("cvCountry"))+'"><input data-exp="'+i+'" data-k="years" inputmode="decimal" value="'+esc(e.years||"")+'" placeholder="'+esc(t("cvYears"))+'"></div><button class="x" data-expx="'+i+'">'+esc(t("remove"))+'</button></div>';});
+ cv.exp.forEach(function(e,i){h+='<div class="exp"><input data-exp="'+i+'" data-k="role" value="'+esc(e.role||"")+'" placeholder="'+esc(t("cvRole"))+'"><input data-exp="'+i+'" data-k="company" value="'+esc(e.company||"")+'" placeholder="'+esc(t("cvCompany"))+'"><div class="two"><input data-exp="'+i+'" data-k="country" list="cvcountries" value="'+esc(e.country||"")+'" placeholder="'+esc(t("cvCountry"))+'"><input data-exp="'+i+'" data-k="years" inputmode="decimal" value="'+esc(e.years||"")+'" placeholder="'+esc(t("cvYears"))+'"></div><input data-exp="'+i+'" data-k="duty" value="'+esc(e.duty||"")+'" placeholder="Main duties (e.g. Installed wiring, read drawings)"><button class="x" data-expx="'+i+'">'+esc(t("remove"))+'</button></div>';});
+ h+='<datalist id="cvcountries">'+GCC_NAMES.concat(["Bangladesh","India","Pakistan","Nepal","Malaysia","Singapore"]).map(function(c){return '<option value="'+c+'">';}).join("")+'</datalist>';
  h+='<button class="btn alt" id="cvadd">'+esc(t("cvAddExp"))+'</button>';
  h+='<label class="f">⭐ '+esc(t("cvSkills"))+'</label><div class="chips">'+SKILLS.map(function(s){return '<button class="chip '+(cv.skills.indexOf(s)>=0?"on":"")+'" data-skill="'+esc(s)+'">'+esc(s)+'</button>';}).join("")+'</div>';
- h+=cvField("more",t("cvMore"),"","")+cvField("langs",t("cvLangs"),"","Bengali, English, Arabic, Hindi")+cvField("edu",t("cvEdu"),"","SSC 2015, Electrical training (TTC)")+cvField("lic",t("cvLic"),"","Kuwait light driving licence")+'</div>';
+ h+=cvField("more",t("cvMore"),"","")+cvField("langs",t("cvLangs"),"","Bengali, English, Arabic, Hindi")+cvField("edu",t("cvEdu"),"","SSC 2015")+cvField("cert",t("cvCert"),"","Electrical installation course (TTC, 6 months)")+cvField("lic",t("cvLic"),"","Kuwait light driving licence")+cvField("ref",t("cvRef"),"","Name, company, phone");
+ h+='<label class="f">📝 '+esc(t("cvSum"))+'</label><textarea data-cv="sum" id="cvsum" placeholder="Experienced electrician...">'+esc(cv.sum||"")+'</textarea><button class="btn alt" id="cvauto">'+esc(t("cvAutoSum"))+'</button></div>';
  h+='<div class="sec">'+esc(t("cvPreview"))+'</div><div class="card" id="cvwrap">'+cvHtml()+'</div>';
  h+='<div class="noprint"><button class="btn" id="cvprint">'+esc(t("cvPrint"))+'</button><div class="btns"><button class="btn alt" id="cvcopy">'+esc(t("cvCopy"))+'</button><a class="btn gold" id="cvwa" style="display:block;text-align:center;text-decoration:none;box-sizing:border-box" href="'+waLink()+'" target="_blank" rel="noopener">'+esc(t("cvWa"))+'</a></div></div>';
  return h;}
 function allSkills(){var cv=D.cv,more=(cv.more||"").split(",").map(function(s){return s.trim();}).filter(Boolean);return cv.skills.concat(more);}
-function cvHtml(){var cv=D.cv,sk=allSkills();
- var h='<div id="cvp"><div class="hd">'+(cv.photo?'<img src="'+cv.photo+'" alt="">':'')+'<div><h3>'+esc(cv.name||"Your Name")+'</h3><div class="jt">'+esc(cv.title||"Job Title")+'</div><div>'+esc([cv.phone,cv.email].filter(Boolean).join(" · "))+'</div></div></div>';
- var pd=[["Nationality",cv.nat],["Date of birth",cv.dob],["Languages",cv.langs],["Driving licence",cv.lic]].filter(function(r){return r[1];});
- if(pd.length)h+='<h4>PERSONAL DETAILS</h4><table>'+pd.map(function(r){return '<tr><td>'+r[0]+'</td><td>'+esc(r[1])+'</td></tr>';}).join("")+'</table>';
- var ex=cv.exp.filter(function(e){return e.role||e.company;});
- if(ex.length)h+='<h4>WORK EXPERIENCE</h4>'+ex.map(function(e){return '<div style="margin-bottom:6px"><b>'+esc(e.role||"")+'</b>'+(e.company?' — '+esc(e.company):'')+'<br><span style="color:#555">'+esc([e.country,e.years?e.years+" year(s)":""].filter(Boolean).join(" · "))+'</span></div>';}).join("");
- if(sk.length)h+='<h4>SKILLS</h4><ul>'+sk.map(function(s){return '<li>'+esc(s)+'</li>';}).join("")+'</ul>';
- if(cv.edu)h+='<h4>EDUCATION & TRAINING</h4><div>'+esc(cv.edu)+'</div>';
- return h+'</div>';}
-function cvText(){var cv=D.cv,sk=allSkills(),out=[(cv.name||"").toUpperCase(),cv.title||"",[cv.phone,cv.email].filter(Boolean).join(" | "),""];
- [["Nationality",cv.nat],["Date of birth",cv.dob],["Languages",cv.langs],["Driving licence",cv.lic]].forEach(function(r){if(r[1])out.push(r[0]+": "+r[1]);});
- var ex=cv.exp.filter(function(e){return e.role||e.company;});if(ex.length){out.push("","WORK EXPERIENCE");ex.forEach(function(e){out.push("- "+[e.role,e.company,e.country,e.years?e.years+" year(s)":""].filter(Boolean).join(", "));});}
- if(sk.length){out.push("","SKILLS");out.push(sk.join(", "));}
- if(cv.edu){out.push("","EDUCATION & TRAINING",cv.edu);}
+function fmtDate(v){if(!v)return "";var d=new Date(v+"T00:00:00");return isNaN(d)?v:d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});}
+function cvParts(){var cv=D.cv,yrs=totalYears();
+ return {personal:[["Nationality",cv.nat],["Date of birth",fmtDate(cv.dob)],["Current location",cv.loc],["Visa status",cv.visa],["Available",cv.avail],["Passport valid until",fmtDate(cv.pass)],["Driving licence",cv.lic],["Languages",cv.langs]].filter(function(r){return r[1];}),
+  exp:cv.exp.filter(function(e){return e.role||e.company;}),skills:allSkills(),yrs:yrs};}
+function expHtml(e){return '<div style="margin-bottom:8px"><b>'+esc(e.role||"")+'</b>'+(e.company?' — '+esc(e.company):'')+'<br><span style="color:#555">'+esc([e.country,e.years?e.years+" year(s)":""].filter(Boolean).join(" · "))+'</span>'+(e.duty?'<div>• '+esc(e.duty)+'</div>':'')+'</div>';}
+function cvHtml(){var cv=D.cv,P=cvParts(),photo=cv.photo?'<img src="'+cv.photo+'" alt="">':'';
+ var contact=esc([cv.phone,cv.email].filter(Boolean).join(" · "));
+ var tbl=P.personal.length?'<table>'+P.personal.map(function(r){return '<tr><td>'+r[0]+'</td><td>'+esc(r[1])+'</td></tr>';}).join("")+'</table>':"";
+ var exp=P.exp.length?'<h4>WORK EXPERIENCE'+(P.yrs?' ('+P.yrs+' YEARS)':'')+'</h4>'+P.exp.map(expHtml).join(""):"";
+ var sk=P.skills.length?'<h4>SKILLS</h4><ul>'+P.skills.map(function(x){return '<li>'+esc(x)+'</li>';}).join("")+'</ul>':"";
+ var tail=(cv.edu?'<h4>EDUCATION</h4><div>'+esc(cv.edu)+'</div>':'')+(cv.cert?'<h4>CERTIFICATES & TRAINING</h4><div>'+esc(cv.cert)+'</div>':'')+'<h4>REFERENCES</h4><div>'+esc(cv.ref||"Available on request")+'</div>';
+ var sum=cv.sum?'<h4>PROFILE</h4><div>'+esc(cv.sum)+'</div>':'';
+ if(cv.style==="modern"){
+  return '<div id="cvp" class="modern"><div class="side">'+(photo||'<div class="noph">👤</div>')+'<div class="sn">'+esc(cv.name||"Your Name")+'</div><div class="st2">'+esc(cv.title||"Job Title")+'</div>'+(contact?'<h4>CONTACT</h4><div>'+contact.split(" · ").join("<br>")+'</div>':'')+(P.personal.length?'<h4>DETAILS</h4>'+P.personal.map(function(r){return '<div class="kv"><span>'+r[0]+'</span>'+esc(r[1])+'</div>';}).join(""):'')+sk+'</div><div class="main">'+sum+exp+tail+'</div></div>';}
+ return '<div id="cvp"><div class="hd">'+photo+'<div><h3>'+esc(cv.name||"Your Name")+'</h3><div class="jt">'+esc(cv.title||"Job Title")+'</div><div>'+contact+'</div></div></div>'+sum+(tbl?'<h4>PERSONAL DETAILS</h4>'+tbl:'')+exp+sk+tail+'</div>';}
+function cvText(){var cv=D.cv,P=cvParts(),out=[(cv.name||"").toUpperCase(),cv.title||"",[cv.phone,cv.email].filter(Boolean).join(" | "),""];
+ if(cv.sum)out.push("PROFILE",cv.sum,"");
+ P.personal.forEach(function(r){out.push(r[0]+": "+r[1]);});
+ if(P.exp.length){out.push("","WORK EXPERIENCE"+(P.yrs?" ("+P.yrs+" years)":""));P.exp.forEach(function(e){out.push("- "+[e.role,e.company,e.country,e.years?e.years+" year(s)":""].filter(Boolean).join(", ")+(e.duty?" — "+e.duty:""));});}
+ if(P.skills.length){out.push("","SKILLS",P.skills.join(", "));}
+ if(cv.edu)out.push("","EDUCATION",cv.edu);
+ if(cv.cert)out.push("","CERTIFICATES & TRAINING",cv.cert);
+ out.push("","REFERENCES",cv.ref||"Available on request");
  return out.join("\n").replace(/\n{3,}/g,"\n\n").trim();}
 function waLink(){return "https://wa.me/?text="+encodeURIComponent(cvText());}
 function refreshCv(){var w=$("cvwrap");if(w)w.innerHTML=cvHtml();var a=$("cvwa");if(a)a.href=waLink();}
@@ -424,15 +502,18 @@ function linkHtml(x){var k=isBn()?"bn":"en";return '<a class="link" href="'+x.u+
 function vJobs(){var bn=isBn();
  var h='<div class="card lift"><div class="warn">'+esc(t("jobsWarn"))+'</div></div>';
  h+='<div class="card"><h2>🔥 '+esc(t("jobsDemand"))+'</h2><div class="chips">'+DEMAND.map(function(d){return '<span class="chip">'+d[0]+' '+esc(bn?d[2]:d[1])+'</span>';}).join("")+'</div></div>';
- h+='<div class="card"><h2>✅ '+esc(t("jobsSites"))+'</h2>'+JOBSITES.map(linkHtml).join("")+'</div>';
+ h+='<div class="card"><h2>✅ '+esc(t("jobsSites"))+'</h2>'+JOBSITES.map(function(x){if(!x.indeed)return linkHtml(x);var c=C();return linkHtml({i:x.i,c:x.c,n:"Indeed "+c.en.replace(" (Dubai)",""),u:"https://"+c.indeed+".indeed.com/",bn:c.bn+"-এর "+x.bn,en:x.en+" in "+c.en});}).join("")+'</div>';
  h+='<button class="btn" data-go="cv">📄 '+esc(t("jobsCvHint"))+'</button>';
  return h;}
-function vHelp(){
+function telLink(num,label,icon,cls){return '<a class="link" href="tel:'+num.replace(/\s/g,"")+'"><i class="'+cls+'">'+icon+'</i><div><b>'+esc(num)+'</b><small>'+esc(label)+'</small></div><span class="go">📞</span></a>';}
+function vHelp(){var c=C();
  var h='<div class="card lift"><h2>📞 '+esc(t("helpCall"))+'</h2>';
- h+='<a class="link" href="tel:112"><i class="c7">🚨</i><div><b>112</b><small>'+esc(t("helpEmergency"))+'</small></div><span class="go">📞</span></a>';
- ["+965 69920013","+965 66516404","+965 50895161"].forEach(function(n){h+='<a class="link" href="tel:'+n.replace(/\s/g,"")+'"><i class="c6">🇧🇩</i><div><b>'+n+'</b><small>'+esc(t("helpEmbassy"))+'</small></div><span class="go">📞</span></a>';});
+ c.emerg.forEach(function(e){h+=telLink(e[0],loc(e[1]),"🚨","c7");});
+ c.emb.forEach(function(e){h+=telLink(e[0],e[1]?loc(e[1]):t("helpEmbassy"),"🇧🇩","c6");});
+ if(c.mail)h+='<a class="link" href="mailto:'+c.mail+'"><i class="c6">✉️</i><div><b>'+esc(c.mail)+'</b><small>'+esc(t("helpMail"))+'</small></div><span class="go">›</span></a>';
+ h+=telLink(BD_HOTLINE[0],loc(BD_HOTLINE[1]),"☎️","c3");
  h+='<div class="note">ℹ️ '+esc(t("helpNote"))+'</div></div>';
- h+='<div class="card"><h2>🏛️ '+esc(t("helpGov"))+'</h2>'+GOVSITES.map(linkHtml).join("")+'</div>';
+ h+='<div class="card"><h2>🏛️ '+esc(t("helpGov"))+' — '+c.flag+' '+esc(cname())+'</h2>'+c.gov.concat(GOVSITES).map(linkHtml).join("")+'</div>';
  return h;}
 function backupCode(){var d=JSON.parse(JSON.stringify(D));return "PDL1:"+btoa(unescape(encodeURIComponent(JSON.stringify(d))));}
 function restore(code){try{code=String(code).trim();var json=code.indexOf("PDL1:")===0?decodeURIComponent(escape(atob(code.slice(5)))):code;var d=JSON.parse(json);if(!d||typeof d!=="object"||!d.days)throw 0;
@@ -443,7 +524,7 @@ function vBackup(){
 
 /* ---------- Events ---------- */
 function bind(){
- $("lb").onclick=langDialog;if($("lb2"))$("lb2").onclick=langDialog;
+ $("lb").onclick=langDialog;$("cb").onclick=function(){countryDialog(true);};if($("cb2"))$("cb2").onclick=function(){countryDialog(true);};if($("lb2"))$("lb2").onclick=langDialog;
  if($("inst"))$("inst").onclick=function(){var e=installEvt;installEvt=null;try{e.prompt();}catch(x){}render();};
  if($("bk"))$("bk").onclick=function(){go("more");};
  document.querySelectorAll("[data-go]").forEach(function(b){b.onclick=function(){go(b.dataset.go);};});
@@ -451,15 +532,17 @@ function bind(){
  document.querySelectorAll("[data-day]").forEach(function(b){b.onclick=function(){tapDay(b.dataset.day);};});
  if($("pm")){$("pm").onclick=function(){view.setMonth(view.getMonth()-1);render();};$("nm").onclick=function(){view.setMonth(view.getMonth()+1);render();};}
  [["sal","salary"],["wdays","workDays"],["hday","hoursDay"],["otr","otRate"],["dbl","dbl"]].forEach(function(p){var e=$(p[0]);if(e)e.onchange=function(){D[p[1]]=e.value.trim();save();var dt=document.querySelector("details"),op=dt&&dt.open;render();if(op)document.querySelector("details").open=true;};});
- if($("say"))$("say").onclick=function(){speak(t("speak").replace("{x}",money(calc().tot,3)));};
+ if($("say"))$("say").onclick=function(){speak(t("speak").replace("{x}",money(calc().tot,C().dec)));};
  document.querySelectorAll("[data-doc]").forEach(function(e){e.onchange=function(){if(e.value)D.docs[e.dataset.doc]=e.value;else delete D.docs[e.dataset.doc];save();render();};});
  [["gs","start"],["ge","end"],["gsal","salary"]].forEach(function(p){var e=$(p[0]);if(e)e.onchange=function(){D.grat[p[1]]=e.value.trim();save();render();};});
  document.querySelectorAll("[data-how]").forEach(function(b){b.onclick=function(){D.grat.how=b.dataset.how;save();render();};});
- if($("gsay"))$("gsay").onclick=function(){var r=gratCalc();if(r)speak(t("gResult")+" "+money(r.amt,3)+" "+t("kd"));};
+ if($("gsay"))$("gsay").onclick=function(){var r=gratCalc();if(r)speak(t("gResult")+" "+money(r.amt,C().dec)+" "+t("kd"));};
  document.querySelectorAll("[data-rate]").forEach(function(b){b.onclick=function(){if(!b.dataset.rate)return;D.money.rate=b.dataset.rate;save();render();};});
  ["mamt","mrate"].forEach(function(id){var e=$(id);if(e)e.oninput=function(){D.money[id==="mamt"?"amt":"rate"]=e.value.trim();save();$("mres").textContent=money(num(D.money.amt)*num(D.money.rate),0)+" "+t("cur");};});
  // CV
- document.querySelectorAll("[data-cv]").forEach(function(e){e.oninput=function(){D.cv[e.dataset.cv]=e.value;save();refreshCv();};});
+ document.querySelectorAll("[data-cv]").forEach(function(e){e.oninput=e.onchange=function(){D.cv[e.dataset.cv]=e.value;save();refreshCv();};});
+ document.querySelectorAll("[data-cvstyle]").forEach(function(b){b.onclick=function(){D.cv.style=b.dataset.cvstyle;save();render();setTimeout(function(){var w=$("cvwrap");if(w)w.scrollIntoView();},50);};});
+ if($("cvauto"))$("cvauto").onclick=function(){D.cv.sum=autoSummary();save();$("cvsum").value=D.cv.sum;refreshCv();};
  document.querySelectorAll("[data-exp]").forEach(function(e){e.oninput=function(){D.cv.exp[+e.dataset.exp][e.dataset.k]=e.value;save();refreshCv();};});
  document.querySelectorAll("[data-expx]").forEach(function(b){b.onclick=function(){D.cv.exp.splice(+b.dataset.expx,1);save();render();};});
  if($("cvadd"))$("cvadd").onclick=function(){D.cv.exp.push({});save();render();};
@@ -487,9 +570,12 @@ function otDialog(k,v){var ov=document.createElement("div");ov.className="ov";
 function langDialog(){if(document.querySelector(".ov"))return;var ov=document.createElement("div");ov.className="ov";
  ov.innerHTML='<div class="dlg"><h2 style="text-align:center;margin:0 0 12px">🌐 ভাষা · Language · भाषा · زبان</h2><div class="langs">'+Object.keys(T).map(function(k){return '<button data-l="'+k+'"><b>'+T[k].flag+'</b>'+T[k].name+'</button>';}).join("")+'</div></div>';
  document.body.appendChild(ov);ov.querySelectorAll("[data-l]").forEach(function(b){b.onclick=function(){D.lang=b.dataset.l;save();ov.remove();render();};});}
+function countryDialog(force){if(document.querySelector(".ov"))return;if(!force&&D.country)return;var ov=document.createElement("div");ov.className="ov";
+ ov.innerHTML='<div class="dlg"><h2 style="text-align:center;margin:0 0 4px">🌍 '+esc(t("chooseCountry"))+'</h2><p style="text-align:center;color:var(--mut);margin:0 0 12px;font-size:14px">'+esc(t("countryWhy"))+'</p><div class="langs">'+CTY_ORDER.map(function(k){var c=CTY[k];return '<button data-cty="'+k+'" style="'+(D.country===k?"border-color:var(--p2);background:#ccfbf1":"")+'"><b>'+c.flag+'</b>'+esc(isBn()?c.bn:c.en)+'</button>';}).join("")+'</div></div>';
+ document.body.appendChild(ov);ov.querySelectorAll("[data-cty]").forEach(function(b){b.onclick=function(){var k=b.dataset.cty,ch=D.country!==k;D.country=k;if(ch){D.workDays=CTY[k].days;D.otRate=CTY[k].ot;D.money.rate="";D.cv.loc=CTY[k].en.replace(" (Dubai)","");}save();ov.remove();render();};});}
 // Live rates: the site's own copy and the robot's copy on GitHub; the newest one wins.
 var RATE_URLS=["rates.json","https://raw.githubusercontent.com/mohtasim36764-dot/Probashi-Duty-Life-/main/rates.json"];
-function applyRates(j){if(!j||!j.houses)return;
+function applyRates(j){if(!j||!j.houses)return;if(j.usd&&j.usd.BDT)USD=j.usd;
  HOUSES.forEach(function(h){var x=j.houses[h.id];if(x&&x.rates&&x.rates.BDT){h.bdt=x.rates.BDT;var dt=new Date(x.at);var o={day:"numeric",month:"long",hour:"numeric",minute:"2-digit",timeZone:"Asia/Kuwait"};h.src={bn:(x.stale?"পুরনো · ":"রোবট · ")+dt.toLocaleString("bn-BD",o),en:(x.stale?"old · ":"Robot · ")+dt.toLocaleString("en-GB",o)};}});
  if(tab==="money"||tab==="home")render();}
 function loadLive(){var best=null,left=RATE_URLS.length;
