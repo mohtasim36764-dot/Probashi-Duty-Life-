@@ -96,7 +96,8 @@ async function reference() {
   const now = new Date().toISOString();
   const m = await reference();
   const result = { updated: now, reference: m.ref, usd: m.usd, houses: {} };
-  const browser = await chromium.launch();
+  // Use the Chrome already on GitHub's server; fall back to Playwright's own browser.
+  const browser = await chromium.launch({ channel: "chrome" }).catch(() => chromium.launch());
   // Some sites have certificate problems on www; this only affects reading public rate pages.
   let okCount = 0;
   for (const src of SOURCES) {
