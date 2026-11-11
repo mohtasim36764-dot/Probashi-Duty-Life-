@@ -8,7 +8,7 @@ const fs = require("fs");
 const COUNTRIES = {
   KW: { bn: "কুয়েত প্রবাসী", en: "Kuwait expats" },
   SA: { bn: "সৌদি আরব প্রবাসী", en: "Saudi Arabia expats" },
-  AE: { bn: "দুবাই আমিরাত প্রবাসী", en: "UAE expats" },
+  AE: { bn: "(আমিরাত OR দুবাই) প্রবাসী", en: "UAE expats" },
   QA: { bn: "কাতার প্রবাসী", en: "Qatar expats" },
   BH: { bn: "বাহরাইন প্রবাসী", en: "Bahrain expats" },
 };
