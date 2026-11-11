@@ -337,7 +337,10 @@ function toast(msg){var e=document.createElement("div");e.className="toast";e.te
 function copy(text){try{navigator.clipboard.writeText(text).then(function(){toast(t("copied"));},function(){fallbackCopy(text);});}catch(e){fallbackCopy(text);}}
 function fallbackCopy(text){var ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");toast(t("copied"));}catch(e){}ta.remove();}
 function speak(text){try{var s=window.speechSynthesis;if(!s){toast(t("noVoice"));return;}var u=new SpeechSynthesisUtterance(text);var code=VOICE[D.lang||"bn"];u.lang=code;var vs=s.getVoices();var v=vs.filter(function(x){return x.lang&&x.lang.replace("_","-").toLowerCase().indexOf(code.slice(0,2))===0;})[0];if(v)u.voice=v;else if(vs.length)toast(t("noVoice"));u.rate=.9;s.cancel();s.speak(u);}catch(e){toast(t("noVoice"));}}
-function go(x){tab=x;render();try{window.scrollTo(0,0);}catch(e){}}
+// Anonymous usage count (only totals: which screen, country, language). Works on the real site only.
+function track(e,tb){try{if(location.protocol!=="https:"||window.self!==window.top||!navigator.sendBeacon)return;
+ navigator.sendBeacon("count.php",JSON.stringify({e:e,t:tb||"",c:D.country||"none",l:D.lang||"none"}));}catch(x){}}
+function go(x){tab=x;track("tab",x);render();try{window.scrollTo(0,0);}catch(e){}}
 
 var ICON={duty:"✅",double:"✖️2",off:"🏖️",absent:"❌"};
 var STAMPS=[["duty","✅","stDuty"],["double","✖️2","stDouble"],["ot","⏱️","stOT"],["off","🏖️","stOff"],["absent","❌","stAbsent"],["erase","🧽","stErase"]];
@@ -583,6 +586,8 @@ function loadLive(){var best=null,left=RATE_URLS.length;
 window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();installEvt=e;if(tab==="home")render();});
 try{if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js");}catch(e){}
 render();loadLive();
+try{if(!localStorage.getItem("pdl_seen")){localStorage.setItem("pdl_seen","1");track("new");}}catch(x){}
+setTimeout(function(){track("view");},3000);
 (function(){var sp=document.createElement("div");sp.id="splash";sp.innerHTML=SCENE.replace('xMidYMax slice','xMidYMax meet').replace('viewBox="0 0 400 220"','viewBox="62 0 268 220"')+'<div class="st"><b>🐫 Probashi Duty Life</b><span>'+esc(t("splash"))+'</span></div>';document.body.appendChild(sp);
  var gone=function(){sp.classList.add("hide");setTimeout(function(){sp.remove();},700);};sp.onclick=gone;setTimeout(gone,2200);})();
 })();

@@ -1,5 +1,5 @@
 # Hide robot and project files from visitors
-<FilesMatch "^(robot\.js|README\.md|\.gitignore)$">
+<FilesMatch "^(robot\.js|README\.md|\.gitignore|count\.php\.bak)$">
   Require all denied
 </FilesMatch>
 RedirectMatch 404 /\.git
