@@ -1,5 +1,5 @@
 # Hide robot and project files from visitors
-<FilesMatch "^(robot\.js|README\.md|\.gitignore|count\.php\.bak)$">
+<FilesMatch "^(robot\.js|news\.js|README\.md|\.gitignore|count\.php\.bak)$">
   Require all denied
 </FilesMatch>
 RedirectMatch 404 /\.git
@@ -8,5 +8,8 @@ RedirectMatch 404 /\.github
   Header set Cache-Control "no-cache"
 </Files>
 <Files "rates.json">
+  Header set Cache-Control "no-cache"
+</Files>
+<Files "news.json">
   Header set Cache-Control "no-cache"
 </Files>

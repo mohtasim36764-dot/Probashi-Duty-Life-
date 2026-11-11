@@ -54,6 +54,7 @@ nav button.on b{background:#ccfbf1}
 .stat small{display:block;color:var(--mut);font-size:12.5px}
 .stat b{display:block;font-size:20px;margin-top:2px}
 .stat span{font-size:12px;color:var(--mut)}
+.news a{display:flex;gap:10px;padding:11px 2px;border-bottom:1px solid rgba(0,0,0,.07);color:inherit;text-decoration:none;line-height:1.4}.news a:last-of-type{border-bottom:0}.news a b{font-weight:600;font-size:15px}.news small{display:block;color:var(--mut);font-size:12px;margin-top:3px}.news .own{color:#b7791f}
 .sec{font-size:14px;color:var(--mut);margin:16px 4px 8px;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
 .stamps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .stamp{border:2px solid transparent;border-radius:16px;background:#f1f5f4;padding:10px 4px;font-size:14.5px;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--ink)}
@@ -168,7 +169,7 @@ bn:{name:"বাংলা",flag:"🇧🇩",cur:"টাকা",tag:"প্রব�
 hello:"আসসালামু আলাইকুম 👋",helloSub:"আপনার কাজ, বেতন আর কাগজপত্র — সব এক জায়গায়",
 navHome:"হোম",navDuty:"ডিউটি",navSalary:"বেতন",navMoney:"টাকা",navMore:"আরো",
 tDuty:"ডিউটি",tSalary:"বেতন",tDocs:"কাগজপত্র",tGrat:"গ্র্যাচুইটি",tMoney:"টাকা পাঠান",tCv:"সিভি বানান",tJobs:"চাকরি",tHelp:"জরুরি সাহায্য",tBackup:"ব্যাকআপ",
-thisMonth:"এই মাসের পাওনা",nextDoc:"সবচেয়ে কাছের মেয়াদ",bestRate:"আজকের সেরা রেট",dutyDays:"এই মাসে ডিউটি",allTools:"সব সুবিধা",setSalary:"বেতন লিখুন",noDoc:"তারিখ দিন",
+thisMonth:"এই মাসের পাওনা",nextDoc:"সবচেয়ে কাছের মেয়াদ",bestRate:"আজকের সেরা রেট",dutyDays:"এই মাসে ডিউটি",allTools:"সব সুবিধা",newsT:"📰 # প্রবাসী খবর",newsMore:"আরো খবর",newsWait:"খবর আসছে…",newsNote:"খবরের শিরোনাম অন্য ওয়েবসাইট থেকে আসে; চাপলে মূল খবর খুলবে।",setSalary:"বেতন লিখুন",noDoc:"তারিখ দিন",
 stDuty:"ডিউটি",stDouble:"ডাবল",stOT:"ওভারটাইম",stOff:"ছুটি",stAbsent:"অনুপস্থিত",stErase:"মুছুন",
 tapHint:"উপরে একটা বেছে নিন, তারপর তারিখে টাচ করুন",otHours:"ওভারটাইম কত ঘণ্টা?",ok:"ঠিক আছে",cancel:"বাদ দিন",
 monthSalary:"মাসিক বেতন ({c})",settings:"বেতনের নিয়ম বদলান",workDays:"মাসে কত দিন ধরে হিসাব (সাধারণত {wd})",hoursDay:"দিনে কাজের ঘণ্টা",otRate:"ওভারটাইম রেট (আইনে {ot})",doubleRate:"ডাবল ডিউটিতে কত দিনের বেতন বেশি",
@@ -188,7 +189,7 @@ en:{name:"English",flag:"🇬🇧",cur:"home currency",tag:"Your trusted compani
 hello:"Hello 👋",helloSub:"Your duty, salary and papers — all in one place",
 navHome:"Home",navDuty:"Duty",navSalary:"Salary",navMoney:"Money",navMore:"More",
 tDuty:"Duty",tSalary:"Salary",tDocs:"Papers",tGrat:"Gratuity",tMoney:"Send money",tCv:"Make CV",tJobs:"Jobs",tHelp:"Emergency help",tBackup:"Backup",
-thisMonth:"Due this month",nextDoc:"Next expiry",bestRate:"Best rate today",dutyDays:"Duty days this month",allTools:"All tools",setSalary:"Enter salary",noDoc:"Add dates",
+thisMonth:"Due this month",nextDoc:"Next expiry",bestRate:"Best rate today",dutyDays:"Duty days this month",allTools:"All tools",newsT:"📰 Expat news · #",newsMore:"More news",newsWait:"Loading news…",newsNote:"Headlines come from other news sites; tap to open the full story.",setSalary:"Enter salary",noDoc:"Add dates",
 stDuty:"Duty",stDouble:"Double",stOT:"Overtime",stOff:"Off day",stAbsent:"Absent",stErase:"Erase",
 tapHint:"Pick one above, then tap the dates",otHours:"How many overtime hours?",ok:"OK",cancel:"Cancel",
 monthSalary:"Monthly salary ({c})",settings:"Change salary rules",workDays:"Days per month for daily pay (usually {wd})",hoursDay:"Work hours per day",otRate:"Overtime rate (law: {ot})",doubleRate:"Extra days' pay for a double duty",
@@ -207,7 +208,7 @@ months:["January","February","March","April","May","June","July","August","Septe
 hi:{name:"हिन्दी",flag:"🇮🇳",cur:"रुपये",tag:"प्रवासी का भरोसेमंद साथी",splash:"पसीना रेगिस्तान में, सपने घर पर",hello:"नमस्ते 👋",helloSub:"आपकी ड्यूटी, तनख्वाह और कागज़ात — सब एक जगह",
 navHome:"होम",navDuty:"ड्यूटी",navSalary:"तनख्वाह",navMoney:"पैसे",navMore:"और",
 tDuty:"ड्यूटी",tSalary:"तनख्वाह",tDocs:"कागज़ात",tGrat:"ग्रेच्युटी",tMoney:"पैसे भेजें",tCv:"सीवी बनाएँ",tJobs:"नौकरी",tHelp:"आपातकालीन मदद",tBackup:"बैकअप",
-thisMonth:"इस महीने बकाया",nextDoc:"सबसे पास की मियाद",bestRate:"आज का सबसे अच्छा रेट",dutyDays:"इस महीने ड्यूटी",allTools:"सभी सुविधाएँ",
+thisMonth:"इस महीने बकाया",nextDoc:"सबसे पास की मियाद",bestRate:"आज का सबसे अच्छा रेट",dutyDays:"इस महीने ड्यूटी",allTools:"सभी सुविधाएँ",newsT:"📰 # प्रवासी समाचार",newsMore:"और समाचार",newsWait:"समाचार आ रहे हैं…",newsNote:"शीर्षक दूसरी समाचार साइटों से आते हैं; पूरी खबर के लिए दबाएँ।",
 stDuty:"ड्यूटी",stDouble:"डबल",stOT:"ओवरटाइम",stOff:"छुट्टी",stAbsent:"गैरहाज़िर",stErase:"मिटाएँ",
 tapHint:"ऊपर से एक चुनें, फिर तारीख पर टच करें",otHours:"ओवरटाइम कितने घंटे?",ok:"ठीक है",cancel:"रद्द करें",
 monthSalary:"महीने की तनख्वाह ({c})",settings:"तनख्वाह के नियम बदलें",workDays:"महीने के कितने दिन से हिसाब (आमतौर पर {wd})",hoursDay:"रोज़ काम के घंटे",otRate:"ओवरटाइम रेट (कानून: {ot})",doubleRate:"डबल ड्यूटी पर कितने दिन की तनख्वाह ज़्यादा",
@@ -222,7 +223,7 @@ months:["जनवरी","फ़रवरी","मार्च","अप्र�
 ur:{name:"اردو",flag:"🇵🇰",cur:"روپے",tag:"پردیسی کا بھروسہ مند ساتھی",splash:"پسینہ صحرا میں، خواب گھر میں",rtl:1,hello:"السلام علیکم 👋",helloSub:"آپ کی ڈیوٹی، تنخواہ اور کاغذات — سب ایک جگہ",
 navHome:"ہوم",navDuty:"ڈیوٹی",navSalary:"تنخواہ",navMoney:"پیسے",navMore:"مزید",
 tDuty:"ڈیوٹی",tSalary:"تنخواہ",tDocs:"کاغذات",tGrat:"گریجویٹی",tMoney:"پیسے بھیجیں",tCv:"سی وی بنائیں",tJobs:"نوکری",tHelp:"ہنگامی مدد",tBackup:"بیک اپ",
-thisMonth:"اس مہینے واجب",nextDoc:"قریب ترین میعاد",bestRate:"آج کا بہترین ریٹ",dutyDays:"اس مہینے ڈیوٹی",allTools:"تمام سہولیات",
+thisMonth:"اس مہینے واجب",nextDoc:"قریب ترین میعاد",bestRate:"آج کا بہترین ریٹ",dutyDays:"اس مہینے ڈیوٹی",allTools:"تمام سہولیات",newsT:"📰 # تارکین وطن کی خبریں",newsMore:"مزید خبریں",newsWait:"خبریں آ رہی ہیں…",newsNote:"سرخیاں دوسری نیوز سائٹس سے آتی ہیں؛ پوری خبر کے لیے دبائیں۔",
 stDuty:"ڈیوٹی",stDouble:"ڈبل",stOT:"اوور ٹائم",stOff:"چھٹی",stAbsent:"غیر حاضر",stErase:"مٹائیں",
 tapHint:"اوپر سے ایک چنیں، پھر تاریخ کو چھوئیں",otHours:"اوور ٹائم کتنے گھنٹے؟",ok:"ٹھیک ہے",cancel:"منسوخ",
 monthSalary:"ماہانہ تنخواہ ({c})",settings:"تنخواہ کے اصول بدلیں",workDays:"مہینے کے کتنے دن سے حساب (عام طور پر {wd})",hoursDay:"روزانہ کام کے گھنٹے",otRate:"اوور ٹائم ریٹ (قانون: {ot})",doubleRate:"ڈبل ڈیوٹی پر کتنے دن کی تنخواہ زیادہ",
@@ -237,7 +238,7 @@ months:["جنوری","فروری","مارچ","اپریل","مئی","جون","ج�
 ne:{name:"नेपाली",flag:"🇳🇵",cur:"रुपैयाँ",tag:"विदेशमा भरपर्दो साथी",splash:"पसिना मरुभूमिमा, सपना घरमा",hello:"नमस्ते 👋",helloSub:"तपाईंको ड्युटी, तलब र कागजात — सबै एकै ठाउँमा",
 navHome:"होम",navDuty:"ड्युटी",navSalary:"तलब",navMoney:"पैसा",navMore:"थप",
 tDuty:"ड्युटी",tSalary:"तलब",tDocs:"कागजात",tGrat:"ग्र्याच्युटी",tMoney:"पैसा पठाउनुहोस्",tCv:"सीभी बनाउनुहोस्",tJobs:"जागिर",tHelp:"आपतकालीन सहयोग",tBackup:"ब्याकअप",
-thisMonth:"यो महिना पाउनुपर्ने",nextDoc:"नजिकको म्याद",bestRate:"आजको राम्रो दर",dutyDays:"यो महिना ड्युटी",allTools:"सबै सुविधा",
+thisMonth:"यो महिना पाउनुपर्ने",nextDoc:"नजिकको म्याद",bestRate:"आजको राम्रो दर",dutyDays:"यो महिना ड्युटी",allTools:"सबै सुविधा",newsT:"📰 # प्रवासी समाचार",newsMore:"थप समाचार",newsWait:"समाचार आउँदैछ…",newsNote:"शीर्षक अन्य समाचार साइटबाट आउँछन्; पूरा समाचारका लागि थिच्नुहोस्।",
 stDuty:"ड्युटी",stDouble:"डबल",stOT:"ओभरटाइम",stOff:"बिदा",stAbsent:"अनुपस्थित",stErase:"मेटाउनुहोस्",
 tapHint:"माथि एउटा छान्नुहोस्, अनि मितिमा छुनुहोस्",otHours:"ओभरटाइम कति घण्टा?",ok:"ठीक छ",cancel:"रद्द",
 monthSalary:"मासिक तलब ({c})",settings:"तलबको नियम बदल्नुहोस्",workDays:"महिनाको कति दिनले हिसाब (सामान्यतया {wd})",hoursDay:"दिनको कामको घण्टा",otRate:"ओभरटाइम दर (कानून: {ot})",doubleRate:"डबल ड्युटीमा कति दिनको तलब बढी",
@@ -388,6 +389,7 @@ function vHome(){
  h+='<button class="stat" data-go="money"><small>💸 '+esc(t("bestRate"))+'</small>'+(best?'<b>'+money(best.bdt,2)+' <span>৳</span></b><span>'+esc(best.name)+'</span>':'<b>—</b>')+'</button></div>';
  if(installEvt)h+='<button class="btn gold" id="inst">'+esc(t("install"))+'</button>';
  else if(isIos()&&!standalone())h+='<div class="info" style="margin-top:10px">📲 '+esc(t("installIos"))+'</div>';
+ h+=newsHtml(5);
  h+='<div class="sec">'+esc(t("allTools"))+'</div>'+tilesHtml();
  return h;
 }
@@ -440,7 +442,8 @@ function vHouses(){var lg=D.lang||"bn";if(lg!=="bn"&&lg!=="en")return '<div clas
  if(m)h+=rateRow("📊 "+t("mkt"),t("mktNote"),m,false,2);
  return h+'<div class="note">ℹ️ '+esc(t("rateTap"))+'</div></div>';}
 function rateRow(name,sub,val,best,dec){return '<button class="row" data-rate="'+(val?(+val).toFixed(3):"")+'" style="width:100%;background:none;border:0;border-bottom:1px dashed var(--line);font:inherit;color:inherit;text-align:start"><span>🏦 <span><b>'+esc(name)+'</b>'+(best?' <span class="tag">⭐ BEST</span>':'')+'<br><small style="color:var(--mut)">'+esc(sub)+'</small></span></span><b>'+(val?money(val,dec||3):"—")+'</b></button>';}
-function vMoney(){var M=D.money,res=num(M.amt)*num(M.rate);
+function vMoney(){return vMoney0()+newsHtml(4);}
+function vMoney0(){var M=D.money,res=num(M.amt)*num(M.rate);
  return vHouses()+'<div class="card"><label class="f" style="margin-top:0">💵 '+esc(t("mAmount"))+'</label><input id="mamt" inputmode="decimal" value="'+esc(M.amt||"")+'" placeholder="0"><label class="f">💱 '+esc(t("mRate"))+'</label><input id="mrate" inputmode="decimal" value="'+esc(M.rate||"")+'" placeholder="0"><div class="total"><small>'+esc(t("mResult"))+'</small><b id="mres">'+money(res,0)+' '+esc(t("cur"))+'</b></div></div>';}
 
 /* ---------- CV builder ---------- */
@@ -533,7 +536,7 @@ function vBackup(){
  '<div class="card"><h2>♻️ '+esc(t("bkRestore"))+'</h2><label class="f" style="margin-top:0">'+esc(t("bkFile"))+'</label><input type="file" id="bkfile" accept=".txt,.json,text/plain,application/json" style="font-size:14px"><label class="f">'+esc(t("bkPaste"))+'</label><textarea id="bkpaste" placeholder="PDL1:..."></textarea><button class="btn" id="bkgo">'+esc(t("bkRestore"))+'</button></div>';}
 
 /* ---------- Events ---------- */
-function bind(){
+function bind(){bindNews();
  $("lb").onclick=langDialog;$("cb").onclick=function(){countryDialog(true);};if($("cb2"))$("cb2").onclick=function(){countryDialog(true);};if($("lb2"))$("lb2").onclick=langDialog;
  if($("inst"))$("inst").onclick=function(){var e=installEvt;installEvt=null;try{e.prompt();}catch(x){}render();};
  if($("bk"))$("bk").onclick=function(){go("more");};
@@ -583,6 +586,22 @@ function langDialog(){if(document.querySelector(".ov"))return;var ov=document.cr
 function countryDialog(force){if(document.querySelector(".ov"))return;if(!force&&D.country)return;var ov=document.createElement("div");ov.className="ov";
  ov.innerHTML='<div class="dlg"><h2 style="text-align:center;margin:0 0 4px">🌍 '+esc(t("chooseCountry"))+'</h2><p style="text-align:center;color:var(--mut);margin:0 0 12px;font-size:14px">'+esc(t("countryWhy"))+'</p><div class="langs">'+CTY_ORDER.map(function(k){var c=CTY[k];return '<button data-cty="'+k+'" style="'+(D.country===k?"border-color:var(--p2);background:#ccfbf1":"")+'"><b>'+c.flag+'</b>'+esc(isBn()?c.bn:c.en)+'</button>';}).join("")+'</div></div>';
  document.body.appendChild(ov);ov.querySelectorAll("[data-cty]").forEach(function(b){b.onclick=function(){var k=b.dataset.cty,ch=D.country!==k;D.country=k;if(ch){D.workDays=CTY[k].days;D.otRate=CTY[k].ot;D.money.rate="";D.cv.loc=CTY[k].en.replace(" (Dubai)","");}save();ov.remove();render();};});}
+// Expat news headlines per country, collected by the news robot (news.js) into news.json.
+var NEWS=null,newsAll=false,NEWS_URLS=["news.json","https://raw.githubusercontent.com/mohtasim36764-dot/Probashi-Duty-Life-/main/news.json"];
+function ago(at){var m=Math.round((Date.now()-at)/60000),lg=D.lang||"bn";try{var f=new Intl.RelativeTimeFormat(lg,{numeric:"auto"});if(m<60)return f.format(-Math.max(m,1),"minute");if(m<1440)return f.format(-Math.round(m/60),"hour");return f.format(-Math.round(m/1440),"day");}catch(e){return "";}}
+function newsList(){if(!NEWS||!NEWS.cty)return null;var c=NEWS.cty[D.country||"KW"];if(!c)return null;return (D.lang||"bn")==="bn"&&c.bn&&c.bn.length?c.bn:(c.en||[]);}
+function newsInner(n){var list=newsList();
+ if(!list)return (NEWS===false?'':'<div class="note">'+esc(t("newsWait"))+'</div>')+(NEWS===false?'<a class="btn alt" target="_blank" rel="noopener" href="https://news.google.com/search?q='+encodeURIComponent(((D.lang||"bn")==="bn"?C().bn||cname():C().en)+((D.lang||"bn")==="bn"?" প্রবাসী":" expats"))+'">🔎 '+esc(t("newsMore"))+'</a>':'');
+ if(!list.length)return '';
+ var show=newsAll?list:list.slice(0,n),h='<div class="news">';
+ show.forEach(function(x){h+='<a href="'+esc(x.u)+'" target="_blank" rel="noopener"><span>'+(x.own?'⭐':'📰')+'</span><span><b'+(x.own?' class="own"':'')+'>'+esc(x.t)+'</b><small>'+esc(x.s||"")+(x.at?' · '+esc(ago(x.at)):'')+'</small></span></a>';});
+ h+='</div>';if(!newsAll&&list.length>n)h+='<button class="btn alt" id="newsmore" style="margin-top:8px">'+esc(t("newsMore"))+' ▾</button>';
+ return h+'<div class="note" style="margin-top:8px">'+esc(t("newsNote"))+'</div>';}
+function newsHtml(n){var l=newsList();if(l&&!l.length)return '';return '<div class="sec">'+esc(t("newsT").replace("#",cname()))+'</div><div class="card" id="newsbox" data-n="'+n+'">'+newsInner(n)+'</div>';}
+function bindNews(){var b=$("newsmore");if(b)b.onclick=function(){newsAll=true;refreshNews();};}
+function refreshNews(){var box=$("newsbox");if(box){box.innerHTML=newsInner(+box.dataset.n||5);bindNews();}}
+function loadNews(){var best=null,left=NEWS_URLS.length,done=function(){if(--left)return;NEWS=best||false;refreshNews();};
+ NEWS_URLS.forEach(function(u){try{fetch(u,{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}).then(function(j){if(j&&j.updated&&j.cty&&(!best||j.updated>best.updated))best=j;done();});}catch(e){done();}});}
 // Live rates: the site's own copy and the robot's copy on GitHub; the newest one wins.
 var RATE_URLS=["rates.json","https://raw.githubusercontent.com/mohtasim36764-dot/Probashi-Duty-Life-/main/rates.json"];
 function applyRates(j){if(!j||!j.houses)return;if(j.usd&&j.usd.BDT)USD=j.usd;
@@ -592,7 +611,7 @@ function loadLive(){var best=null,left=RATE_URLS.length;
  RATE_URLS.forEach(function(u){try{fetch(u,{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}).then(function(j){if(j&&j.updated&&(!best||j.updated>best.updated))best=j;if(--left===0&&best)applyRates(best);});}catch(e){if(--left===0&&best)applyRates(best);}});}
 window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();installEvt=e;if(tab==="home")render();});
 try{if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js");}catch(e){}
-render();loadLive();
+render();loadLive();loadNews();
 try{if(!localStorage.getItem("pdl_seen")){localStorage.setItem("pdl_seen","1");track("new");}}catch(x){}
 setTimeout(function(){track("view");},3000);
 (function(){var sp=document.createElement("div");sp.id="splash";sp.innerHTML=SCENE.replace('xMidYMax slice','xMidYMax meet').replace('viewBox="0 0 400 220"','viewBox="62 0 268 220"')+'<div class="st"><b>🐫 Probashi Duty Life</b><span>'+esc(t("splash"))+'</span></div>';document.body.appendChild(sp);
