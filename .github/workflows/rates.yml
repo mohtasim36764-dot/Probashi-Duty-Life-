@@ -15,7 +15,8 @@ jobs:
         with:
           node-version: 20
       - run: npm install playwright@1.47.0
-      - run: npx playwright install --with-deps chromium
+      # GitHub's server sometimes can't download extra fonts; then try again, and finally install the browser alone.
+      - run: npx playwright install --with-deps chromium || (sleep 60 && npx playwright install --with-deps chromium) || npx playwright install chromium
       - run: node robot.js
       - name: Collect expat news
         if: always()
